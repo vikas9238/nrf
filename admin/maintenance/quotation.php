@@ -9,6 +9,26 @@ if ($qry->num_rows > 0) {
 }
 }
 ?>
+<style>
+    .float-payment-button{
+        position:fixed;
+        width:60px;
+        height:60px;
+        bottom:40px;
+        right:40px;
+        background-color:#25d366;
+        color:#FFF;
+        border-radius:50px;
+        text-align:center;
+        font-size:30px;
+        box-shadow: 2px 2px 3px #999;
+        z-index:100;
+    }
+
+    .payment-button{
+        margin-top:16px;
+    }
+</style>
 <div class="row">
     <div class="col-12 col-sm-6 col-md-3">
         <div class="info-box">
@@ -19,7 +39,7 @@ if ($qry->num_rows > 0) {
             <div class="info-box-content">
                 <span class="info-box-text">Total Pending</span>
                 <span class="info-box-number">
-                    <?php $pending = $gst_amount + $total_profit + $total_investment - $paid_amount;
+                    <?php $pending = $total_profit + $total_investment - $paid_amount;
                     echo $pending ?>
                 </span>
             </div>
@@ -47,20 +67,6 @@ if ($qry->num_rows > 0) {
     <!-- fix for small devices only -->
     <div class="clearfix hidden-md-up"></div>
 
-    <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box mb-3">
-            <span class="info-box-icon bg-success elevation-1">
-                <i class="far fa-money-bill-alt"></i>
-            </span>
-
-            <div class="info-box-content">
-                <span class="info-box-text">Gst Amount</span>
-                <?php echo $gst_amount ?>
-            </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
-    </div>
     <!-- /.col -->
     <div class="col-12 col-sm-6 col-md-3">
         <div class="info-box mb-3">
@@ -109,17 +115,15 @@ if ($qry->num_rows > 0) {
                 <div class="card-body p-0">
                     <ul class="nav nav-pills flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('fa.members.accounts.loan.transaction', ['memberId' => $memberId, 'id' => $loan->id]) }}">
+                            <a class="nav-link" href="<?php echo base_url ?>admin/?page=maintenance/transaction&client_id=<?php echo $client_id ?>&quotation_id=<?php echo $id ?>">
                                 <i class="far fa-chart-bar"></i> Transactions
                             </a>
                         </li>
-                        <!-- @if($loanModel::STATUS_OPEN==$loan->loan_status) -->
                         <li class="nav-item">
                             <a class="nav-link close_account" href="javascript:void(0)" data-id="<?php echo $_GET['id'] ?>">
                                 <i class="fas fa-ban"></i> Close Account
                             </a>
                         </li>
-                        <!-- @endif -->
                     </ul>
                 </div>
                 <!-- /.card-body -->
@@ -224,6 +228,15 @@ if ($qry->num_rows > 0) {
                     </table>
                 </div>
             </div>
+            <div class="col-md-6">
+                        <div class="justify-content-end">
+                            <?php if($pending>0){?>
+                            <a class="float-payment-button" id="payment-button" href="javascript:void(0)" data-payment-url="{{ route('fa.members.payment',['id' => $resultSet->id]) }}">
+                                <i class="fas fa-file-invoice payment-button"></i>
+                            </a>
+                            <?php } ?>
+                        </div>
+                    </div>
         </div>
     </div>
 </div>
@@ -263,4 +276,34 @@ if ($qry->num_rows > 0) {
         //     location.reload();
         // }
 	}
+    $('#payment-button').on('click', function () {
+            var url = $(this).data("payment-url");
+            $.ajax({
+                url: url,
+                beforeSend: function () {
+                    $('#payment-modal-container').html('');
+                    $.LoadingOverlay("show");
+                },
+                success: function (response) {
+                    var arrayResponse = jQuery.parseJSON(response);
+                    if (arrayResponse.status) {
+                        $('#payment-modal-container').html(arrayResponse.body);
+                        $.LoadingOverlay("hide");
+                        $('#modal-payment').modal('toggle');
+                    } else {
+                        $.LoadingOverlay("hide");
+                        alert(arrayResponse.message);
+                    }
+                },
+                error: function (reject) {
+                    if (reject.status == 403) {
+                        alert('Oops! Unauthorized Access');
+                    }
+                    if(reject.status == 422){
+                        
+                    }
+                    $.LoadingOverlay("hide");
+                }
+            });
+    });
 </script>

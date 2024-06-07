@@ -9,7 +9,7 @@
                 <span class="info-box-text">Total Transaction</span>
                 <span class="info-box-number">
                   <?php 
-                     $category = $conn->query("SELECT count(id) as total FROM rent_list  where amount > '0'")->fetch_assoc()['total'];
+                     $category = $conn->query("SELECT count(id) as total FROM booking_list  where amount > '0'")->fetch_assoc()['total'];
                      echo number_format($category);
                   ?>
                   <?php ?>
@@ -30,7 +30,7 @@
                   <?php 
                    $today = date("Y-m-d");
                   // //echo $today;
-                      $category = $conn->query("SELECT count(id) as total FROM rent_list  where date_created = '{$today}'")->fetch_assoc()['total'];
+                      $category = $conn->query("SELECT count(id) as total FROM booking_list  where date_created = '{$today}'")->fetch_assoc()['total'];
                   //   echo date("Y-m-d",strtotime($row['date_created']));
                       echo number_format($category);
                    ?>
@@ -50,7 +50,7 @@
                 <span class="info-box-text">Transaction Approval Pending</span>
                 <span class="info-box-number">
                   <?php 
-                     $category = $conn->query("SELECT count(id) as total FROM rent_list  where status = '0'")->fetch_assoc()['total'];
+                     $category = $conn->query("SELECT count(id) as total FROM booking_list  where status = '0'")->fetch_assoc()['total'];
                      echo number_format($category);
                   ?>
                   <?php ?>

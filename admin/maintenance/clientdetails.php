@@ -106,7 +106,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                                     <th>#</th>
                                                     <th>Date Created</th>
                                                     <th>Category</th>
-                                                    <th>Product Info</th>
+                                                    <th>Company</th>
                                                     <th>Quantity</th>
                                                     <th>Status</th>
                                                 </tr>
@@ -126,10 +126,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                                         <td class="text-center"><a href="?page=maintenance/quotation&id=<?php echo $row['id'] ?>"><?php echo $row['id'] ?></a></td>
                                                         <td><?php echo date("Y-m-d H:i", strtotime($row['date_created'])) ?></td>
                                                         <td><?php echo $row['category'] ?></td>
-                                                        <td class="lh-1">
-                                                            <small><span class="text-muted">Company:</span> <?php echo $row['name'] ?></small><br>
-                                                            <small><span class="text-muted">Category:</span> <?php echo $row['bike_model'] ?></small>
-                                                        </td>
+                                                        <td class="lh-1"> <?php echo $row['name'] ?></td>
                                                         <td class="text-end"><?php echo number_format($row['quantity']) ?></td>
                                                         <td class="text-center">
                                                             <?php if ($row['status'] == 1) : ?>

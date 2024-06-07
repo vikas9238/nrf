@@ -36,7 +36,7 @@
 				<tbody>
 					<?php 
 					$i = 1;
-						$qry = $conn->query("SELECT b.*,c.category, d.name from `quotation_list` b inner join product c on b.product_id = c.id inner join company_list d on b.company_id = d.id order by b.bike_model asc ");
+						$qry = $conn->query("SELECT b.*,c.category, d.name from `quotation_list` b inner join product c on b.product_id = c.id inner join company_list d on b.company_id = d.id order by b.date_created asc ");
 						//("SELECT Orders.OrderID, Customers.CustomerName, Shippers.ShipperName FROM ((Orders INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID)INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID);")
 						while($row = $qry->fetch_assoc()):
 							foreach($row as $k=> $v){

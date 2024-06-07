@@ -68,7 +68,7 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
                         }
 
                         $where = " where date(r.date_created) between '{$date_start}' and '{$date_end}'";
-                        $qry = $conn->query("SELECT r.*,concat(c.firstname,' ',c.lastname) as client,c.address,c.email,c.contact from `rent_list` r inner join clients c on c.id = r.client_id {$where} order by unix_timestamp(r.date_created) desc ");
+                        $qry = $conn->query("SELECT r.*,concat(c.firstname,' ',c.lastname) as client,c.address,c.email,c.contact from `booking_list` r inner join clients c on c.id = r.client_id {$where} order by unix_timestamp(r.date_created) desc ");
                         while($row = $qry->fetch_assoc()):
                     ?>
                     <tr>
@@ -100,9 +100,9 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
                             <small><span class="text-muted">Contact: </span><?php echo $row['contact'] ?></small>
                         </td>
                         <td>
-                            <small><span class="text-muted">Category: </span><?php echo isset($bike_arr[$row['bike_id']]) ? $bike_arr[$row['bike_id']]['category'] : 'N/A' ?></small><br>
-                            <small><span class="text-muted">Brand: </span><?php echo isset($bike_arr[$row['bike_id']]) ? $bike_arr[$row['bike_id']]['brand'] : 'N/A' ?></small><br>
-                            <small><span class="text-muted">Bike: </span><?php echo isset($bike_arr[$row['bike_id']]) ? $bike_arr[$row['bike_id']]['bike_model'] : 'N/A' ?></small>
+                            <small><span class="text-muted">Category: </span><?php echo isset($bike_arr[$row['quotation_id']]) ? $bike_arr[$row['bike_id']]['category'] : 'N/A' ?></small><br>
+                            <small><span class="text-muted">Brand: </span><?php echo isset($bike_arr[$row['quotation_id']]) ? $bike_arr[$row['bike_id']]['brand'] : 'N/A' ?></small><br>
+                            <small><span class="text-muted">Bike: </span><?php echo isset($bike_arr[$row['quotation_id']]) ? $bike_arr[$row['bike_id']]['bike_model'] : 'N/A' ?></small>
                         </td>
                     </tr>
                     <?php endwhile; ?>
