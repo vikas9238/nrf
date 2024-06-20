@@ -1,7 +1,8 @@
 <?php
 require_once('../config.php');
 if (isset($_GET['id']) && $_GET['id'] > 0) {
-$qry = $conn->query("SELECT q.*,c.firstname,c.lastname,c.email,c.contact,c.address,c.gender,co.name,p.category from `quotation_list` q inner join clients c on c.id = q.client_id inner join company_list co on co.id=q.company_id inner join product p on p.id=q.product_id where q.id = '{$_GET['id']}' ");
+// $qry = $conn->query("SELECT q.*,c.firstname,c.lastname,c.email,c.contact,c.address,c.gender,co.name,p.category from `quotation_list` q inner join clients c on c.id = q.client_id inner join company_list co on co.id=q.company_id inner join product p on p.id=q.product_id where q.id = '{$_GET['id']}' ");
+$qry = $conn->query("SELECT b.*,c.firstname,c.lastname,c.email,c.contact,c.address,c.gender,co.name,p.category from `booking_list` b inner join quotation_list q on q.id=b.quotation_id inner join clients c on c.id = b.client_id inner join company_list co on co.id=q.company_id inner join product p on p.id=q.product_id where b.id = '{$_GET['id']}' ");
 if ($qry->num_rows > 0) {
     foreach ($qry->fetch_assoc() as $k => $v) {
         $$k = $v;
@@ -9,6 +10,11 @@ if ($qry->num_rows > 0) {
 }
 }
 ?>
+<?php if($_settings->chk_flashdata('success')): ?>
+<script>
+	alert_toast("<?php echo $_settings->flashdata('success') ?>",'success')
+</script>
+<?php endif;?>
 <style>
     .float-payment-button{
         position:fixed;
@@ -231,7 +237,7 @@ if ($qry->num_rows > 0) {
             <div class="col-md-6">
                         <div class="justify-content-end">
                             <?php if($pending>0){?>
-                            <a class="float-payment-button" id="payment-button" href="javascript:void(0)" data-payment-url="{{ route('fa.members.payment',['id' => $resultSet->id]) }}">
+                            <a class="float-payment-button" id="payment-button" href="javascript:void(0)" data-id="<?php echo $_GET['id'] ?>">
                                 <i class="fas fa-file-invoice payment-button"></i>
                             </a>
                             <?php } ?>
@@ -245,9 +251,11 @@ if ($qry->num_rows > 0) {
         _conf("Are you sure to close this account permanently?", "close_account",[$(this).attr('data-id')])
 
     })
+    $('#payment-button').click(function() {
+            uni_modal("<i class='fa-regular fa-money-bill-1'></i> Payment", 'maintenance/manage_transaction.php?id=' + $(this).attr('data-id') + '&client_id=' + <?php echo $client_id ?>)
+        })
 
     function close_account($id){
-        // if($pending=='0'){
 		start_loader();
             $.ajax({
                 url:_base_url_+"classes/Master.php?f=close_account",
@@ -270,40 +278,35 @@ if ($qry->num_rows > 0) {
                     }
                 }
             })
-        // }
-        // else{
-        //     alert("You need to clear total pending balance");
-        //     location.reload();
-        // }
 	}
-    $('#payment-button').on('click', function () {
-            var url = $(this).data("payment-url");
-            $.ajax({
-                url: url,
-                beforeSend: function () {
-                    $('#payment-modal-container').html('');
-                    $.LoadingOverlay("show");
-                },
-                success: function (response) {
-                    var arrayResponse = jQuery.parseJSON(response);
-                    if (arrayResponse.status) {
-                        $('#payment-modal-container').html(arrayResponse.body);
-                        $.LoadingOverlay("hide");
-                        $('#modal-payment').modal('toggle');
-                    } else {
-                        $.LoadingOverlay("hide");
-                        alert(arrayResponse.message);
-                    }
-                },
-                error: function (reject) {
-                    if (reject.status == 403) {
-                        alert('Oops! Unauthorized Access');
-                    }
-                    if(reject.status == 422){
+    // $('#payment-button').on('click', function () {
+    //         var url = $(this).data("payment-url");
+    //         $.ajax({
+    //             url: url,
+    //             beforeSend: function () {
+    //                 $('#payment-modal-container').html('');
+    //                 $.LoadingOverlay("show");
+    //             },
+    //             success: function (response) {
+    //                 var arrayResponse = jQuery.parseJSON(response);
+    //                 if (arrayResponse.status) {
+    //                     $('#payment-modal-container').html(arrayResponse.body);
+    //                     $.LoadingOverlay("hide");
+    //                     $('#modal-payment').modal('toggle');
+    //                 } else {
+    //                     $.LoadingOverlay("hide");
+    //                     alert(arrayResponse.message);
+    //                 }
+    //             },
+    //             error: function (reject) {
+    //                 if (reject.status == 403) {
+    //                     alert('Oops! Unauthorized Access');
+    //                 }
+    //                 if(reject.status == 422){
                         
-                    }
-                    $.LoadingOverlay("hide");
-                }
-            });
-    });
+    //                 }
+    //                 $.LoadingOverlay("hide");
+    //             }
+    //         });
+    // });
 </script>

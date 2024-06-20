@@ -77,6 +77,36 @@ Class Master extends DBConnection {
 	}
 	// company section end
 
+	// transaction save section start
+	function save_transaction(){
+		extract($_POST);
+		$data = "";
+		foreach($_POST as $k =>$v){
+			//if(!in_array($k,array('id','description'))){
+				if(!empty($data)) $data .=",";
+				$data .= " `{$k}`='{$v}' ";
+			//}
+		}
+		if(empty($id)){
+			$sql = "INSERT INTO `transaction` set {$data} ";
+			$save = $this->conn->query($sql);
+			$qur = "UPDATE `booking_list` set paid_amount = paid_amount + '{$amount}' where id = '{$quotation_id}'";
+			$save = $this->conn->query($qur);
+		}
+		if($save){
+			$resp['status'] = 'success';
+			if(empty($id))
+				$this->settings->set_flashdata('success',"Transaction successfully saved.");
+			else
+				$this->settings->set_flashdata('success',"Company successfully updated.");
+		}else{
+			$resp['status'] = 'failed';
+			$resp['err'] = $this->conn->error."[{$sql}]";
+		}
+		return json_encode($resp);
+	}
+	//transaction end
+
 	// product list update,save and delete section start 
 	function save_product(){
 		extract($_POST);
@@ -531,6 +561,9 @@ switch ($action) {
 	break;
 	case 'delete_company':
 		echo $Master->delete_company();
+	break;
+	case 'save_transaction':
+		echo $Master->save_transaction();
 	break;
 	case 'save_quotation':
 		echo $Master->save_quotation();

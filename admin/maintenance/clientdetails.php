@@ -114,7 +114,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                             <tbody>
                                                 <?php
                                                 $i = 1;
-                                                $qry = $conn->query("SELECT b.*,c.category, d.name from `quotation_list` b inner join product c on b.product_id = c.id inner join company_list d on b.company_id = d.id where b.client_id = '{$_GET['id']}' ");
+                                                $qry = $conn->query("SELECT b.*,c.category, d.name,q.description from `booking_list` b inner join quotation_list q on b.quotation_id = q.id inner join product c on q.product_id = c.id inner join company_list d on q.company_id = d.id where b.client_id = '{$_GET['id']}' ");
                                                 //("SELECT Orders.OrderID, Customers.CustomerName, Shippers.ShipperName FROM ((Orders INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID)INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID);")
                                                 while ($row = $qry->fetch_assoc()) :
                                                     foreach($row as $k=> $v){

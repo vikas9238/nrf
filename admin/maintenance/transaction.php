@@ -41,8 +41,8 @@
                                 <?php else: ?>
                                     <span class="badge badge-warning rounded-pill">Cash</span>
                                 <?php endif; ?></td>
-							<td ><p class="truncate-1 m-0"><?php echo $row['referance'] ?></p></td>
-							<td class="text-center"><?php echo $row['transaction_amount'] ?></td>
+							<td ><p class="truncate-1 m-0"><?php echo $row['reference_number'] ?></p></td>
+							<td class="text-center"><?php echo $row['amount'] ?></td>
 						</tr>
 					<?php endwhile; ?>
 				</tbody>
