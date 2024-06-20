@@ -30,7 +30,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="<?php echo base_url ?>dist/css/adminlte.css">
     <link rel="stylesheet" href="<?php echo base_url ?>dist/css/custom.css">
-    <link rel="stylesheet" href="<?php echo base_url ?>assets/css/styles.css">
+    <!-- <link rel="stylesheet" href="<?php echo base_url ?>assets/css/styles.css"> -->
     <link rel="stylesheet" href="<?php echo base_url ?>libs/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url ?>libs/css/style.css">
 
