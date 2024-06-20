@@ -26,7 +26,7 @@ require_once '../../config.php';
 		</div>
         <div class="form-group">
 			<label for="reference_number" class="control-label">Reference Number</label>
-			<input name="reference_number" id="reference_number"  class="form-control form-control-sm rounded-0" />
+			<input name="reference_number" id="reference_number"  class="form-control form-control-sm rounded-0" required/>
 		</div>
 		
 	</form>
