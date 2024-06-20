@@ -9,11 +9,11 @@
     <link rel="icon" href="<?php echo validate_image($_settings->info('logo')) ?>" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Google Font: Source Sans Pro -->
-    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback"> -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="<?php echo base_url ?>plugins/fontawesome-free/css/all.min.css">
     <!-- Ionicons -->
-    <!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet" href="<?php echo base_url ?>plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
       <!-- DataTables -->
@@ -31,6 +31,25 @@
     <link rel="stylesheet" href="<?php echo base_url ?>dist/css/adminlte.css">
     <link rel="stylesheet" href="<?php echo base_url ?>dist/css/custom.css">
     <link rel="stylesheet" href="<?php echo base_url ?>assets/css/styles.css">
+    <link rel="stylesheet" href="<?php echo base_url ?>libs/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo base_url ?>libs/css/style.css">
+
+     <!-- Favicon -->
+     <link href="img/favicon.ico" rel="icon">
+
+<!-- Google Web Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap" rel="stylesheet">
+
+<!-- Icon Font Stylesheet -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<!-- Libraries Stylesheet -->
+<link href="<?php echo base_url ?>libs/animate/animate.min.css" rel="stylesheet">
+<link href="<?php echo base_url ?>libs/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="<?php echo base_url ?>plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Daterange picker -->
@@ -56,29 +75,4 @@
     </script>
     <script src="<?php echo base_url ?>dist/js/script.js"></script>
     <script src="<?php echo base_url ?>assets/js/scripts.js"></script>
-    <style>
-    #main-header{
-        height:62vh;
-        display:flex;
-        align-items:center;
-        position:relative;
-        background: rgb(0,0,0)!important;
-        background: radial-gradient(circle, rgba(0,0,0,0.48503151260504207) 22%, rgba(0,0,0,0.39539565826330536) 49%, rgba(0,212,255,0) 100%)!important;
-    }
-    #main-header:before{
-        content:"";
-        position:absolute;
-        top:0;
-        left:0;
-        width:100%;
-        height:100%;
-        background-image:url(<?php echo base_url.$_settings->info('cover') ?>);
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: bottom center;
-        filter: drop-shadow(0px 7px 6px black);
-        z-index:-1;
-    }
-
- </style>
   </head>
