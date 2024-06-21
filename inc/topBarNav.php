@@ -57,6 +57,7 @@
 <script>
     $(function() {
         $('#login-btn').click(function() {
+            $("#navbarCollapse").toggleClass("show");
             uni_modal("", "login.php")
         })
     })
