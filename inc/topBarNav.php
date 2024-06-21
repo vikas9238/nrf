@@ -42,9 +42,9 @@
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
             </div>
-            <div class="d-flex align-items-center">
+            <div class="align-items-center">
                 <?php if (!isset($_SESSION['userdata']['id'])) : ?>
-                    <button class="btn btn-primary px-3 d-none d-lg-flex" id="login-btn" type="button">Login</button>
+                    <button class="btn btn-primary px-3" id="login-btn" type="button">Login</button>
                 <?php else : ?>
                     <a href="./?p=my_account" class="text-primary nav-link"><b> Hi, <?php echo $_settings->userdata('firstname') ?>!</b></a>
                     <a href="logout.php" class="text-dark  nav-link"><i class="fa fa-sign-out-alt"></i></a>
@@ -60,4 +60,8 @@
             uni_modal("", "login.php")
         })
     })
+    $(".navbar-toggler").click(function(){
+     $(".navbar-toggler").toggleClass("collapsed");
+     $("#navbarCollapse").toggleClass("show");
+    });
 </script>
