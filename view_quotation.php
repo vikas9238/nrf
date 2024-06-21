@@ -35,11 +35,15 @@
             <div class="col-md-6">
                 <!-- <div class="small mb-1">SKU: BST-498</div> -->
                 <!-- <h1 class="display-5 fw-bolder border-bottom border-primary pb-1"><?php //echo $bike_model ?></h1> -->
-                <p class="m-0"><small>Company: <?php echo $name ?></small> <br>
-                <small>Product: <?php echo $category ?></small>
+                <p class="m-0">Company: <?php echo $name ?> <br>
+                Product: <?php echo $category ?>
                 </p>
                 <div class="fs-5 mb-5">
-                &#8377; <span id="price"><?php echo number_format($daily_rate) ?></span>
+                <?php if (!isset($_SESSION['userdata']['id'])) : ?>
+                    <span class="text-primary"><a id='login' href="javascript:void(0)">&#8377; You Need To Login To View Price</a></span>
+                <?php else : ?>
+                    &#8377; <span id="price"><?php echo number_format($daily_rate) ?></span>
+                <?php endif; ?>
                 <br>
                 <span><small><b>Available Unit:</b> <span id="avail"><?php echo $quantity ?></span></small></span>
                 </div>
@@ -99,6 +103,9 @@
                 return false;
             }
             uni_modal("Quotation Booking","book_to_quotation.php?id=<?php echo isset($id) ? $id : '' ?>",'mid-large')
+        })
+        $('#login').click(function() {
+            uni_modal("", "login.php")
         })
     })
 </script>
