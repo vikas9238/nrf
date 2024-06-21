@@ -8,12 +8,12 @@
 
 <!-- Navbar Start -->
 <div class="container-fluid nav-bar bg-transparent">
-    <nav class="navbar navbar-expand-lg bg-white navbar-light py-0 px-4">
+    <nav class="navbar navbar-expand-lg bg-white navbar-light py-0 pl-2 pr-0">
         <a href="./" class="navbar-brand d-flex align-items-center text-center">
             <div class="icon p-2 me-2">
                 <img class="img-fluid" src="<?php echo validate_image($_settings->info('logo')) ?>" alt="Icon" style="width: 30px; height: 30px;" loading="lazy">
             </div>
-            <h1 class="m-0 text-primary"><?php echo $_settings->info('short_name') ?></h1>
+            <h2 class="m-0 text-primary"><?php echo $_settings->info('short_name') ?></h2>
         </a>
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
