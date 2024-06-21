@@ -59,14 +59,14 @@
 </section>
 <!-- Related items section-->
 <section class="py-5 bg-light">
-    <div class="container px-4 px-lg-5 mt-5">
+    <div class="container">
         <h2 class="fw-bolder mb-4">Related Quotation</h2>
-        <div class="row gx-4 gy-2 gx-lg-5 row-cols-4 justify-content-center">
+        <div class="row">
         <?php 
             $qur = $conn->query("SELECT b.*,c.category, bb.name as brand from `quotation_list` b inner join product c on b.product_id = c.id inner join company_list bb on b.company_id = bb.id where b.status = 1 and (b.product_id = '{$product_id}' or b.company_id = '{$company_id}') and b.id !='{$id}' order by rand() limit 4 ");
             while($row = $qur->fetch_assoc()):
         ?>
-            <a class="col mb-5 text-decoration-none text-dark" href=".?p=view_quotation&id=<?php echo md5($row['id']) ?>">
+            <a class="mb-5 col-lg-4 col-md-6 text-decoration-none text-dark" href=".?p=view_quotation&id=<?php echo md5($row['id']) ?>">
                 <div class="card h-100 quotation-item">
                     <!-- quotation image-->
                     <img class="card-img-top w-100" src="<?php echo validate_image("uploads/thumbnails/".$id.".png") ?>" alt="..." />

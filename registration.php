@@ -3,7 +3,7 @@
         display:none;
     }
 </style>
-<div class="container-fluid">
+<div class="container-fluid" style="margin-top: 50px;">
     <form action="" id="registration">
         <div class="row">
         
