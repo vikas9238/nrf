@@ -3,7 +3,7 @@
         display:none;
     }
 </style>
-<div class="container-fluid mt-2">
+<div class="container-fluid mt-5">
     <form action="" id="registration">
         <div class="row">
         
