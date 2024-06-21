@@ -46,7 +46,7 @@ class Login extends DBConnection {
 				foreach($user as $k => $v){
 					$this->settings->set_userdata($k,$v);
 				}
-				$this->settings->set_userdata('login_type',1);
+				$this->settings->set_userdata('login_type',0);
 				$resp['status'] = 'success';
 			}else if($user['status']==0){
 					$resp['status'] = 'inactive';

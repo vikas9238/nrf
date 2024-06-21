@@ -220,9 +220,9 @@ Class Master extends DBConnection {
 		if($save){
 			$resp['status'] = 'success';
 			if(empty($id))
-				$this->settings->set_flashdata('success',"New Product successfully saved.");
+				$this->settings->set_flashdata('success',"New Client successfully saved.");
 			else
-				$this->settings->set_flashdata('success',"Product successfully updated.");
+				$this->settings->set_flashdata('success',"Client successfully updated.");
 		}else{
 			$resp['status'] = 'failed';
 			$resp['err'] = $this->conn->error."[{$sql}]";
