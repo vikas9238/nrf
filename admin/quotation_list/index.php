@@ -17,8 +17,9 @@
 				<colgroup>
 					<col width="5%">
 					<col width="15%">
-					<col width="25%">
-					<col width="30%">
+					<col width="20%">
+					<col width="20%">
+					<col width="15%">
 					<col width="10%">
 					<col width="15%">
 				</colgroup>
@@ -28,6 +29,7 @@
 						<th>Date Created</th>
 						<th>Product</th>
 						<th>Company Info</th>
+						<th>Address</th>
 						<th>Quantity</th>
 						<th>Status</th>
 						<th>Action</th>
@@ -50,6 +52,7 @@
 							<td><?php echo date("Y-m-d H:i",strtotime($row['date_created'])) ?></td>
 							<td><?php echo $row['category'] ?></td>
 							<td class="lh-1" ><?php echo $row['name'] ?></td>
+							<td class="lh-1" ><?php echo $row['address'] ?></td>
 							<td class="text-end"><?php echo number_format($row['quantity']) ?></td>
 							<td class="text-center">
                                 <?php if($row['status'] == 1): ?>

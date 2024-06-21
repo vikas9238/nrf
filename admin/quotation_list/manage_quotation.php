@@ -66,6 +66,10 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                 <input type="text" pattern="[0-9]+" name="daily_rate" id="daily_rate" class="form-control form no-resize text-right" value="<?php echo isset($daily_rate) ? $daily_rate : 0; ?>" required>
             </div>
             <div class="form-group">
+                <label for="address" class="control-label">Address</label>
+                <input type="text" name="address" id="address" class="form-control form no-resize" value="<?php echo isset($address) ? $address : ''; ?>" required>
+            </div>
+            <div class="form-group">
 				<label for="description" class="control-label">Description</label>
                 <textarea name="description" id="" cols="30" rows="2" class="form-control form no-resize summernote"><?php echo isset($description) ? $description : ''; ?></textarea>
 			</div>

@@ -1,7 +1,7 @@
 <?php 
- $bikes = $conn->query("SELECT  b.*,c.category, bb.name as brand from `quotation_list` b inner join product c on b.product_id = c.id inner join company_list bb on b.company_id = bb.id where md5(b.id) = '{$_GET['id']}' ");
- if($bikes->num_rows > 0){
-     foreach($bikes->fetch_assoc() as $k => $v){
+ $qur = $conn->query("SELECT  b.*,c.category, bb.name from `quotation_list` b inner join product c on b.product_id = c.id inner join company_list bb on b.company_id = bb.id where md5(b.id) = '{$_GET['id']}' ");
+ if($qur->num_rows > 0){
+     foreach($qur->fetch_assoc() as $k => $v){
          $$k= stripslashes($v);
      }
     $upload_path = base_app.'/uploads/'.$id;
@@ -34,20 +34,20 @@
             </div>
             <div class="col-md-6">
                 <!-- <div class="small mb-1">SKU: BST-498</div> -->
-                <h1 class="display-5 fw-bolder border-bottom border-primary pb-1"><?php echo $bike_model ?></h1>
-                <p class="m-0"><small>Brand: <?php echo $brand ?></small> <br>
-                <small><?php echo $category ?></small>
+                <!-- <h1 class="display-5 fw-bolder border-bottom border-primary pb-1"><?php //echo $bike_model ?></h1> -->
+                <p class="m-0"><small>Company: <?php echo $name ?></small> <br>
+                <small>Product: <?php echo $category ?></small>
                 </p>
                 <div class="fs-5 mb-5">
                 &#8377; <span id="price"><?php echo number_format($daily_rate) ?></span>
                 <br>
                 <span><small><b>Available Unit:</b> <span id="avail"><?php echo $quantity ?></span></small></span>
                 </div>
-                <button class="btn btn-outline-dark flex-shrink-0" type="button" id="book_bike">
+                <button class="btn btn-outline-dark flex-shrink-0" type="button" id="book_quotation">
                     <i class="bi-cart-fill me-1"></i>
-                    Book this Bike
+                    Book this Quotation
                 </button>
-                <p class="lead"><?php echo stripslashes(html_entity_decode($description)) ?></p>
+                <!-- <p class="lead"><?php //echo stripslashes(html_entity_decode($description)) ?></p> -->
                 
             </div>
         </div>
@@ -56,22 +56,22 @@
 <!-- Related items section-->
 <section class="py-5 bg-light">
     <div class="container px-4 px-lg-5 mt-5">
-        <h2 class="fw-bolder mb-4">Related Bikes</h2>
+        <h2 class="fw-bolder mb-4">Related Quotation</h2>
         <div class="row gx-4 gy-2 gx-lg-5 row-cols-4 justify-content-center">
         <?php 
-            $bikes = $conn->query("SELECT b.*,c.category, bb.name as brand from `quotation_list` b inner join product c on b.product_id = c.id inner join company_list bb on b.company_id = bb.id where b.status = 1 and (b.product_id = '{$product_id}' or b.company_id = '{$company_id}') and b.id !='{$id}' order by rand() limit 4 ");
-            while($row = $bikes->fetch_assoc()):
+            $qur = $conn->query("SELECT b.*,c.category, bb.name as brand from `quotation_list` b inner join product c on b.product_id = c.id inner join company_list bb on b.company_id = bb.id where b.status = 1 and (b.product_id = '{$product_id}' or b.company_id = '{$company_id}') and b.id !='{$id}' order by rand() limit 4 ");
+            while($row = $qur->fetch_assoc()):
         ?>
-            <a class="col mb-5 text-decoration-none text-dark" href=".?p=view_bike&id=<?php echo md5($row['id']) ?>">
-                <div class="card h-100 bike-item">
-                    <!-- bike image-->
+            <a class="col mb-5 text-decoration-none text-dark" href=".?p=view_quotation&id=<?php echo md5($row['id']) ?>">
+                <div class="card h-100 quotation-item">
+                    <!-- quotation image-->
                     <img class="card-img-top w-100" src="<?php echo validate_image("uploads/thumbnails/".$id.".png") ?>" alt="..." />
-                    <!-- bike details-->
+                    <!-- quotation details-->
                     <div class="card-body p-4">
                         <div class="">
-                            <!-- bike name-->
-                            <h5 class="fw-bolder"><?php echo $row['bike_model'] ?></h5>
-                            <!-- bike price-->
+                            <!-- quotation name-->
+                            <!-- <h5 class="fw-bolder"><?php //echo $row['bike_model'] ?></h5> -->
+                            <!-- quotation price-->
                             <span><b>Price: </b><?php echo number_format($row['daily_rate']) ?></span>
                             <p class="m-0"><small>Brand: <?php echo $row['brand'] ?></small> <br>
                             <small><?php echo $row['category'] ?></small>
@@ -93,12 +93,12 @@
             $('.view-image').removeClass("active")
             $(this).addClass("active")
         })
-        $('#book_bike').click(function(){
+        $('#book_quotation').click(function(){
             if('<?php echo $_settings->userdata('id') ?>' <= 0){
                 uni_modal("","login.php");
                 return false;
             }
-            uni_modal("Bike Rental Booking","book_to_rent.php?id=<?php echo isset($id) ? $id : '' ?>",'mid-large')
+            uni_modal("Quotation Booking","book_to_quotation.php?id=<?php echo isset($id) ? $id : '' ?>",'mid-large')
         })
     })
 </script>
