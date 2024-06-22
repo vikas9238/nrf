@@ -10,10 +10,16 @@
         <div class="col-md-6 animated fadeIn">
             <div class="owl-carousel header-carousel">
                 <div class="owl-carousel-item">
-                    <img class="img-fluid" src="<?php echo base_url ?>uploads/1.jpg" alt="">
+                    <img class="img-fluid" src="<?php echo $_settings->info('carousel_1') ?>" alt="">
                 </div>
                 <div class="owl-carousel-item">
-                    <img class="img-fluid" src="<?php echo base_url ?>uploads/1.jpg" alt="">
+                    <img class="img-fluid" src="<?php echo $_settings->info('carousel_2') ?>" alt="">
+                </div>
+                <div class="owl-carousel-item">
+                    <img class="img-fluid" src="<?php echo $_settings->info('carousel_3') ?>" alt="">
+                </div>
+                <div class="owl-carousel-item">
+                    <img class="img-fluid" src="<?php echo $_settings->info('carousel_4') ?>" alt="">
                 </div>
             </div>
         </div>

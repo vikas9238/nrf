@@ -67,7 +67,7 @@
 				                    <span class="sr-only">Toggle Dropdown</span>
 				                  </button>
 				                  <div class="dropdown-menu" role="menu">
-								  	<a class="dropdown-item" href="<?php echo base_url ?>?p=view_bike&id=<?php echo md5($row['id']) ?>" target="_blank"><span class="fa fa-eye text-dark"></span> View</a>
+								  	<a class="dropdown-item" href="<?php echo base_url ?>?p=view_quotation&id=<?php echo md5($row['id']) ?>" target="_blank"><span class="fa fa-eye text-dark"></span> View</a>
 				                    <div class="dropdown-divider"></div>
 				                    <a class="dropdown-item" href="?page=quotation_list/manage_quotation&id=<?php echo $row['id'] ?>"><span class="fa fa-edit text-primary"></span> Edit</a>
 				                    <div class="dropdown-divider"></div>

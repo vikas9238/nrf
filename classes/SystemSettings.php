@@ -55,14 +55,44 @@ class SystemSettings extends DBConnection{
 				$qry = $this->conn->query("INSERT into system_info set meta_value = '{$fname}',meta_field = 'logo' ");
 			}
 		}
-		if(isset($_FILES['cover']) && $_FILES['cover']['tmp_name'] != ''){
-			$fname = 'uploads/'.strtotime(date('y-m-d H:i')).'_'.$_FILES['cover']['name'];
-			$move = move_uploaded_file($_FILES['cover']['tmp_name'],'../'. $fname);
-			if(isset($_SESSION['system_info']['cover'])){
-				$qry = $this->conn->query("UPDATE system_info set meta_value = '{$fname}' where meta_field = 'cover' ");
-				if(is_file('../'.$_SESSION['system_info']['cover'])) unlink('../'.$_SESSION['system_info']['cover']);
+		if(isset($_FILES['carousel_1']) && $_FILES['carousel_1']['tmp_name'] != ''){
+			$fname = 'uploads/'.strtotime(date('y-m-d H:i')).'_'.$_FILES['carousel_1']['name'];
+			$move = move_uploaded_file($_FILES['carousel_1']['tmp_name'],'../'. $fname);
+			if(isset($_SESSION['system_info']['carousel_1'])){
+				$qry = $this->conn->query("UPDATE system_info set meta_value = '{$fname}' where meta_field = 'carousel_1' ");
+				if(is_file('../'.$_SESSION['system_info']['carousel_1'])) unlink('../'.$_SESSION['system_info']['carousel_1']);
 			}else{
-				$qry = $this->conn->query("INSERT into system_info set meta_value = '{$fname}',meta_field = 'cover' ");
+				$qry = $this->conn->query("INSERT into system_info set meta_value = '{$fname}',meta_field = 'carousel_1' ");
+			}
+		}
+		if(isset($_FILES['carousel_2']) && $_FILES['carousel_2']['tmp_name'] != ''){
+			$fname = 'uploads/'.strtotime(date('y-m-d H:i')).'_'.$_FILES['carousel_2']['name'];
+			$move = move_uploaded_file($_FILES['carousel_2']['tmp_name'],'../'. $fname);
+			if(isset($_SESSION['system_info']['carousel_2'])){
+				$qry = $this->conn->query("UPDATE system_info set meta_value = '{$fname}' where meta_field = 'carousel_2' ");
+				if(is_file('../'.$_SESSION['system_info']['carousel_2'])) unlink('../'.$_SESSION['system_info']['carousel_2']);
+			}else{
+				$qry = $this->conn->query("INSERT into system_info set meta_value = '{$fname}',meta_field = 'carousel_2' ");
+			}
+		}
+		if(isset($_FILES['carousel_3']) && $_FILES['carousel_3']['tmp_name'] != ''){
+			$fname = 'uploads/'.strtotime(date('y-m-d H:i')).'_'.$_FILES['carousel_3']['name'];
+			$move = move_uploaded_file($_FILES['carousel_3']['tmp_name'],'../'. $fname);
+			if(isset($_SESSION['system_info']['carousel_3'])){
+				$qry = $this->conn->query("UPDATE system_info set meta_value = '{$fname}' where meta_field = 'carousel_3' ");
+				if(is_file('../'.$_SESSION['system_info']['carousel_3'])) unlink('../'.$_SESSION['system_info']['carousel_3']);
+			}else{
+				$qry = $this->conn->query("INSERT into system_info set meta_value = '{$fname}',meta_field = 'carousel_3' ");
+			}
+		}
+		if(isset($_FILES['carousel_4']) && $_FILES['carousel_4']['tmp_name'] != ''){
+			$fname = 'uploads/'.strtotime(date('y-m-d H:i')).'_'.$_FILES['carousel_4']['name'];
+			$move = move_uploaded_file($_FILES['carousel_4']['tmp_name'],'../'. $fname);
+			if(isset($_SESSION['system_info']['carousel_4'])){
+				$qry = $this->conn->query("UPDATE system_info set meta_value = '{$fname}' where meta_field = 'carousel_4' ");
+				if(is_file('../'.$_SESSION['system_info']['carousel_4'])) unlink('../'.$_SESSION['system_info']['carousel_4']);
+			}else{
+				$qry = $this->conn->query("INSERT into system_info set meta_value = '{$fname}',meta_field = 'carousel_4' ");
 			}
 		}
 		

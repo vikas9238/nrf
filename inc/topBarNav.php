@@ -22,17 +22,17 @@
             <div class="navbar-nav ms-auto">
                 <a href="./" class="nav-item nav-link active">Home</a>
                 <a href="./?p=about" class="nav-item nav-link">About</a>
-                <div class="nav-item dropdown">
+                <!-- <div class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="companyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Company</a>
                     <div class="dropdown-menu" aria-labelledby="brandDropdown">
                         <?php
-                        $brand_qry = $conn->query("SELECT * FROM `company_list` where status = 1 order by `name` asc");
-                        while ($row = $brand_qry->fetch_assoc()) :
+                        // $brand_qry = $conn->query("SELECT * FROM `company_list` where status = 1 order by `name` asc");
+                        // while ($row = $brand_qry->fetch_assoc()) :
                         ?>
-                            <a class="dropdown-item" href="./?p=bikes&s=<?php echo md5($row['id']) ?>"><?php echo $row['name'] ?></a>
-                        <?php endwhile; ?>
+                            <a class="dropdown-item" href="./?p=bikes&s=<?php //echo md5($row['id']) ?>"><?php //echo $row['name'] ?></a>
+                        <?php //endwhile; ?>
                     </div>
-                </div>
+                </div> -->
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                     <div class="dropdown-menu rounded-0 m-0">
@@ -40,16 +40,16 @@
                         <a href="404.html" class="dropdown-item">404 Error</a>
                     </div>
                 </div>
-                <a href="contact.html" class="nav-item nav-link">Contact</a>
+                <a href="./?p=contact" class="nav-item nav-link">Contact</a>
             </div>
-            <div class="align-items-center">
+            <!-- <div class="align-items-center"> -->
                 <?php if (!isset($_SESSION['userdata']['id'])) : ?>
                     <button class="btn btn-primary px-3" id="login-btn" type="button">Login</button>
                 <?php else : ?>
                     <a href="./?p=my_account" class="text-primary nav-link"><b> Hi, <?php echo $_settings->userdata('firstname') ?>!</b></a>
                     <a href="logout.php" class="text-dark  nav-link"><i class="fa fa-sign-out-alt"></i></a>
                 <?php endif; ?>
-            </div>
+            <!-- </div> -->
         </div>
     </nav>
 </div>

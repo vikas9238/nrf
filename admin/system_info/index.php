@@ -11,7 +11,7 @@
 		object-fit: cover;
 		border-radius: 100% 100%;
 	}
-	img#cimg2{
+	img#cimg2,#cimg3,#cimg4,#cimg1{
 		height: 50vh;
 		width: 100%;
 		object-fit: contain;
@@ -57,14 +57,44 @@
 				<img src="<?php echo validate_image($_settings->info('logo')) ?>" alt="" id="cimg" class="img-fluid img-thumbnail">
 			</div>
 			<div class="form-group">
-				<label for="" class="control-label">Website Cover</label>
+				<label for="" class="control-label">Carousel 1</label>
 				<div class="custom-file">
-	              <input type="file" class="custom-file-input rounded-circle" id="customFile" name="cover" onchange="displayImg2(this,$(this))">
+	              <input type="file" class="custom-file-input rounded-circle" id="customFile" name="carousel_1" onchange="displayImg1(this,$(this))">
 	              <label class="custom-file-label" for="customFile">Choose file</label>
 	            </div>
 			</div>
 			<div class="form-group d-flex justify-content-center">
-				<img src="<?php echo validate_image($_settings->info('cover')) ?>" alt="" id="cimg2" class="img-fluid img-thumbnail">
+				<img src="<?php echo validate_image($_settings->info('carousel_1')) ?>" alt="" id="cimg1" class="img-fluid img-thumbnail">
+			</div>
+			<div class="form-group">
+				<label for="" class="control-label">Carousel 2</label>
+				<div class="custom-file">
+	              <input type="file" class="custom-file-input rounded-circle" id="customFile" name="carousel_2" onchange="displayImg2(this,$(this))">
+	              <label class="custom-file-label" for="customFile">Choose file</label>
+	            </div>
+			</div>
+			<div class="form-group d-flex justify-content-center">
+				<img src="<?php echo validate_image($_settings->info('carousel_2')) ?>" alt="" id="cimg2" class="img-fluid img-thumbnail">
+			</div>
+			<div class="form-group">
+				<label for="" class="control-label">Carousel 3</label>
+				<div class="custom-file">
+	              <input type="file" class="custom-file-input rounded-circle" id="customFile" name="carousel_3" onchange="displayImg3(this,$(this))">
+	              <label class="custom-file-label" for="customFile">Choose file</label>
+	            </div>
+			</div>
+			<div class="form-group d-flex justify-content-center">
+				<img src="<?php echo validate_image($_settings->info('carousel_3')) ?>" alt="" id="cimg3" class="img-fluid img-thumbnail">
+			</div>
+			<div class="form-group">
+				<label for="" class="control-label">Carousel 4</label>
+				<div class="custom-file">
+	              <input type="file" class="custom-file-input rounded-circle" id="customFile" name="carousel_4" onchange="displayImg4(this,$(this))">
+	              <label class="custom-file-label" for="customFile">Choose file</label>
+	            </div>
+			</div>
+			<div class="form-group d-flex justify-content-center">
+				<img src="<?php echo validate_image($_settings->info('carousel_4')) ?>" alt="" id="cimg4" class="img-fluid img-thumbnail">
 			</div>
 			</form>
 		</div>
@@ -90,6 +120,17 @@
 	        reader.readAsDataURL(input.files[0]);
 	    }
 	}
+	function displayImg1(input,_this) {
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function (e) {
+	        	_this.siblings('.custom-file-label').html(input.files[0].name)
+	        	$('#cimg1').attr('src', e.target.result);
+	        }
+
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
 	function displayImg2(input,_this) {
 	    if (input.files && input.files[0]) {
 	        var reader = new FileReader();
@@ -107,6 +148,17 @@
 	        reader.onload = function (e) {
 	        	_this.siblings('.custom-file-label').html(input.files[0].name)
 	        	$('#cimg3').attr('src', e.target.result);
+	        }
+
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
+	function displayImg4(input,_this) {
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function (e) {
+	        	_this.siblings('.custom-file-label').html(input.files[0].name)
+	        	$('#cimg4').attr('src', e.target.result);
 	        }
 
 	        reader.readAsDataURL(input.files[0]);
