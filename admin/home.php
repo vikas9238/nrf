@@ -6,7 +6,7 @@
               <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-solid fa-indian-rupee-sign"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Total Transaction</span>
+                <span class="info-box-text">Total Booking</span>
                 <span class="info-box-number">
                   <?php 
                      $category = $conn->query("SELECT count(id) as total FROM booking_list  where amount > '0'")->fetch_assoc()['total'];
@@ -25,7 +25,7 @@
               <span class="info-box-icon bg-info elevation-1"><i class="fas fa-solid fa-indian-rupee-sign"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Today Transaction</span>
+                <span class="info-box-text">Today Booking</span>
                 <span class="info-box-number">
                   <?php 
                    $today = date("Y-m-d");
@@ -47,7 +47,7 @@
               <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-solid fa-indian-rupee-sign"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Transaction Approval Pending</span>
+                <span class="info-box-text">Booking Approval Pending</span>
                 <span class="info-box-number">
                   <?php 
                      $category = $conn->query("SELECT count(id) as total FROM booking_list  where status = '0'")->fetch_assoc()['total'];

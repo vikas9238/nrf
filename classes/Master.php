@@ -432,10 +432,10 @@ Class Master extends DBConnection {
 	}
 	function delete_booking(){
 		extract($_POST);
-		$del = $this->conn->query("DELETE FROM `rent_list` where id = '{$id}'");
+		$del = $this->conn->query("DELETE FROM `booking_list` where id = '{$id}'");
 		if($del){
 			$resp['status'] = 'success';
-			$this->settings->set_flashdata('success',"Rental Booking successfully deleted.");
+			$this->settings->set_flashdata('success',"Booking successfully deleted.");
 		}else{
 			$resp['status'] = 'failed';
 			$resp['error'] = $this->conn->error;

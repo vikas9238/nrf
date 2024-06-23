@@ -6,7 +6,7 @@ if(!isset($_GET['id'])){
     $_settings->set_flashdata('error','No Booking ID Provided.');
     redirect('admin/?page=bookings');
 }
-$booking = $conn->query("SELECT r.*,concat(c.firstname,' ',c.lastname) as client,c.address,c.email,c.contact from `rent_list` r inner join clients c on c.id = r.client_id where r.id = '{$_GET['id']}' ");
+$booking = $conn->query("SELECT r.*,concat(c.firstname,' ',c.lastname) as client,c.address,c.email,c.contact from `booking_list` r inner join clients c on c.id = r.client_id where r.id = '{$_GET['id']}' ");
 if($booking->num_rows > 0){
     foreach($booking->fetch_assoc() as $k => $v){
         $$k = $v;

@@ -58,6 +58,14 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                 <textarea name="bike_model" id="" cols="30" rows="2" class="form-control form no-resize"><?php //echo isset($bike_model) ? $bike_model : ''; ?></textarea>
 			</div> -->
             <div class="form-group">
+                <label for="po_quantity" class="control-label">PO Quantity</label>
+                <input type="text" pattern="[0-9]+" name="po_quantity" id="po_quantity" class="form-control form no-resize text-right" value="<?php echo isset($po_quantity) ? $po_quantity : 0; ?>" required>
+            </div>
+            <div class="form-group">
+                <label for="po_rate" class="control-label">PO Rate</label>
+                <input type="text" pattern="[0-9]+" name="po_rate" id="po_rate" class="form-control form no-resize text-right" value="<?php echo isset($po_rate) ? $po_rate : 0; ?>" required>
+            </div>
+            <div class="form-group">
                 <label for="quantity" class="control-label">Available Unit</label>
                 <input type="text" pattern="[0-9]+" name="quantity" id="quantity" class="form-control form no-resize text-right" value="<?php echo isset($quantity) ? $quantity : 0; ?>" required>
             </div>

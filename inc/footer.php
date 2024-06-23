@@ -109,7 +109,7 @@
                         <h5 class="text-white mb-4">Newsletter</h5>
                         <p>Subscribe For Latest Update.</p>
                         <div class="position-relative mx-auto" style="max-width: 400px;">
-                            <input class="form-control bg-transparent w-100 py-4 ps-4 pe-4" type="text" placeholder="Your email">
+                            <input class="form-control bg-transparent w-100 py-4 ps-4 pe-4" type="email" placeholder="Your email">
                             <button type="button" class="btn btn-primary py-1 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
                         </div>
                     </div>
