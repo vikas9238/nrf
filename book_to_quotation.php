@@ -12,14 +12,36 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 <div class="container-fluid">
     <form action="" id="book-form">
         <input type="hidden" name="bike_id" value="<?php echo $_GET['id'] ?>">
-        <div class="form-group">
+        <div class="">
+            <a id="dec" class="border-[#bfbfbf] border-r-2 pr-5">
+                <i class="fa-solid fa-minus"></i>
+            </a>
+            <input id="counter" type="number" class="font-bold" value="1">
+            <a id="inc" class="border-[#bfbfbf] border-l-2 pl-5">
+                <i class="fa-solid fa-plus"></i>
+            </a>
+        </div>
+        <p class="text-decoration-underline">Price Details</p>
+        <div>
+        <span>Price (PO) (<span id='item'>1</span> Ton)</span>
+        <span class="float-right text-right" id="po"><?php echo $po_rate?></span>
+        </div>
+        <div class="mt-2">
+        <span>Margin</span>
+        <span class="float-right text-right" id="margin">-<?php echo $po_rate-$daily_rate?></span>
+        </div><hr>
+        <div>
+            <span>Total Amount</span>
+            <span id="amount" class="float-right text-right"><?php echo $daily_rate ?></span>
+        </div>
+        <!-- <div class="form-group">
             <label for="date_start" class="control-label">Pick-up Date</label>
             <input type="date" name="date_start" id="date_start" class="form-control form-conrtrol-sm rounded-0" value="" required>
         </div>
         <div class="form-group">
             <label for="date_end" class="control-label">Date to Return</label>
             <input type="date" name="date_end" id="date_end" class="form-control form-conrtrol-sm rounded-0" value="" required>
-        </div>
+        </div> -->
         <div id="msg" class="text-danger"></div>
         <div id="check-availability-loader" class="d-none">
             <center>
@@ -29,7 +51,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                 </div>
             </center>
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="rent_days" class="control-label">Days to Rent</label>
             <input type="number" name="rent_days" id="rent_days" class="form-control form-conrtrol-sm rounded-0 text-right" value="0" required readonly>
         </div>
@@ -40,11 +62,34 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
         <div class="form-group">
             <label for="amount" class="control-label">Total Amount</label>
             <input type="number" name="amount" id="amount" class="form-control form-conrtrol-sm rounded-0 text-right" value="0" required readonly>
-        </div>
+        </div> -->
+        <button type="submit">submit</button>
     </form>
 </div>
 
 <script>
+    var inc = document.querySelector("#inc");
+    var dec = document.querySelector("#dec");
+    var counter = document.querySelector("#counter");
+    var item = document.querySelector("#item");
+    var po= document.querySelector("#po");
+    var margin= document.querySelector("#margin");
+    var amount= document.querySelector("#amount");
+    inc.addEventListener("click", () => {
+        counter.innerText = parseInt(counter.innerText) + 1;
+        item.innerText = parseInt(item.innerText) + 1;
+        po.innerText = parseInt(item.innerText)*<?php echo isset($po_rate) ? $po_rate :'' ?>;
+        margin.innerText = -parseInt(item.innerText)*<?php echo $po_rate-$daily_rate ?>;
+        amount.innerText=parseInt(item.innerText)*<?php echo $daily_rate ?>;    });
+    dec.addEventListener("click", () => {
+        if (parseInt(counter.innerText) > 1) {
+            counter.innerText = parseInt(counter.innerText) - 1;
+            item.innerText = parseInt(item.innerText) - 1;
+            po.innerText = parseInt(item.innerText)*<?php echo isset($po_rate) ? $po_rate :'' ?>;
+            margin.innerText = -parseInt(item.innerText)*<?php echo $po_rate-$daily_rate ?>;
+            amount.innerText=parseInt(item.innerText)*<?php echo $daily_rate ?>;
+        }
+    });
     function calc_rent_days(){
         var ds = new Date($('#date_start').val())
         var de = new Date($('#date_end').val())
