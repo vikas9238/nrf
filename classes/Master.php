@@ -414,16 +414,16 @@ Class Master extends DBConnection {
 			}
 		}
 		if(empty($id)){
-			$sql = "INSERT INTO `rent_list` set {$data} ";
+			$sql = "INSERT INTO `booking_list` set {$data} ";
 			$save = $this->conn->query($sql);
 		}else{
-			$sql = "UPDATE `rent_list` set {$data} where id = '{$id}' ";
+			$sql = "UPDATE `booking_list` set {$data} where id = '{$id}' ";
 			$save = $this->conn->query($sql);
 		}
 		if($save){
 			$resp['status'] = 'success';
 			if(!empty($id))
-				$this->settings->set_flashdata('success',"Rental Booking successfully updated.");
+				$this->settings->set_flashdata('success',"Quotation Booking successfully updated.");
 		}else{
 			$resp['status'] = 'failed';
 			$resp['err'] = $this->conn->error."[{$sql}]";

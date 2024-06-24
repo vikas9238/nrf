@@ -9,6 +9,9 @@ if ($qry->num_rows > 0) {
     }
 }
 }
+$all_profit= ($po_rate-$daily_rate)*$quantity;
+$profit= $all_profit/2;
+$total_investment= $daily_rate*$quantity;
 ?>
 <?php if($_settings->chk_flashdata('success')): ?>
 <script>
@@ -45,7 +48,7 @@ if ($qry->num_rows > 0) {
             <div class="info-box-content">
                 <span class="info-box-text">Total Pending</span>
                 <span class="info-box-number">
-                    <?php $pending = $total_profit + $total_investment - $paid_amount;
+                    <?php $pending = $profit + $total_investment - $paid_amount;
                     echo $pending ?>
                 </span>
             </div>
@@ -82,7 +85,7 @@ if ($qry->num_rows > 0) {
 
             <div class="info-box-content">
                 <span class="info-box-text">Total Profit</span>
-                <?php echo $total_profit ?>
+                <?php echo $profit ?>
             </div>
             <!-- /.info-box-content -->
         </div>
