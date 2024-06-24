@@ -17,14 +17,15 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
             <a id="dec" class="border-[#bfbfbf] border-r-2 pr-5">
                 <i class="fa-solid fa-minus"></i>
             </a>
-            <p id="counter" class="font-bold">1</p>
+            <p id="counter" class="font-bold text-bold">1</p>
             <a id="inc" class="border-[#bfbfbf] border-l-2 pl-5">
                 <i class="fa-solid fa-plus"></i>
             </a>
-        </div>
+        </div><hr>
         <p class="text-decoration-underline text-primary">Price Details</p>
         <div>
-            <span>Price (PO)*(<span id='item'>1</span> Ton)</span>
+            <span>Price (PO)*(<span id='item'>1</span><?php if($po_unit==1): ?> TON<?php else: ?> CFT<?php endif; ?>)</span>
+                                
             <span class="float-right text-right" id="po"><?php echo $po_rate ?></span>
         </div>
         <div class="mt-2">
@@ -42,13 +43,13 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
             <span class="float-right text-right" id="profit"><?php echo $po_rate - $daily_rate ?></span>
         </div>
         <div class="mt-2">
-            <span>NRF Charges(50% On Profit Amount)</span>
+            <span>NRF Charges(50% Of Profit)</span>
             <span class="float-right text-right" id="nrf_charge">-<?php echo ($po_rate - $daily_rate)/2 ?></span>
         </div>
         <hr>
         <div>
-            <span>Invester Profit</span>
-            <span id="invester_profit" class="float-right text-right"><?php echo ($po_rate - $daily_rate)/2 ?></span>
+            <span>Investor Profit</span>
+            <span id="investor_profit" class="float-right text-right"><?php echo ($po_rate - $daily_rate)/2 ?></span>
         </div>
         <div id="msg" class="text-danger"></div>
         <div id="check-availability-loader" class="d-none">
@@ -72,7 +73,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
     var margin = document.querySelector("#margin");
     var amount = document.querySelector("#amount");
     var profit = document.querySelector("#profit");
-    var invester_profit = document.querySelector("#invester_profit");
+    var investor_profit = document.querySelector("#investor_profit");
     var nrf_charge = document.querySelector("#nrf_charge");
     inc.addEventListener("click", () => {
         counter.innerText = parseInt(counter.innerText) + 1;
@@ -81,7 +82,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
         margin.innerText = -parseInt(item.innerText) * <?php echo $po_rate - $daily_rate ?>;
         profit.innerText = parseInt(item.innerText) * <?php echo $po_rate - $daily_rate ?>;
         nrf_charge.innerText = -parseInt(item.innerText) * <?php echo ($po_rate - $daily_rate)/2 ?>;
-        invester_profit.innerText = parseInt(item.innerText) * <?php echo ($po_rate - $daily_rate)/2 ?>;
+        investor_profit.innerText = parseInt(item.innerText) * <?php echo ($po_rate - $daily_rate)/2 ?>;
         amount.innerText = parseInt(item.innerText) * <?php echo $daily_rate ?>;
     });
     dec.addEventListener("click", () => {
@@ -92,12 +93,16 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
             margin.innerText = -parseInt(item.innerText) * <?php echo $po_rate - $daily_rate ?>;
             profit.innerText = parseInt(item.innerText) * <?php echo $po_rate - $daily_rate ?>;
             nrf_charge.innerText = -parseInt(item.innerText) * <?php echo ($po_rate - $daily_rate)/2 ?>;
-            invester_profit.innerText = parseInt(item.innerText) * <?php echo ($po_rate - $daily_rate)/2 ?>;
+            investor_profit.innerText = parseInt(item.innerText) * <?php echo ($po_rate - $daily_rate)/2 ?>;
             amount.innerText = parseInt(item.innerText) * <?php echo $daily_rate ?>;
         }
     });
     $('#book-form').submit(function(e) {
         e.preventDefault();
+        if(!document.querySelector('input[name="aggrement"]').checked){
+            alert_toast("Please agree to the terms and conditions", 'warning');
+            return false;
+        }
         $('.err-msg').remove();
         var quotation_id = $('#quotation_id').val()
         var quantity = document.querySelector('#item').innerText;
@@ -123,6 +128,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                 if (typeof resp == 'object' && resp.status == 'success') {
                     end_loader()
                     $('#uni_modal').modal('hide')
+                    $('.nav-bar').removeClass('d-none')
                     setTimeout(() => {
                         uni_modal('', 'success_booking.php')
                     }, 500);

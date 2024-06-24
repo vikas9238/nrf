@@ -37,6 +37,7 @@
                     $('#uni_modal .modal-body').html(resp)
                     if($size != ''){
                         $('#uni_modal .modal-dialog').addClass($size+'  modal-dialog-centered')
+                        $('.nav-bar').addClass(' d-none')
                     }else{
                         $('#uni_modal .modal-dialog').removeAttr("class").addClass("modal-dialog modal-md modal-dialog-centered")
                     }

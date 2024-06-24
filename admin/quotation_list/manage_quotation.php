@@ -66,6 +66,13 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                 <input type="text" pattern="[0-9]+" name="po_rate" id="po_rate" class="form-control form no-resize text-right" value="<?php echo isset($po_rate) ? $po_rate : 0; ?>" required>
             </div>
             <div class="form-group">
+				<label for="po_unit" class="control-label">PO Unit</label>
+                <select name="po_unit" id="po_unit" class="custom-select selevt">
+                <option value="1" <?php echo isset($status) && $status == 1 ? 'selected' : '' ?>>TON</option>
+                <option value="0" <?php echo isset($status) && $status == 0 ? 'selected' : '' ?>>CFT</option>
+                </select>
+			</div>
+            <div class="form-group">
                 <label for="quantity" class="control-label">Available Unit</label>
                 <input type="text" pattern="[0-9]+" name="quantity" id="quantity" class="form-control form no-resize text-right" value="<?php echo isset($quantity) ? $quantity : 0; ?>" required>
             </div>

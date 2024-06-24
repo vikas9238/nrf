@@ -9,7 +9,7 @@
                 <span class="info-box-text">Total Booking</span>
                 <span class="info-box-number">
                   <?php 
-                     $category = $conn->query("SELECT count(id) as total FROM booking_list  where amount > '0'")->fetch_assoc()['total'];
+                     $category = $conn->query("SELECT count(id) as total FROM booking_list  where po_rate > '0'")->fetch_assoc()['total'];
                      echo number_format($category);
                   ?>
                   <?php ?>

@@ -92,7 +92,7 @@
                                     </div>
                                     <div class="p-4 pb-0">
                                     <?php if (isset($_SESSION['userdata']['id'])) : ?>
-                                        <p class="text-primary mb-3"><small class="text-decoration-line-through">&#8377;<?php echo $row['po_rate'] ?></small>&nbsp; <b> &#8377;<?php echo $row['daily_rate'] ?> /Ton</b></p>
+                                        <p class="text-primary mb-3"><small class="text-decoration-line-through">&#8377;<?php echo $row['po_rate'] ?></small>&nbsp; <b> &#8377;<?php echo $row['daily_rate'] ?> /<?php if($row['po_unit']==1): ?> TON<?php else: ?> CFT<?php endif; ?></b></p>
                                         <?php endif; ?>
                                         <p class="d-block h5 mb-2" ><?php echo $row['name']?></p>
                                         <p><i class="fa fa-map-marker-alt text-primary me-2"></i><?php echo $row['address']?></p>

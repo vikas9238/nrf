@@ -3,13 +3,13 @@
         display:none;
     }
 </style>
-<div class="container-fluid" style="margin-top: 50px;">
+<div class="container-fluid">
     <form action="" id="registration">
         <div class="row">
         
         <h3 class="text-center">Create New Account
             <span class="float-right">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('.nav-bar').removeClass('d-none')">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </span>
