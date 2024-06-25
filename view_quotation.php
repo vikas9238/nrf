@@ -50,7 +50,7 @@ if ($qur->num_rows > 0) {
                 </div>
                 <button class="btn btn-outline-dark flex-shrink-0" type="button" id="book_quotation">
                     <i class="bi-cart-fill me-1"></i>
-                    Book this Quotation
+                    Book this Material
                 </button>
                 <!-- <p class="lead"><?php //echo stripslashes(html_entity_decode($description)) 
                                         ?></p> -->
@@ -62,7 +62,7 @@ if ($qur->num_rows > 0) {
 <!-- Related items section-->
 <section class="py-5 bg-light">
     <div class="container">
-        <h2 class="fw-bolder mb-4">Related Quotation</h2>
+        <h2 class="fw-bolder mb-4">Related Material</h2>
         <div class="row">
             <div class="tab-content">
                 <div id="tab-1" class="tab-pane fade show p-0 active">
@@ -116,7 +116,7 @@ if ($qur->num_rows > 0) {
                 uni_modal("", "login.php");
                 return false;
             }
-            uni_modal("Quotation Booking", "book_to_quotation.php?id=<?php echo isset($id) ? $id : '' ?>", 'mid-large')
+            uni_modal("Material Booking", "book_to_quotation.php?id=<?php echo isset($id) ? $id : '' ?>", 'mid-large')
         })
         $('#login').click(function() {
             uni_modal("", "login.php")

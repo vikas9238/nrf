@@ -13,7 +13,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
     <form action="" id="book-form">
         <input type="hidden" id="quotation_id" value="<?php echo $_GET['id'] ?>">
         <p>Quantity</p>
-        <div class="d-flex">
+        <!-- <div class="d-flex">
             <a id="dec" class="border-[#bfbfbf] border-r-2 pr-5">
                 <i class="fa-solid fa-minus"></i>
             </a>
@@ -21,7 +21,8 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
             <a id="inc" class="border-[#bfbfbf] border-l-2 pl-5">
                 <i class="fa-solid fa-plus"></i>
             </a>
-        </div><hr>
+        </div><hr> -->
+        <input type="number" id="quantity" value="1" class="form-control text-center form-conrtrol-sm rounded-0">
         <p class="text-decoration-underline text-primary">Price Details</p>
         <div>
             <span>Price (PO)*(<span id='item'>1</span><?php if($po_unit==1): ?> TON<?php else: ?> CFT<?php endif; ?>)</span>
@@ -65,9 +66,10 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
 </div>
 
 <script>
-    var inc = document.querySelector("#inc");
-    var dec = document.querySelector("#dec");
-    var counter = document.querySelector("#counter");
+    // var inc = document.querySelector("#inc");
+    // var dec = document.querySelector("#dec");
+    // var counter = document.querySelector("#counter");
+    var today_quantity=<?php echo $quantity ?>;
     var item = document.querySelector("#item");
     var po = document.querySelector("#po");
     var margin = document.querySelector("#margin");
@@ -75,28 +77,46 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
     var profit = document.querySelector("#profit");
     var investor_profit = document.querySelector("#investor_profit");
     var nrf_charge = document.querySelector("#nrf_charge");
-    inc.addEventListener("click", () => {
-        counter.innerText = parseInt(counter.innerText) + 1;
-        item.innerText = parseInt(item.innerText) + 1;
-        po.innerText = parseInt(item.innerText) * <?php echo $po_rate ?>;
-        margin.innerText = -parseInt(item.innerText) * <?php echo $po_rate - $daily_rate ?>;
-        profit.innerText = parseInt(item.innerText) * <?php echo $po_rate - $daily_rate ?>;
-        nrf_charge.innerText = -parseInt(item.innerText) * <?php echo ($po_rate - $daily_rate)/2 ?>;
-        investor_profit.innerText = parseInt(item.innerText) * <?php echo ($po_rate - $daily_rate)/2 ?>;
-        amount.innerText = parseInt(item.innerText) * <?php echo $daily_rate ?>;
-    });
-    dec.addEventListener("click", () => {
-        if (parseInt(counter.innerText) > 1) {
-            counter.innerText = parseInt(counter.innerText) - 1;
-            item.innerText = parseInt(item.innerText) - 1;
-            po.innerText = parseInt(item.innerText) * <?php echo isset($po_rate) ? $po_rate : '' ?>;
-            margin.innerText = -parseInt(item.innerText) * <?php echo $po_rate - $daily_rate ?>;
-            profit.innerText = parseInt(item.innerText) * <?php echo $po_rate - $daily_rate ?>;
-            nrf_charge.innerText = -parseInt(item.innerText) * <?php echo ($po_rate - $daily_rate)/2 ?>;
-            investor_profit.innerText = parseInt(item.innerText) * <?php echo ($po_rate - $daily_rate)/2 ?>;
-            amount.innerText = parseInt(item.innerText) * <?php echo $daily_rate ?>;
+    // inc.addEventListener("click", () => {
+    //     counter.innerText = parseInt(counter.innerText) + 1;
+    //     item.innerText = parseInt(item.innerText) + 1;
+    //     po.innerText = parseInt(item.innerText) * <?php echo $po_rate ?>;
+    //     margin.innerText = -parseInt(item.innerText) * <?php echo $po_rate - $daily_rate ?>;
+    //     profit.innerText = parseInt(item.innerText) * <?php echo $po_rate - $daily_rate ?>;
+    //     nrf_charge.innerText = -parseInt(item.innerText) * <?php echo ($po_rate - $daily_rate)/2 ?>;
+    //     investor_profit.innerText = parseInt(item.innerText) * <?php echo ($po_rate - $daily_rate)/2 ?>;
+    //     amount.innerText = parseInt(item.innerText) * <?php echo $daily_rate ?>;
+    // });
+    // dec.addEventListener("click", () => {
+    //     if (parseInt(counter.innerText) > 1) {
+    //         counter.innerText = parseInt(counter.innerText) - 1;
+    //         item.innerText = parseInt(item.innerText) - 1;
+    //         po.innerText = parseInt(item.innerText) * <?php echo isset($po_rate) ? $po_rate : '' ?>;
+    //         margin.innerText = -parseInt(item.innerText) * <?php echo $po_rate - $daily_rate ?>;
+    //         profit.innerText = parseInt(item.innerText) * <?php echo $po_rate - $daily_rate ?>;
+    //         nrf_charge.innerText = -parseInt(item.innerText) * <?php echo ($po_rate - $daily_rate)/2 ?>;
+    //         investor_profit.innerText = parseInt(item.innerText) * <?php echo ($po_rate - $daily_rate)/2 ?>;
+    //         amount.innerText = parseInt(item.innerText) * <?php echo $daily_rate ?>;
+    //     }
+    // });
+    $('#quantity').change(function(){
+        var quantity = $('#quantity').val()
+        if(quantity <= 0){
+            alert_toast("Invalid Quantity", 'warning');
+            return false;
         }
-    });
+        if(quantity > today_quantity){
+            alert_toast("Stock not available for the quantity you entered", 'warning');
+            return false;
+        }
+        item.innerText = quantity;
+        po.innerText = quantity * <?php echo isset($po_rate) ? $po_rate : '' ?>;
+        margin.innerText = -quantity * <?php echo $po_rate - $daily_rate ?>;
+        profit.innerText = quantity * <?php echo $po_rate - $daily_rate ?>;
+        nrf_charge.innerText = -quantity * <?php echo ($po_rate - $daily_rate)/2 ?>;
+        investor_profit.innerText = quantity * <?php echo ($po_rate - $daily_rate)/2 ?>;
+        amount.innerText = quantity * <?php echo $daily_rate ?>;
+    })
     $('#book-form').submit(function(e) {
         e.preventDefault();
         if(!document.querySelector('input[name="aggrement"]').checked){

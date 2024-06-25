@@ -507,13 +507,13 @@ Class Master extends DBConnection {
 	
 	function rent_avail(){
 		extract($_POST);
-			$whereand = '';
-			if(isset($id) && $id > 0){
-			$whereand = " and id !='{$id}'";
-		}
-		$check = $this->conn->query("SELECT count(id) as count FROM `rent_list` where bike_id='{$bike_id}' and (('{$ds}' BETWEEN date(date_start) and date(date_end)) OR ('{$de}' BETWEEN date(date_start) and date(date_end))) and status != 2 {$whereand} ")->fetch_array()['count'];
+		// 	$whereand = '';
+		// 	if(isset($id) && $id > 0){
+		// 	$whereand = " and id ='{$id}'";
+		// }
+		$check = $this->conn->query("SELECT quantity FROM `booking_list` where quotation_id='{$_POST['quotation_id']}' and status != 0 and id='{$_POST['id']}' ");
 
-		if($check >= $max_unit){
+		if($check < $quantity){
 			$resp['status'] = 'not_available';
 			$resp['msg'] = 'No Unit Available on selected dates.';
 		}else{

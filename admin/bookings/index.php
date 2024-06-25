@@ -31,7 +31,7 @@
 					<tr class="bg-navy text-white">
 						<th>#</th>
 						<th>Date Booked</th>
-						<th>Rent Schedule</th>
+						<th>Order Details</th>
 						<th>Client</th>
 						<th>Status</th>
 						<th>Action</th>
@@ -40,15 +40,15 @@
 				<tbody>
 					<?php 
 					$i = 1;
-						$qry = $conn->query("SELECT r.*,concat(c.firstname,' ',c.lastname) as client from `booking_list` r inner join clients c on c.id = r.client_id order by unix_timestamp(r.date_created) desc ");
+						$qry = $conn->query("SELECT r.*,concat(c.firstname,' ',c.lastname) as client,co.name,pr.category from `booking_list` r inner join clients c on c.id = r.client_id inner join quotation_list q on q.id=r.quotation_id inner join company_list co on co.id=q.company_id inner join product pr on pr.id=q.product_id order by unix_timestamp(r.date_created) desc ");
 						while($row = $qry->fetch_assoc()):
 					?>
 						<tr>
 							<td class="text-center"><?php echo $i++; ?></td>
 							<td><?php echo date("Y-m-d H:i",strtotime($row['date_created'])) ?></td>
 							<td>
-								<small><span class="text-muted">Pick up:</span><?php echo date("Y-m-d",strtotime($row['date_start'])) ?></small><br>
-								<small><span class="text-muted">Return: </span><?php echo date("Y-m-d",strtotime($row['date_end'])) ?></small>
+								<small><span class="text-muted">Company:</span><?php echo $row['name'] ?></small><br>
+								<small><span class="text-muted">Product: </span><?php echo $row['category'] ?></small>
 							</td>
 							<td><?php echo $row['client'] ?></td>
 							<td class="text-center">
@@ -58,12 +58,6 @@
                                     <span class="badge badge-primary">Confirmed</span>
 								<?php elseif($row['status'] == 2): ?>
                                     <span class="badge badge-danger">Cancelled</span>
-								<?php elseif($row['status'] == 3): ?>
-                                    <span class="badge badge-warning">Picked Up</span>
-								<?php elseif($row['status'] == 4): ?>
-                                    <span class="badge badge-success">Returned</span>
-                                <!-- <?php //else: ?>
-                                    <span class="badge badge-danger">Cancelled</span> -->
                                 <?php endif; ?>
                             </td>
 							<td align="center">

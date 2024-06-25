@@ -15,11 +15,11 @@ if($booking->num_rows > 0){
     $_settings->set_flashdata('error','Booking ID provided is Unknown');
     redirect('admin/?page=bookings');
 }
-if(isset($bike_id)){
-    $bike = $conn->query("SELECT b.*,c.category, bb.name as brand from `quotation_list` b inner join product c on b.product_id = c.id inner join company_list bb on b.company_id = bb.id where b.id = '{$bike_id}' ");
-    if($bike->num_rows > 0){
-        foreach($bike->fetch_assoc() as $k => $v){
-            $bike_meta[$k]=stripslashes($v);
+if(isset($quotation_id)){
+    $qur = $conn->query("SELECT b.*,c.category, bb.name from `quotation_list` b inner join product c on b.product_id = c.id inner join company_list bb on b.company_id = bb.id where b.id = '{$quotation_id}' ");
+    if($qur->num_rows > 0){
+        foreach($qur->fetch_assoc() as $k => $v){
+            $quotation_meta[$k]=stripslashes($v);
         }
     }
 }
@@ -31,16 +31,15 @@ if(isset($bike_id)){
             <p><b>Client Email:</b> <?php echo $email ?></p>
             <p><b>Client Contact:</b> <?php echo $contact ?></p>
             <p><b>Client Address:</b> <?php echo $address ?></p>
-            <p><b>Rent Pick up Date:</b> <?php echo date("M d,Y" ,strtotime($date_start)) ?></p>
-            <p><b>Rent Return Date:</b> <?php echo date("M d,Y" ,strtotime($date_end)) ?></p>
         </div>
         <div class="col-md-6">
-            <p><b>Bike Category:</b> <?php echo $bike_meta['category'] ?></p>
-            <p><b>Bike Brand:</b> <?php echo $bike_meta['brand'] ?></p>
-            <p><b>Bike Model:</b> <?php echo $bike_meta['bike_model'] ?></p>
-            <p><b>Bike Daily Rate:</b> <?php echo number_format($amount/$rent_days,2) ?></p>
-            <p><b>Day/s to Rent:</b> <?php echo $rent_days ?></p>
-            <p><b>Client Payable Amount:</b> <?php echo number_format($amount,2) ?></p>
+            <p><b>Product:</b> <?php echo $quotation_meta['category'] ?></p>
+            <p><b>Company:</b> <?php echo $quotation_meta['name'] ?></p>
+            <p><b>PO Rate:</b> <?php echo $quotation_meta['po_rate'] ?></p>
+            <p><b>Daily Rate:</b> <?php echo number_format($daily_rate) ?></p>
+            <p><b>Quantity:</b> <?php echo $quantity ?> <?php if($quotation_meta['po_unit']==1): ?> TON<?php else: ?> CFT<?php endif; ?></p>
+            <p><b>Investe Amount:</b> <?php echo $daily_rate*$quantity ?></p>
+            <p><b>Client Profit:</b> <?php echo ($po_rate-$daily_rate)*$quantity/2 ?></p>
         </div>
     </div>
     <div class="row">
@@ -55,15 +54,6 @@ if(isset($bike_id)){
                     echo '<span class="badge badge-primary">Confirmed</span>';
                 break;
                 case '2':
-                    echo '<span class="badge badge-danger">Cancelled</span>';
-                break;
-                case '3':
-                    echo '<span class="badge badge-warning">Picked Up</span>';
-                break;
-                case '4':
-                    echo '<span class="badge badge-success">Returned</span>';
-                break;
-                default:
                     echo '<span class="badge badge-danger">Cancelled</span>';
                 break;
             }

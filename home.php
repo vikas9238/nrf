@@ -2,7 +2,7 @@
 <div class="container-fluid header bg-white p-0">
     <div class="row g-0 align-items-center flex-column-reverse flex-md-row">
         <div class="col-md-6 p-5 mt-lg-5">
-            <h1 class="display-5 animated fadeIn mb-4">Find A <span class="text-primary">Perfect Home</span> To Live With Your Family</h1>
+            <h1 class="display-5 animated fadeIn mb-4">Find A <span class="text-primary">Perfect Material</span> To Investe With Your Family and Friends</h1>
             <p class="animated fadeIn mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet
                 sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
             <a href="" class="btn btn-primary py-3 px-5 me-3 animated fadeIn">Get Started</a>
@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                <h1 class="mb-4">#1 Place To Find The Perfect Property</h1>
+                <h1 class="mb-4">#1 Place To Find The Perfect Material to Investe</h1>
                 <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
                 <p><i class="fa fa-check text-primary me-3"></i>Tempor erat elitr rebum at clita</p>
                 <p><i class="fa fa-check text-primary me-3"></i>Aliqu diam amet diam et eos</p>
@@ -55,7 +55,7 @@
         <div class="row g-0 gx-5 align-items-end">
             <div class="col-lg-6">
                 <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
-                    <h1 class="mb-3">Property Listing</h1>
+                    <h1 class="mb-3">Material Listing</h1>
                     <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod sit diam justo sed rebum.</p>
                 </div>
             </div>
@@ -148,7 +148,7 @@
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-            <h1 class="mb-3">Property Agents</h1>
+            <h1 class="mb-3">NRF Agents</h1>
             <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
         </div>
         <div class="row g-4">
