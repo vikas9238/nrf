@@ -50,9 +50,9 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
                     <tr class="bg-navy text-white">
 						<th>#</th>
 						<th>Date Booked</th>
-						<th>Book Details</th>
+						<th>Booking Details</th>
 						<th>Client</th>
-						<th>Bike Details</th>
+						<th>Product Details</th>
 					</tr>
                 </thead>
                 <tbody>
@@ -75,21 +75,16 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
                         <td class="text-center"><?php echo $i++ ?></td>
                         <td><?php echo $row['date_created'] ?></td>
                         <td>
-                            <small><span class="text-muted">Pick up: </span><?php echo date("Y-m-d",strtotime($row['date_start'])) ?></small><br>
-                            <small><span class="text-muted">Return: </span><?php echo date("Y-m-d",strtotime($row['date_end'])) ?></small><br>
-                            <small><span class="text-muted">Amount: </span><?php echo number_format($row['amount']) ?></small><br>
+                            <small><span class="text-muted">Update Date: </span><?php echo date("Y-m-d",strtotime($row['date_updated'])) ?></small><br>
+                            <small><span class="text-muted">PO Rate: </span><?php echo number_format($row['po_rate']) ?></small><br>
+                            <small><span class="text-muted">Daily Rate: </span><?php echo number_format($row['daily_rate']) ?></small><br>
+                            <small><span class="text-muted">Quantity: </span><?php echo number_format($row['quantity']) ?></small><br>
                             <small><span class="text-muted">Status: </span>
                                 <?php if($row['status'] == 0): ?>
                                     <span class="badge badge-light">Pending</span>
                                 <?php elseif($row['status'] == 1): ?>
                                     <span class="badge badge-primary">Confirmed</span>
 								<?php elseif($row['status'] == 2): ?>
-                                    <span class="badge badge-danger">Cancelled</span>
-								<?php elseif($row['status'] == 3): ?>
-                                    <span class="badge badge-warning">Picked Up</span>
-								<?php elseif($row['status'] == 4): ?>
-                                    <span class="badge badge-success">Returned</span>
-                                <?php else: ?>
                                     <span class="badge badge-danger">Cancelled</span>
                                 <?php endif; ?>
                             </small>
@@ -100,9 +95,9 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
                             <small><span class="text-muted">Contact: </span><?php echo $row['contact'] ?></small>
                         </td>
                         <td>
-                            <small><span class="text-muted">Category: </span><?php echo isset($bike_arr[$row['quotation_id']]) ? $bike_arr[$row['bike_id']]['category'] : 'N/A' ?></small><br>
-                            <small><span class="text-muted">Brand: </span><?php echo isset($bike_arr[$row['quotation_id']]) ? $bike_arr[$row['bike_id']]['brand'] : 'N/A' ?></small><br>
-                            <small><span class="text-muted">Bike: </span><?php echo isset($bike_arr[$row['quotation_id']]) ? $bike_arr[$row['bike_id']]['bike_model'] : 'N/A' ?></small>
+                            <small><span class="text-muted">Product: </span><?php echo isset($bike_arr[$row['quotation_id']]) ? $bike_arr[$row['quotation_id']]['category'] : 'N/A' ?></small><br>
+                            <small><span class="text-muted">Company: </span><?php echo isset($bike_arr[$row['quotation_id']]) ? $bike_arr[$row['quotation_id']]['brand'] : 'N/A' ?></small><br>
+                            <small><span class="text-muted">Description: </span><?php echo isset($bike_arr[$row['quotation_id']]) ? $bike_arr[$row['quotation_id']]['description'] : 'N/A' ?></small>
                         </td>
                     </tr>
                     <?php endwhile; ?>
