@@ -129,10 +129,14 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                                         <td class="lh-1"> <?php echo $row['name'] ?></td>
                                                         <td class="text-end"><?php echo number_format($row['quantity']) ?></td>
                                                         <td class="text-center">
-                                                            <?php if ($row['status'] == 1) : ?>
-                                                                <span class="badge badge-success">Active</span>
+                                                            <?php if ($row['status'] == 0) : ?>
+                                                                <span class="badge badge-warning">Pending</span>
+                                                            <?php elseif($row['status'] == 1) : ?>
+                                                                <span class="badge badge-success">Complete</span>
+                                                            <?php elseif($row['status'] == 3) : ?>
+                                                                <span class="badge badge-danger">Inactive</span>
                                                             <?php else : ?>
-                                                                <span class="badge badge-danger">Complete</span>
+                                                                <span class="badge badge-info">Cancel</span>
                                                             <?php endif; ?>
                                                         </td>
                                                     </tr>

@@ -1,41 +1,41 @@
 <?php
 require_once('../config.php');
 if (isset($_GET['id']) && $_GET['id'] > 0) {
-// $qry = $conn->query("SELECT q.*,c.firstname,c.lastname,c.email,c.contact,c.address,c.gender,co.name,p.category from `quotation_list` q inner join clients c on c.id = q.client_id inner join company_list co on co.id=q.company_id inner join product p on p.id=q.product_id where q.id = '{$_GET['id']}' ");
-$qry = $conn->query("SELECT b.*,c.firstname,c.lastname,c.email,c.contact,c.address,c.gender,co.name,p.category from `booking_list` b inner join quotation_list q on q.id=b.quotation_id inner join clients c on c.id = b.client_id inner join company_list co on co.id=q.company_id inner join product p on p.id=q.product_id where b.id = '{$_GET['id']}' ");
-if ($qry->num_rows > 0) {
-    foreach ($qry->fetch_assoc() as $k => $v) {
-        $$k = $v;
+    // $qry = $conn->query("SELECT q.*,c.firstname,c.lastname,c.email,c.contact,c.address,c.gender,co.name,p.category from `quotation_list` q inner join clients c on c.id = q.client_id inner join company_list co on co.id=q.company_id inner join product p on p.id=q.product_id where q.id = '{$_GET['id']}' ");
+    $qry = $conn->query("SELECT b.*,c.firstname,c.lastname,c.email,c.contact,c.address,c.gender,co.name,p.category from `booking_list` b inner join quotation_list q on q.id=b.quotation_id inner join clients c on c.id = b.client_id inner join company_list co on co.id=q.company_id inner join product p on p.id=q.product_id where b.id = '{$_GET['id']}' ");
+    if ($qry->num_rows > 0) {
+        foreach ($qry->fetch_assoc() as $k => $v) {
+            $$k = $v;
+        }
     }
 }
-}
-$all_profit= ($po_rate-$daily_rate)*$quantity;
-$profit= $all_profit/2;
-$total_investment= $daily_rate*$quantity;
+$all_profit = ($po_rate - $daily_rate) * $quantity;
+$profit = $all_profit / 2;
+$total_investment = $daily_rate * $quantity;
 ?>
-<?php if($_settings->chk_flashdata('success')): ?>
-<script>
-	alert_toast("<?php echo $_settings->flashdata('success') ?>",'success')
-</script>
-<?php endif;?>
+<?php if ($_settings->chk_flashdata('success')) : ?>
+    <script>
+        alert_toast("<?php echo $_settings->flashdata('success') ?>", 'success')
+    </script>
+<?php endif; ?>
 <style>
-    .float-payment-button{
-        position:fixed;
-        width:60px;
-        height:60px;
-        bottom:40px;
-        right:40px;
-        background-color:#25d366;
-        color:#FFF;
-        border-radius:50px;
-        text-align:center;
-        font-size:30px;
+    .float-payment-button {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 40px;
+        right: 40px;
+        background-color: #25d366;
+        color: #FFF;
+        border-radius: 50px;
+        text-align: center;
+        font-size: 30px;
         box-shadow: 2px 2px 3px #999;
-        z-index:100;
+        z-index: 100;
     }
 
-    .payment-button{
-        margin-top:16px;
+    .payment-button {
+        margin-top: 16px;
     }
 </style>
 <div class="row">
@@ -220,12 +220,15 @@ $total_investment= $daily_rate*$quantity;
                                     Status
                                 </th>
                                 <td>
-                                    <?php if ($status == 1) {
-                                        echo "<span class='badge badge-success'>Active</span>";
-                                    } else {
-                                        echo "<span class='badge badge-danger'>Inactive</span>";
-                                    } ?>
-                                </td>
+                                    <?php if ($status == 0) : ?>
+                                        <span class="badge badge-warning">Pending</span>
+                                    <?php elseif ($status == 1) : ?>
+                                        <span class="badge badge-success">Complete</span>
+                                    <?php elseif ($status == 3) : ?>
+                                        <span class="badge badge-danger">Inactive</span>
+                                    <?php else : ?>
+                                        <span class="badge badge-info">Cancel</span>
+                                    <?php endif; ?>
                                 <th>
                                     Date Created
                                 </th>
@@ -238,50 +241,51 @@ $total_investment= $daily_rate*$quantity;
                 </div>
             </div>
             <div class="col-md-6">
-                        <div class="justify-content-end">
-                            <?php if($pending>0){?>
-                            <a class="float-payment-button" id="payment-button" href="javascript:void(0)" data-id="<?php echo $_GET['id'] ?>">
-                                <i class="fas fa-file-invoice payment-button"></i>
-                            </a>
-                            <?php } ?>
-                        </div>
-                    </div>
+                <div class="justify-content-end">
+                    <?php if ($pending > 0) { ?>
+                        <a class="float-payment-button" id="payment-button" href="javascript:void(0)" data-id="<?php echo $_GET['id'] ?>">
+                            <i class="fas fa-file-invoice payment-button"></i>
+                        </a>
+                    <?php } ?>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 <script>
     $('.close_account').click(function() {
-        _conf("Are you sure to close this account permanently?", "close_account",[$(this).attr('data-id')])
+        _conf("Are you sure to close this account permanently?", "close_account", [$(this).attr('data-id')])
 
     })
     $('#payment-button').click(function() {
-            uni_modal("<i class='fa-regular fa-money-bill-1'></i> Payment", 'maintenance/manage_transaction.php?id=' + $(this).attr('data-id') + '&client_id=' + <?php echo $client_id ?>)
-        })
+        uni_modal("<i class='fa-regular fa-money-bill-1'></i> Payment", 'maintenance/manage_transaction.php?id=' + $(this).attr('data-id') + '&client_id=' + <?php echo $client_id ?>)
+    })
 
-    function close_account($id){
-		start_loader();
-            $.ajax({
-                url:_base_url_+"classes/Master.php?f=close_account",
-                method:"POST",
-                data:{id: $id,
-                    status: 0
-                },
-                dataType:"json",
-                error:err=>{
-                    console.log(err)
-                    alert_toast("An error occured.",'error');
+    function close_account($id) {
+        start_loader();
+        $.ajax({
+            url: _base_url_ + "classes/Master.php?f=close_account",
+            method: "POST",
+            data: {
+                id: $id,
+                status: 3
+            },
+            dataType: "json",
+            error: err => {
+                console.log(err)
+                alert_toast("An error occured.", 'error');
+                end_loader();
+            },
+            success: function(resp) {
+                if (typeof resp == 'object' && resp.status == 'success') {
+                    location.reload();
+                } else {
+                    alert_toast("An error occured.", 'error');
                     end_loader();
-                },
-                success:function(resp){
-                    if(typeof resp== 'object' && resp.status == 'success'){
-                        location.reload();
-                    }else{
-                        alert_toast("An error occured.",'error');
-                        end_loader();
-                    }
                 }
-            })
-	}
+            }
+        })
+    }
     // $('#payment-button').on('click', function () {
     //         var url = $(this).data("payment-url");
     //         $.ajax({
@@ -306,7 +310,7 @@ $total_investment= $daily_rate*$quantity;
     //                     alert('Oops! Unauthorized Access');
     //                 }
     //                 if(reject.status == 422){
-                        
+
     //                 }
     //                 $.LoadingOverlay("hide");
     //             }

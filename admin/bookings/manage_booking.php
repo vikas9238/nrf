@@ -24,7 +24,7 @@ if (isset($quotation_id)) {
         <!-- <p><b>Bike Model:</b> <?php //echo $quotation_meta['bike_model'] 
                                     ?></p> -->
         <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
-        <input type="hidden" name="quotation_id" value="<?php echo isset($quotation_id) ? $quotation_id : ''  ?>">
+        <input type="hidden" name="quotation_id" id="quotation_id" value="<?php echo isset($quotation_id) ? $quotation_id : ''  ?>">
         <input type="hidden" name="client_id" value="<?php echo isset($client_id) ? $client_id : ''  ?>">
         <div id="msg" class="text-danger"></div>
         <div id="check-availability-loader" class="d-none">
@@ -41,11 +41,11 @@ if (isset($quotation_id)) {
         </div>
         <div class="form-group">
             <label for="daily_rate" class="control-label">Daily Rate</label>
-            <input type="text" id="daily_rate" class="form-control form-conrtrol-sm rounded-0 text-right" value="<?php echo isset($daily_rate) ? $daily_rate : 0.00 ?>" required readonly>
+            <input type="text" class="form-control form-conrtrol-sm rounded-0 text-right" value="<?php echo isset($daily_rate) ? $daily_rate : 0.00 ?>" required readonly>
         </div>
         <div class="form-group">
             <label for="amount" class="control-label">Total Amount</label>
-            <input type="number" name="amount" id="amount" class="form-control form-conrtrol-sm rounded-0 text-right" value="<?php echo isset($daily_rate) * $quantity ? $daily_rate * $quantity : 0 ?>" required readonly>
+            <input type="number" class="form-control form-conrtrol-sm rounded-0 text-right amount" value="<?php echo isset($daily_rate) * $quantity ? $daily_rate * $quantity : 0 ?>" required readonly>
         </div>
         <div class="form-group">
             <label for="" class="control-label">Status</label>
@@ -73,7 +73,7 @@ if (isset($quotation_id)) {
         var quantity = $('#quantity').val()
         var amount = daily_rate * quantity;
         console.log(amount)
-        $('#amount').val(amount)
+        $('.amount').val(amount)
     }
     $(function() {
         var today_quantity = <?php echo $quotation_meta['quantity'] ?>;

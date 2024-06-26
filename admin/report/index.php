@@ -58,11 +58,11 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
                 <tbody>
                     <?php 
                     $i = 1;
-                        $bike = $conn->query("SELECT b.*,c.category, bb.name as brand from `quotation_list` b inner join product c on b.product_id = c.id inner join company_list bb on b.company_id = bb.id ");
-                        while($row= $bike->fetch_assoc()){
+                        $qur = $conn->query("SELECT b.*,c.category, bb.name as brand from `quotation_list` b inner join product c on b.product_id = c.id inner join company_list bb on b.company_id = bb.id ");
+                        while($row= $qur->fetch_assoc()){
                             foreach($row as $k=>$v){
                                 if(!is_numeric($k)){
-                                    $bike_arr[$row['id']][$k] = $v;
+                                    $quotation_arr[$row['id']][$k] = $v;
                                 }
                             }
                         }
@@ -95,9 +95,9 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
                             <small><span class="text-muted">Contact: </span><?php echo $row['contact'] ?></small>
                         </td>
                         <td>
-                            <small><span class="text-muted">Product: </span><?php echo isset($bike_arr[$row['quotation_id']]) ? $bike_arr[$row['quotation_id']]['category'] : 'N/A' ?></small><br>
-                            <small><span class="text-muted">Company: </span><?php echo isset($bike_arr[$row['quotation_id']]) ? $bike_arr[$row['quotation_id']]['brand'] : 'N/A' ?></small><br>
-                            <small><span class="text-muted">Description: </span><?php echo isset($bike_arr[$row['quotation_id']]) ? $bike_arr[$row['quotation_id']]['description'] : 'N/A' ?></small>
+                            <small><span class="text-muted">Product: </span><?php echo isset($quotation_arr[$row['quotation_id']]) ? $quotation_arr[$row['quotation_id']]['category'] : 'N/A' ?></small><br>
+                            <small><span class="text-muted">Company: </span><?php echo isset($quotation_arr[$row['quotation_id']]) ? $quotation_arr[$row['quotation_id']]['brand'] : 'N/A' ?></small><br>
+                            <small><span class="text-muted">Description: </span><?php echo isset($quotation_arr[$row['quotation_id']]) ? $quotation_arr[$row['quotation_id']][strip_tags(stripslashes(html_entity_decode('description')))] : 'N/A' ?></small>
                         </td>
                     </tr>
                     <?php endwhile; ?>
