@@ -74,6 +74,8 @@
                                             <a class="dropdown-item view_data" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-th-list text-dark"></span> View Details</a>
                                             <!-- <div class="dropdown-divider"></div>
                                             <a class="dropdown-item transaction_data" href="javascript:void(0)" data-id="<?php echo $row['quotation_id'] ?>"><span class="fa fa-th-list text-dark"></span> Transaction Details</a> -->
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="?p=transaction&id=<?php echo $row['id'] ?>"><span class="fa fa-indian-rupee-sign text-dark"></span> View Transaction</a>
                                         </div>
                                     </td>
                                 </tr>
