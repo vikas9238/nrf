@@ -61,7 +61,12 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                 </div>
             </center>
         </div>
-        <input type="checkbox" name="aggrement" id="" required><a href=""> Aggrement </a>
+        <div class="form-group">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" name="aggrement" class="custom-control-input" id="customCheck1" required>
+                <label class="custom-control-label" for="customCheck1">I agree to the <a href="javascript:void(0)">Terms and Conditions</a></label>
+            </div>
+        </div>
     </form>
 </div>
 

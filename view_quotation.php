@@ -52,8 +52,8 @@ if ($qur->num_rows > 0) {
                     <i class="bi-cart-fill me-1"></i>
                     Book this Material
                 </button>
-                <!-- <p class="lead"><?php //echo stripslashes(html_entity_decode($description)) 
-                                        ?></p> -->
+                <p class="lead"><?php echo stripslashes(html_entity_decode($description)) 
+                                        ?></p>
 
             </div>
         </div>
