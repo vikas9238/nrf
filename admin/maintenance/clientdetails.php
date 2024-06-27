@@ -19,10 +19,10 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle" src="{{ url(config('custom.file.path.customer.kyc') . $resultSet->id . '/'. $resultSet->photo)}}" alt="User profile picture">
+                            <img class="profile-user-img img-fluid img-circle" src="<?php echo base_url.'uploads/clients/'.$id.'/'.'user.png' ?>" alt="User profile picture">
                         </div>
 
-                        <h3 class="profile-username text-center">{{ $resultSet->full_name }}</h3>
+                        <h3 class="profile-username text-center"><?php echo $firstname,$lastname ?></h3>
 
                     </div>
                     <!-- /.card-body -->
@@ -30,7 +30,23 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img class="img-fluid" src="{{ url(config('custom.file.path.customer.kyc') . $resultSet->id . '/'. $resultSet->signature)}}" alt="Signature">
+                            <img class="img-fluid" src="<?php echo base_url.'uploads/clients/'.$id.'/'.'sign.png' ?>" alt="Signature">
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <img class="img-fluid" src="<?php echo base_url.'uploads/clients/'.$id.'/'.'idfront.png' ?>" alt="Signature">
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <img class="img-fluid" src="<?php echo base_url.'uploads/clients/'.$id.'/'.'idback.png' ?>" alt="Signature">
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -42,20 +58,6 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                     <div class="col-md-12 table-responsive">
                         <table class="table table-bordered table-striped">
                             <tbody>
-                                <tr>
-                                    <th>
-                                        First Name
-                                    </th>
-                                    <td>
-                                        <?php echo $firstname ?>
-                                    </td>
-                                    <th>
-                                        Last Name
-                                    </th>
-                                    <td>
-                                        <?php echo $lastname ?>
-                                    </td>
-                                </tr>
                                 <tr>
                                     <th>
                                         Contact
@@ -77,6 +79,26 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                     </th>
                                     <td>
                                         <?php echo $address ?>
+                                    </td>
+                                    <th>
+                                        Pan
+                                    </th>
+                                    <td>
+                                        <?php echo $pan ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Account Number
+                                    </th>
+                                    <td>
+                                        <?php echo $account ?>
+                                    </td>
+                                    <th>
+                                        IFSC Code
+                                    </th>
+                                    <td>
+                                        <?php echo $ifsc ?>
                                     </td>
                                 </tr>
                             </tbody>

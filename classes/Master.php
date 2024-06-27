@@ -418,7 +418,6 @@ Class Master extends DBConnection {
 				}
 			}elseif($status == 3){
 				$stock = $this->conn->query("SELECT quantity FROM `quotation_list` where id = '{$quotation_id}'")->fetch_array()['quantity'];
-				// $stock_approved = $this->conn->query("SELECT approved_quantity FROM `booking_list` where id = '{$id}'")->fetch_array()['approved_quantity'];
 				if($approved_quantity<=$stock){
 					$sql = "UPDATE `booking_list` set approved_quantity= approved_quantity + '{$approved_quantity}', status='3' where id ='{$id}'";
 					$save = $this->conn->query($sql);
@@ -497,6 +496,131 @@ Class Master extends DBConnection {
 			$save = $this->conn->query($sql);
 		}
 		if($save){
+			$dir = base_app."uploads/clients/".$id."/";
+			if(isset($_FILES['user']['tmp_name']) && !empty($_FILES['user']['tmp_name'])){
+				if(!is_dir($dir))
+                    mkdir($dir);
+					$thumb_fname = $dir."user.png";
+				$upload = $_FILES['user']['tmp_name'];
+                   $type = mime_content_type($upload);
+                   $allowed = array('image/png','image/jpeg');
+                   
+                   if(!in_array($type,$allowed)){
+                       $resp['msg'].=" But Image failed to upload due to invalid file type.";
+                   }else{
+                       $gdImg = ($type == 'image/png')? imagecreatefrompng($upload) : imagecreatefromjpeg($upload);
+                       if($gdImg){
+                            list($width, $height) = getimagesize($upload);
+                            // new size variables
+                            $new_height = 400; 
+                            $new_width = 400;
+
+                            $t_image = imagecreatetruecolor($new_width, $new_height);
+                            //Resizing the imgage
+                            imagecopyresampled($t_image, $gdImg, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+                            if(is_file($thumb_fname))
+                            unlink($thumb_fname);
+                            imagepng($t_image,$thumb_fname);
+                            imagedestroy($t_image);
+                            imagedestroy($gdImg);
+                       }else{
+                       $resp['msg'].=" But Image failed to upload due to unkown reason.";
+                       }
+                   }
+			}
+			if(isset($_FILES['sign']['tmp_name']) && !empty($_FILES['sign']['tmp_name'])){
+				if(!is_dir($dir))
+                    mkdir($dir);
+					$thumb_fname = $dir."sign.png";
+				$upload = $_FILES['sign']['tmp_name'];
+                   $type = mime_content_type($upload);
+                   $allowed = array('image/png','image/jpeg');
+                   
+                   if(!in_array($type,$allowed)){
+                       $resp['msg'].=" But Image failed to upload due to invalid file type.";
+                   }else{
+                       $gdImg = ($type == 'image/png')? imagecreatefrompng($upload) : imagecreatefromjpeg($upload);
+                       if($gdImg){
+                            list($width, $height) = getimagesize($upload);
+                            // new size variables
+                            $new_height = 400; 
+                            $new_width = 400;
+
+                            $t_image = imagecreatetruecolor($new_width, $new_height);
+                            //Resizing the imgage
+                            imagecopyresampled($t_image, $gdImg, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+                            if(is_file($thumb_fname))
+                            unlink($thumb_fname);
+                            imagepng($t_image,$thumb_fname);
+                            imagedestroy($t_image);
+                            imagedestroy($gdImg);
+                       }else{
+                       $resp['msg'].=" But Image failed to upload due to unkown reason.";
+                       }
+                   }
+			}
+			if(isset($_FILES['idfront']['tmp_name']) && !empty($_FILES['idfront']['tmp_name'])){
+				if(!is_dir($dir))
+                    mkdir($dir);
+					$thumb_fname = $dir."idfront.png";
+				$upload = $_FILES['idfront']['tmp_name'];
+                   $type = mime_content_type($upload);
+                   $allowed = array('image/png','image/jpeg');
+                   
+                   if(!in_array($type,$allowed)){
+                       $resp['msg'].=" But Image failed to upload due to invalid file type.";
+                   }else{
+                       $gdImg = ($type == 'image/png')? imagecreatefrompng($upload) : imagecreatefromjpeg($upload);
+                       if($gdImg){
+                            list($width, $height) = getimagesize($upload);
+                            // new size variables
+                            $new_height = 400; 
+                            $new_width = 400;
+
+                            $t_image = imagecreatetruecolor($new_width, $new_height);
+                            //Resizing the imgage
+                            imagecopyresampled($t_image, $gdImg, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+                            if(is_file($thumb_fname))
+                            unlink($thumb_fname);
+                            imagepng($t_image,$thumb_fname);
+                            imagedestroy($t_image);
+                            imagedestroy($gdImg);
+                       }else{
+                       $resp['msg'].=" But Image failed to upload due to unkown reason.";
+                       }
+                   }
+			}
+			if(isset($_FILES['idback']['tmp_name']) && !empty($_FILES['idback']['tmp_name'])){
+				if(!is_dir($dir))
+                    mkdir($dir);
+					$thumb_fname = $dir."idback.png";
+				$upload = $_FILES['idback']['tmp_name'];
+                   $type = mime_content_type($upload);
+                   $allowed = array('image/png','image/jpeg');
+                   
+                   if(!in_array($type,$allowed)){
+                       $resp['msg'].=" But Image failed to upload due to invalid file type.";
+                   }else{
+                       $gdImg = ($type == 'image/png')? imagecreatefrompng($upload) : imagecreatefromjpeg($upload);
+                       if($gdImg){
+                            list($width, $height) = getimagesize($upload);
+                            // new size variables
+                            $new_height = 400; 
+                            $new_width = 400;
+
+                            $t_image = imagecreatetruecolor($new_width, $new_height);
+                            //Resizing the imgage
+                            imagecopyresampled($t_image, $gdImg, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+                            if(is_file($thumb_fname))
+                            unlink($thumb_fname);
+                            imagepng($t_image,$thumb_fname);
+                            imagedestroy($t_image);
+                            imagedestroy($gdImg);
+                       }else{
+                       $resp['msg'].=" But Image failed to upload due to unkown reason.";
+                       }
+                   }
+			}
 			$resp['status'] = 'success';
 			if(empty($id))
 				$this->settings->set_flashdata('success',"Account successfully created.");
