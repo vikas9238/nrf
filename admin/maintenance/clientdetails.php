@@ -114,7 +114,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                             <tbody>
                                                 <?php
                                                 $i = 1;
-                                                $qry = $conn->query("SELECT b.*,c.category, d.name,q.description from `booking_list` b inner join quotation_list q on b.quotation_id = q.id inner join product c on q.product_id = c.id inner join company_list d on q.company_id = d.id where b.client_id = '{$_GET['id']}' ");
+                                                $qry = $conn->query("SELECT b.*,c.category, d.name,q.description from `booking_list` b inner join quotation_list q on b.quotation_id = q.id inner join product c on q.product_id = c.id inner join company_list d on q.company_id = d.id where b.client_id = '{$_GET['id']}' and b.status='1' ");
                                                 //("SELECT Orders.OrderID, Customers.CustomerName, Shippers.ShipperName FROM ((Orders INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID)INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID);")
                                                 while ($row = $qry->fetch_assoc()) :
                                                     foreach($row as $k=> $v){
@@ -123,20 +123,16 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                                     $row['description'] = strip_tags(stripslashes(html_entity_decode($row['description'])));
                                                 ?>
                                                     <tr>
-                                                        <td class="text-center"><a href="?page=maintenance/quotation&id=<?php echo $row['id'] ?>"><?php echo $row['id'] ?></a></td>
+                                                        <td class="text-center"><a href="?page=maintenance/quotation&id=<?php echo $row['id'] ?>"><?php echo $i++ ?></a></td>
                                                         <td><?php echo date("Y-m-d H:i", strtotime($row['date_created'])) ?></td>
                                                         <td><?php echo $row['category'] ?></td>
                                                         <td class="lh-1"> <?php echo $row['name'] ?></td>
                                                         <td class="text-end"><?php echo number_format($row['quantity']) ?></td>
                                                         <td class="text-center">
-                                                            <?php if ($row['status'] == 0) : ?>
-                                                                <span class="badge badge-warning">Pending</span>
-                                                            <?php elseif($row['status'] == 1) : ?>
-                                                                <span class="badge badge-success">Complete</span>
-                                                            <?php elseif($row['status'] == 3) : ?>
+                                                            <?php if ($row['booking_status'] == 0) : ?>
                                                                 <span class="badge badge-danger">Inactive</span>
                                                             <?php else : ?>
-                                                                <span class="badge badge-info">Cancel</span>
+                                                                <span class="badge badge-success">Active</span>
                                                             <?php endif; ?>
                                                         </td>
                                                     </tr>

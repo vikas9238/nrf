@@ -53,6 +53,7 @@
        $('#confirm_modal .modal-body').html($msg)
        $('#confirm_modal').modal('show')
     }
+    $('.table').dataTable();
   })
 </script>
 <footer class="main-footer text-sm">
@@ -89,6 +90,8 @@
     <script src="<?php echo base_url ?>plugins/daterangepicker/daterangepicker.js"></script>
     <!-- Tempusdominus Bootstrap 4 -->
     <script src="<?php echo base_url ?>plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- jQuery Validation -->
+    <script src="<?php echo base_url ?>plugins/jquery-validation/jquery.validate.js"></script>
     <!-- Summernote -->
     <script src="<?php echo base_url ?>plugins/summernote/summernote-bs4.min.js"></script>
     <script src="<?php echo base_url ?>plugins/datatables/jquery.dataTables.min.js"></script>

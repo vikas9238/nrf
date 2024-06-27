@@ -14,8 +14,9 @@
 				<colgroup>
 					<col width="10%">
 					<col width="20%">
+					<col width="15%">
+					<col width="20%">
 					<col width="25%">
-					<col width="35%">
 					<col width="10%">
 				</colgroup>
 				<thead>
@@ -24,6 +25,7 @@
 						<th>Date Created</th>
 						<th>Payment Mode</th>
 						<th>Cheque/Referance Number</th>
+						<th>Description</th>
                         <th>Amount</th>
 					</tr>
 				</thead>
@@ -42,6 +44,7 @@
                                     <span class="badge badge-warning rounded-pill">Cash</span>
                                 <?php endif; ?></td>
 							<td ><p class="truncate-1 m-0"><?php echo $row['reference_number'] ?></p></td>
+							<td ><p class="truncate-1 m-0"><?php echo $row['description'] ?></p></td>
 							<td class="text-center"><?php echo $row['amount'] ?></td>
 						</tr>
 					<?php endwhile; ?>

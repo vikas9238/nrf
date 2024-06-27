@@ -2,16 +2,16 @@
 require_once('../config.php');
 if (isset($_GET['id']) && $_GET['id'] > 0) {
     // $qry = $conn->query("SELECT q.*,c.firstname,c.lastname,c.email,c.contact,c.address,c.gender,co.name,p.category from `quotation_list` q inner join clients c on c.id = q.client_id inner join company_list co on co.id=q.company_id inner join product p on p.id=q.product_id where q.id = '{$_GET['id']}' ");
-    $qry = $conn->query("SELECT b.*,c.firstname,c.lastname,c.email,c.contact,c.address,c.gender,co.name,p.category from `booking_list` b inner join quotation_list q on q.id=b.quotation_id inner join clients c on c.id = b.client_id inner join company_list co on co.id=q.company_id inner join product p on p.id=q.product_id where b.id = '{$_GET['id']}' ");
+    $qry = $conn->query("SELECT b.*,c.firstname,c.lastname,c.email,c.contact,c.address,c.gender,co.name,p.category,q.address as location from `booking_list` b inner join quotation_list q on q.id=b.quotation_id inner join clients c on c.id = b.client_id inner join company_list co on co.id=q.company_id inner join product p on p.id=q.product_id where b.id = '{$_GET['id']}' ");
     if ($qry->num_rows > 0) {
         foreach ($qry->fetch_assoc() as $k => $v) {
             $$k = $v;
         }
     }
 }
-$all_profit = ($po_rate - $daily_rate) * $quantity;
+$all_profit = ($po_rate - $daily_rate) * $approved_quantity;
 $profit = $all_profit / 2;
-$total_investment = $daily_rate * $quantity;
+$total_investment = $daily_rate * $approved_quantity;
 ?>
 <?php if ($_settings->chk_flashdata('success')) : ?>
     <script>
@@ -129,9 +129,11 @@ $total_investment = $daily_rate * $quantity;
                             </a>
                         </li>
                         <li class="nav-item">
+                        <?php if ($pending == 0) : ?>
                             <a class="nav-link close_account" href="javascript:void(0)" data-id="<?php echo $_GET['id'] ?>">
                                 <i class="fas fa-ban"></i> Close Account
                             </a>
+                        <?php endif ?>
                         </li>
                     </ul>
                 </div>
@@ -203,16 +205,30 @@ $total_investment = $daily_rate * $quantity;
                             </tr>
                             <tr>
                                 <th>
-                                    Rate
+                                    Company Location
+                                </th>
+                                <td>
+                                    <?php echo $location ?>
+                                </td>
+                                <th>
+                                    PO Rate
+                                </th>
+                                <td>
+                                    <?php echo $po_rate ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Daily Rate
                                 </th>
                                 <td>
                                     <?php echo $daily_rate ?>
                                 </td>
                                 <th>
-                                    Quantity
+                                   Approved Quantity
                                 </th>
                                 <td>
-                                    <?php echo $quantity ?>
+                                    <?php echo $approved_quantity ?>
                                 </td>
                             </tr>
                             <tr>
@@ -220,14 +236,10 @@ $total_investment = $daily_rate * $quantity;
                                     Status
                                 </th>
                                 <td>
-                                    <?php if ($status == 0) : ?>
-                                        <span class="badge badge-warning">Pending</span>
-                                    <?php elseif ($status == 1) : ?>
-                                        <span class="badge badge-success">Complete</span>
-                                    <?php elseif ($status == 3) : ?>
+                                    <?php if ($booking_status == 0) : ?>
                                         <span class="badge badge-danger">Inactive</span>
                                     <?php else : ?>
-                                        <span class="badge badge-info">Cancel</span>
+                                        <span class="badge badge-success">Active</span>
                                     <?php endif; ?>
                                 <th>
                                     Date Created
@@ -242,11 +254,11 @@ $total_investment = $daily_rate * $quantity;
             </div>
             <div class="col-md-6">
                 <div class="justify-content-end">
-                    <?php if ($pending > 0) { ?>
+                    <?php if ($pending > 0) : ?>
                         <a class="float-payment-button" id="payment-button" href="javascript:void(0)" data-id="<?php echo $_GET['id'] ?>">
                             <i class="fas fa-file-invoice payment-button"></i>
                         </a>
-                    <?php } ?>
+                    <?php endif ?>
                 </div>
             </div>
         </div>

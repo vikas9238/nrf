@@ -37,9 +37,13 @@ if(isset($quotation_id)){
             <p><b>Company:</b> <?php echo $quotation_meta['name'] ?></p>
             <p><b>PO Rate:</b> <?php echo $quotation_meta['po_rate'] ?></p>
             <p><b>Daily Rate:</b> <?php echo number_format($daily_rate) ?></p>
-            <p><b>Quantity:</b> <?php echo $quantity ?> <?php if($quotation_meta['po_unit']==1): ?> TON<?php else: ?> CFT<?php endif; ?></p>
+            <p><b>Order Quantity:</b> <?php echo $quantity ?> <?php if($quotation_meta['po_unit']==1): ?> TON<?php else: ?> CFT<?php endif; ?></p>
             <p><b>Investe Amount:</b> <?php echo $daily_rate*$quantity ?></p>
-            <p><b>Client Profit:</b> <?php echo ($po_rate-$daily_rate)*$quantity/2 ?></p>
+            <p><b>Client Profit:</b> <?php echo ($po_rate-$daily_rate)*$quantity/2 ?></p><hr>
+            <p><b>Approved Quantity:</b> <?php echo $approved_quantity ?> <?php if($quotation_meta['po_unit']==1): ?> TON<?php else: ?> CFT<?php endif; ?></p>
+            <p><b>Investe Amount:</b> <?php echo $daily_rate*$approved_quantity ?></p>
+            <p><b>Client Profit:</b> <?php echo ($po_rate-$daily_rate)*$approved_quantity/2 ?>
+            <p class="bg-primary"><b>Refund Remaining Amount:</b> <?php echo ($daily_rate*$quantity)-($daily_rate*$approved_quantity) ?>
         </div>
     </div>
     <div class="row">
@@ -56,6 +60,9 @@ if(isset($quotation_id)){
                 case '2':
                     echo '<span class="badge badge-danger">Cancelled</span>';
                 break;
+                case '3':
+                    echo '<span class="badge badge-success">Active</span>';
+                break;
             }
         ?>
         </div>
@@ -64,7 +71,9 @@ if(isset($quotation_id)){
 </div>
 <div class="modal-footer">
     <?php if(!isset($_GET['view'])): ?>
-    <button type="button" id="update" class="btn btn-sm btn-flat btn-primary">Edit</button>
+        <?php if($status != 1): ?>
+        <button type="button" id="update" class="btn btn-sm btn-flat btn-primary">Edit</button>
+        <?php endif; ?>
     <?php endif; ?>
     <button type="button" class="btn btn-secondary btn-sm btn-flat" data-dismiss="modal">Close</button>
 </div>

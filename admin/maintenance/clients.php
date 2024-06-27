@@ -39,7 +39,7 @@
 						while($row = $qry->fetch_assoc()):
 					?>
 						<tr>
-							<td class="text-center"><a href="?page=maintenance/clientdetails&id=<?php echo $row['id'] ?>"><?php echo $row['id'] ?></a></td>
+							<td class="text-center"><a href="?page=maintenance/clientdetails&id=<?php echo $row['id'] ?>"><?php echo $i++ ?></a></td>
 							<td><?php echo date("Y-m-d H:i",strtotime($row['date_created'])) ?></td>
 							<td><?php echo $row['firstname'] ?>&nbsp;<?php echo $row['lastname'] ?></td>
 							<td><?php echo $row['contact'] ?></td>

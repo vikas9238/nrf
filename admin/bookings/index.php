@@ -40,7 +40,7 @@
 				<tbody>
 					<?php 
 					$i = 1;
-						$qry = $conn->query("SELECT r.*,concat(c.firstname,' ',c.lastname) as client,co.name,pr.category from `booking_list` r inner join clients c on c.id = r.client_id inner join quotation_list q on q.id=r.quotation_id inner join company_list co on co.id=q.company_id inner join product pr on pr.id=q.product_id order by unix_timestamp(r.date_created) desc ");
+						$qry = $conn->query("SELECT r.*,concat(c.firstname,' ',c.lastname) as client,co.name,pr.category,q.address from `booking_list` r inner join clients c on c.id = r.client_id inner join quotation_list q on q.id=r.quotation_id inner join company_list co on co.id=q.company_id inner join product pr on pr.id=q.product_id order by unix_timestamp(r.date_created) desc ");
 						while($row = $qry->fetch_assoc()):
 					?>
 						<tr>
@@ -48,6 +48,7 @@
 							<td><?php echo date("Y-m-d H:i",strtotime($row['date_created'])) ?></td>
 							<td>
 								<small><span class="text-muted">Company:</span><?php echo $row['name'] ?></small><br>
+								<small><span class="text-muted">Address:</span><?php echo $row['address'] ?></small><br>
 								<small><span class="text-muted">Product: </span><?php echo $row['category'] ?></small>
 							</td>
 							<td><?php echo $row['client'] ?></td>
@@ -58,6 +59,8 @@
                                     <span class="badge badge-primary">Confirmed</span>
 								<?php elseif($row['status'] == 2): ?>
                                     <span class="badge badge-danger">Cancelled</span>
+								<?php elseif($row['status'] == 3): ?>
+                                    <span class="badge badge-success">Active</span>
                                 <?php endif; ?>
                             </td>
 							<td align="center">

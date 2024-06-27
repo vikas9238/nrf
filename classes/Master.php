@@ -417,8 +417,33 @@ Class Master extends DBConnection {
 			$sql = "INSERT INTO `booking_list` set {$data} ";
 			$save = $this->conn->query($sql);
 		}else{
-			$sql = "UPDATE `booking_list` set {$data} where id = '{$id}' ";
-			$save = $this->conn->query($sql);
+			if($status == 1){
+				$stock = $this->conn->query("SELECT quantity FROM `quotation_list` where id = '{$quotation_id}'")->fetch_array()['quantity'];
+				if($approved_quantity<=$stock){
+					$sql = "UPDATE `booking_list` set approved_quantity = approved_quantity + '{$approved_quantity}', status='1' where id ='{$id}'";
+					$save = $this->conn->query($sql);
+					$qur = "UPDATE `quotation_list` set quantity = quantity - '{$approved_quantity}' where id = '{$quotation_id}'";
+					$save = $this->conn->query($qur);
+				}
+			}elseif($status == 3){
+				$stock = $this->conn->query("SELECT quantity FROM `quotation_list` where id = '{$quotation_id}'")->fetch_array()['quantity'];
+				// $stock_approved = $this->conn->query("SELECT approved_quantity FROM `booking_list` where id = '{$id}'")->fetch_array()['approved_quantity'];
+				if($approved_quantity<=$stock){
+					$sql = "UPDATE `booking_list` set approved_quantity= approved_quantity + '{$approved_quantity}', status='3' where id ='{$id}'";
+					$save = $this->conn->query($sql);
+					$qur = "UPDATE `quotation_list` set quantity = quantity - '{$approved_quantity}' where id = '{$quotation_id}'";
+					$save = $this->conn->query($qur);
+				}
+			}elseif($status == 2){
+				$sql = "UPDATE `booking_list` set status='2' where id ='{$id}'";
+				$save = $this->conn->query($sql);
+			}
+			// $sql = "UPDATE `booking_list` set {$data} where id ='{$id}'";
+			// $save = $this->conn->query($sql);
+			// if($quantity>0){
+			// $qur = "UPDATE `quotation_list` set quantity = quantity - '{$quantity}' where id = '{$quotation_id}'";
+			// $save = $this->conn->query($qur);
+			// }
 		}
 		if($save){
 			$resp['status'] = 'success';
@@ -446,7 +471,7 @@ Class Master extends DBConnection {
 	//Quation manage
 	function close_account(){
 		extract($_POST);
-			$sql = "UPDATE `quotation_list` set status =0 where id = '{$id}' ";
+			$sql = "UPDATE `booking_list` set booking_status ='0' where id = '{$id}' ";
 			$save = $this->conn->query($sql);
 		if($save){
 			$resp['status'] = 'success';

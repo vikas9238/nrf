@@ -37,22 +37,23 @@ if (isset($quotation_id)) {
         </div>
         <div class="form-group">
             <label for="quantity" class="control-label">Quantity/<?php if ($quotation_meta['po_unit'] == 1) : ?> TON<?php else : ?> CFT<?php endif; ?></label>
-            <input type="number" name="quantity" id="quantity" class="form-control form-conrtrol-sm rounded-0 text-right" value="<?php echo isset($quantity) ? $quantity : 0 ?>" required>
+            <input type="number" name="approved_quantity" id="approved_quantity" class="form-control form-conrtrol-sm rounded-0 text-right" value="<?php echo $quantity-$approved_quantity ?>" required>
         </div>
         <div class="form-group">
             <label for="daily_rate" class="control-label">Daily Rate</label>
-            <input type="text" class="form-control form-conrtrol-sm rounded-0 text-right" value="<?php echo isset($daily_rate) ? $daily_rate : 0.00 ?>" required readonly>
+            <input type="text" class="form-control form-conrtrol-sm rounded-0 text-right" value="<?php echo $daily_rate ?>" required readonly>
         </div>
         <div class="form-group">
             <label for="amount" class="control-label">Total Amount</label>
-            <input type="number" class="form-control form-conrtrol-sm rounded-0 text-right amount" value="<?php echo isset($daily_rate) * $quantity ? $daily_rate * $quantity : 0 ?>" required readonly>
+            <input type="number" class="form-control form-conrtrol-sm rounded-0 text-right amount" value="<?php echo $daily_rate * ($quantity-$approved_quantity) ?>" required readonly>
         </div>
         <div class="form-group">
             <label for="" class="control-label">Status</label>
             <select name="status" id="" class="custom-select custol-select-sm">
                 <option value="0" <?php echo $status == 0 ? "selected" : '' ?>>Pending</option>
-                <option value="1" <?php echo $status == 1 ? "selected" : '' ?>>Confirmed</option>
                 <option value="2" <?php echo $status == 2 ? "selected" : '' ?>>Cancelled</option>
+                <option value="3" <?php echo $status == 3 ? "selected" : '' ?>>Active</option>
+                <option value="1" <?php echo $status == 1 ? "selected" : '' ?>>Confirmed</option>
             </select>
         </div>
     </form>
@@ -70,7 +71,7 @@ if (isset($quotation_id)) {
     // }
     function calc_amount() {
         var daily_rate = "<?php echo isset($daily_rate) ? $daily_rate : '' ?>";
-        var quantity = $('#quantity').val()
+        var quantity = $('#approved_quantity').val()
         var amount = daily_rate * quantity;
         console.log(amount)
         $('.amount').val(amount)
@@ -78,19 +79,25 @@ if (isset($quotation_id)) {
     $(function() {
         var today_quantity = <?php echo $quotation_meta['quantity'] ?>;
         var quotation_id = $('#quotation_id').val()
+        var approved_quantity =<?php echo $quantity ?>-<?php echo $approved_quantity ?>;
         var id = $('#id').val()
-        $('#quantity').change(function() {
+        $('#approved_quantity').change(function() {
             $('#msg').text('')
-            $('#quantity').removeClass('border-success border-danger')
-            var quantity = $('#quantity').val()
+            $('#approved_quantity').removeClass('border-success border-danger')
+            var quantity = $('#approved_quantity').val()
             if (quantity <= 0) {
-                $('#quantity').addClass('border-danger')
+                $('#approved_quantity').addClass('border-danger')
                 $('#msg').text("Invalid Quantity")
                 return false;
             }
-            if(quantity >= today_quantity){
-                $('#quantity').addClass('border-danger')
+            if(quantity > today_quantity){
+                $('#approved_quantity').addClass('border-danger')
                 $('#msg').text("Stock not available for the quantity you entered.")            
+                return false;
+            }
+            if(quantity > approved_quantity){
+                $('#approved_quantity').addClass('border-danger')
+                $('#msg').text("Order quantity are smaller then you Entered.")            
                 return false;
             }
             // $('#check-availability-loader').removeClass('d-none')

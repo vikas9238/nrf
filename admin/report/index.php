@@ -78,7 +78,7 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
                             <small><span class="text-muted">Update Date: </span><?php echo date("Y-m-d",strtotime($row['date_updated'])) ?></small><br>
                             <small><span class="text-muted">PO Rate: </span><?php echo number_format($row['po_rate']) ?></small><br>
                             <small><span class="text-muted">Daily Rate: </span><?php echo number_format($row['daily_rate']) ?></small><br>
-                            <small><span class="text-muted">Quantity: </span><?php echo number_format($row['quantity']) ?></small><br>
+                            <small><span class="text-muted">Quantity: </span><?php echo number_format($row['approved_quantity']) ?></small><br>
                             <small><span class="text-muted">Status: </span>
                                 <?php if($row['status'] == 0): ?>
                                     <span class="badge badge-light">Pending</span>
@@ -95,9 +95,10 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
                             <small><span class="text-muted">Contact: </span><?php echo $row['contact'] ?></small>
                         </td>
                         <td>
-                            <small><span class="text-muted">Product: </span><?php echo isset($quotation_arr[$row['quotation_id']]) ? $quotation_arr[$row['quotation_id']]['category'] : 'N/A' ?></small><br>
-                            <small><span class="text-muted">Company: </span><?php echo isset($quotation_arr[$row['quotation_id']]) ? $quotation_arr[$row['quotation_id']]['brand'] : 'N/A' ?></small><br>
-                            <small><span class="text-muted">Description: </span><?php echo isset($quotation_arr[$row['quotation_id']]) ? $quotation_arr[$row['quotation_id']][strip_tags(stripslashes(html_entity_decode('description')))] : 'N/A' ?></small>
+                            <small><span class="text-muted">Product: </span><?php echo $quotation_arr[$row['quotation_id']]['category'] ?></small><br>
+                            <small><span class="text-muted">Company: </span><?php echo $quotation_arr[$row['quotation_id']]['brand'] ?></small><br>
+                            <small><span class="text-muted">Address: </span><?php echo $quotation_arr[$row['quotation_id']]['address'] ?></small><br>
+                            <small><span class="text-muted">Description: </span><?php echo strip_tags(stripslashes(html_entity_decode($quotation_arr[$row['quotation_id']]['description']))) ?></small>
                         </td>
                     </tr>
                     <?php endwhile; ?>

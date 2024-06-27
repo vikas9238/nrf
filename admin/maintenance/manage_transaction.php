@@ -1,13 +1,17 @@
 <?php
 require_once '../../config.php';
-// if(isset($_GET['id']) && $_GET['id'] > 0){
-//     $qry = $conn->query("SELECT * from `company_list` where id = '{$_GET['id']}' ");
-//     if($qry->num_rows > 0){
-//         foreach($qry->fetch_assoc() as $k => $v){
-//             $$k=$v;
-//         }
-//     }
-// }
+if (isset($_GET['id']) && $_GET['id'] > 0) {
+    $qry = $conn->query("SELECT * from `booking_list` where id = '{$_GET['id']}' ");
+	if ($qry->num_rows > 0) {
+        foreach ($qry->fetch_assoc() as $k => $v) {
+            $$k = $v;
+        }
+    }
+	$all_profit = ($po_rate - $daily_rate) * $approved_quantity;
+	$profit = $all_profit / 2;
+	$total_investment = $daily_rate * $approved_quantity;
+	$pending = $profit + $total_investment - $paid_amount;
+}
 ?>
 <div class="container-fluid">
 	<form action="" id="transaction-form">
@@ -20,13 +24,16 @@ require_once '../../config.php';
 		<div class="form-group">
 			<label for="payment_mode" class="control-label">Payment Mode</label>
 			<select name="payment_mode" id="payment_mode" class="custom-select selevt">
-			<option value="0">Cash</option>
 			<option value="1">Online</option>
 			</select>
 		</div>
         <div class="form-group">
 			<label for="reference_number" class="control-label">Reference Number</label>
 			<input name="reference_number" id="reference_number"  class="form-control form-control-sm rounded-0" required/>
+		</div>
+        <div class="form-group">
+			<label for="description" class="control-label">Description</label>
+			<input name="description" id="description" type="text" class="form-control form-control-sm rounded-0"/>
 		</div>
 		
 	</form>
@@ -35,10 +42,24 @@ require_once '../../config.php';
 <script>
   
 	$(document).ready(function(){
+		$('#amount').change(function(){
+			var amount = $(this).val();
+			if(amount > <?php echo $pending ?>){
+				alert_toast("Amount must be less than or equal to <?php echo $pending ?>",'warning');
+				$(this).val(<?php echo $pending ?>)
+			}
+		})
+		// $("#transaction-form").validate();
 		$('#transaction-form').submit(function(e){
 			e.preventDefault();
             var _this = $(this)
 			 $('.err-msg').remove();
+			 var $form = $(this);
+			 if($form[0].checkValidity() === false){
+				//  $form.addClass('was-validated')
+				alert_toast("Need To Fill Required Details",'warning');
+				 return false;
+			 }
 			start_loader();
 			$.ajax({
 				url:_base_url_+"classes/Master.php?f=save_transaction",
@@ -72,15 +93,5 @@ require_once '../../config.php';
 				}
 			})
 		})
-        $("#reference_number").attr('disabled', 'disabled');
-        $('#payment_mode').trigger('change');
-        $(document).on('change', '#payment_mode', function () {
-            var payMode = $(this).val();
-            if (payMode != 0) {
-                $("#reference_number").removeAttr('disabled');
-            } else {
-                $("#reference_number").attr('disabled', 'disabled');
-            }
-        });
 	})
 </script>
