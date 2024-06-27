@@ -262,15 +262,6 @@ Class Master extends DBConnection {
 			if(!empty($data)) $data .=",";
 				$data .= " `description`='".addslashes(htmlentities($description))."' ";
 		}
-		// $check = $this->conn->query("SELECT * FROM `quotation_list` where `bike_model` = '{$bike_model}' ".(!empty($id) ? " and id != {$id} " : "")." ")->num_rows;
-		// if($this->capture_err())
-		// 	return $this->capture_err();
-		// if($check > 0){
-		// 	$resp['status'] = 'failed';
-		// 	$resp['msg'] = "Bike Model already exist.";
-		// 	return json_encode($resp);
-		// 	exit;
-		// }
 		if(empty($id)){
 			$sql = "INSERT INTO `quotation_list` set {$data} ";
 			$save = $this->conn->query($sql);
@@ -438,12 +429,6 @@ Class Master extends DBConnection {
 				$sql = "UPDATE `booking_list` set status='2' where id ='{$id}'";
 				$save = $this->conn->query($sql);
 			}
-			// $sql = "UPDATE `booking_list` set {$data} where id ='{$id}'";
-			// $save = $this->conn->query($sql);
-			// if($quantity>0){
-			// $qur = "UPDATE `quotation_list` set quantity = quantity - '{$quantity}' where id = '{$quotation_id}'";
-			// $save = $this->conn->query($qur);
-			// }
 		}
 		if($save){
 			$resp['status'] = 'success';
