@@ -47,7 +47,7 @@ $total_investment = $daily_rate * $approved_quantity;
                                 </span>
 
                                 <div class="info-box-content">
-                                    <span class="info-box-text">Paid Amount</span>
+                                    <span class="info-box-text">Receive Amount</span>
                                     <?php echo $paid_amount ?>
                                 </div>
                                 <!-- /.info-box-content -->
