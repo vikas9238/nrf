@@ -1,19 +1,23 @@
 <?php
 require_once('../config.php');
-Class Master extends DBConnection {
+class Master extends DBConnection
+{
 	private $settings;
-	public function __construct(){
+	public function __construct()
+	{
 		global $_settings;
 		$this->settings = $_settings;
 		parent::__construct();
 	}
-	public function __destruct(){
+	public function __destruct()
+	{
 		parent::__destruct();
 	}
-	function capture_err(){
-		if(!$this->conn->error)
+	function capture_err()
+	{
+		if (!$this->conn->error)
 			return false;
-		else{
+		else {
 			$resp['status'] = 'failed';
 			$resp['error'] = $this->conn->error;
 			return json_encode($resp);
@@ -21,625 +25,643 @@ Class Master extends DBConnection {
 		}
 	}
 	// company list update,save and delete section start
-	function save_company(){
+	function save_company()
+	{
 		extract($_POST);
 		$data = "";
-		foreach($_POST as $k =>$v){
-			if(!in_array($k,array('id','description'))){
-				if(!empty($data)) $data .=",";
+		foreach ($_POST as $k => $v) {
+			if (!in_array($k, array('id', 'description'))) {
+				if (!empty($data)) $data .= ",";
 				$data .= " `{$k}`='{$v}' ";
 			}
 		}
-		if(isset($_POST['description'])){
-			if(!empty($data)) $data .=",";
-				$data .= " `description`='".addslashes(htmlentities($description))."' ";
+		if (isset($_POST['description'])) {
+			if (!empty($data)) $data .= ",";
+			$data .= " `description`='" . addslashes(htmlentities($description)) . "' ";
 		}
-		$check = $this->conn->query("SELECT * FROM `company_list` where `name` = '{$name}' ".(!empty($id) ? " and id != {$id} " : "")." ")->num_rows;
-		if($this->capture_err())
+		$check = $this->conn->query("SELECT * FROM `company_list` where `name` = '{$name}' " . (!empty($id) ? " and id != {$id} " : "") . " ")->num_rows;
+		if ($this->capture_err())
 			return $this->capture_err();
-		if($check > 0){
+		if ($check > 0) {
 			$resp['status'] = 'failed';
 			$resp['msg'] = "Company already exist.";
 			return json_encode($resp);
 			exit;
 		}
-		if(empty($id)){
+		if (empty($id)) {
 			$sql = "INSERT INTO `company_list` set {$data} ";
 			$save = $this->conn->query($sql);
-		}else{
+		} else {
 			$sql = "UPDATE `company_list` set {$data} where id = '{$id}' ";
 			$save = $this->conn->query($sql);
 		}
-		if($save){
+		if ($save) {
 			$resp['status'] = 'success';
-			if(empty($id))
-				$this->settings->set_flashdata('success',"New Company successfully saved.");
+			if (empty($id))
+				$this->settings->set_flashdata('success', "New Company successfully saved.");
 			else
-				$this->settings->set_flashdata('success',"Company successfully updated.");
-		}else{
+				$this->settings->set_flashdata('success', "Company successfully updated.");
+		} else {
 			$resp['status'] = 'failed';
-			$resp['err'] = $this->conn->error."[{$sql}]";
+			$resp['err'] = $this->conn->error . "[{$sql}]";
 		}
 		return json_encode($resp);
 	}
-	function delete_company(){
+	function delete_company()
+	{
 		extract($_POST);
 		$del = $this->conn->query("DELETE FROM `company_list` where id = '{$id}'");
-		if($del){
+		if ($del) {
 			$resp['status'] = 'success';
-			$this->settings->set_flashdata('success',"Company successfully deleted.");
-		}else{
+			$this->settings->set_flashdata('success', "Company successfully deleted.");
+		} else {
 			$resp['status'] = 'failed';
 			$resp['error'] = $this->conn->error;
 		}
 		return json_encode($resp);
-
 	}
 	// company section end
 
 	// transaction save section start
-	function save_transaction(){
+	function save_transaction()
+	{
 		extract($_POST);
 		$data = "";
-		foreach($_POST as $k =>$v){
+		foreach ($_POST as $k => $v) {
 			//if(!in_array($k,array('id','description'))){
-				if(!empty($data)) $data .=",";
-				$data .= " `{$k}`='{$v}' ";
+			if (!empty($data)) $data .= ",";
+			$data .= " `{$k}`='{$v}' ";
 			//}
 		}
-		if(empty($id)){
+		if (empty($id)) {
 			$sql = "INSERT INTO `transaction` set {$data} ";
 			$save = $this->conn->query($sql);
 			$qur = "UPDATE `booking_list` set paid_amount = paid_amount + '{$amount}' where id = '{$quotation_id}'";
 			$save = $this->conn->query($qur);
 		}
-		if($save){
+		if ($save) {
 			$resp['status'] = 'success';
-			if(empty($id))
-				$this->settings->set_flashdata('success',"Transaction successfully saved.");
+			if (empty($id))
+				$this->settings->set_flashdata('success', "Transaction successfully saved.");
 			else
-				$this->settings->set_flashdata('success',"Company successfully updated.");
-		}else{
+				$this->settings->set_flashdata('success', "Company successfully updated.");
+		} else {
 			$resp['status'] = 'failed';
-			$resp['err'] = $this->conn->error."[{$sql}]";
+			$resp['err'] = $this->conn->error . "[{$sql}]";
 		}
 		return json_encode($resp);
 	}
 	//transaction end
 
 	// product list update,save and delete section start 
-	function save_product(){
+	function save_product()
+	{
 		extract($_POST);
 		$data = "";
-		foreach($_POST as $k =>$v){
-			if(!in_array($k,array('id','description'))){
-				if(!empty($data)) $data .=",";
+		foreach ($_POST as $k => $v) {
+			if (!in_array($k, array('id', 'description'))) {
+				if (!empty($data)) $data .= ",";
 				$data .= " `{$k}`='{$v}' ";
 			}
 		}
-		if(isset($_POST['description'])){
-			if(!empty($data)) $data .=",";
-				$data .= " `description`='".addslashes(htmlentities($description))."' ";
+		if (isset($_POST['description'])) {
+			if (!empty($data)) $data .= ",";
+			$data .= " `description`='" . addslashes(htmlentities($description)) . "' ";
 		}
-		$check = $this->conn->query("SELECT * FROM `product` where `category` = '{$category}' ".(!empty($id) ? " and id != {$id} " : "")." ")->num_rows;
-		if($this->capture_err())
+		$check = $this->conn->query("SELECT * FROM `product` where `category` = '{$category}' " . (!empty($id) ? " and id != {$id} " : "") . " ")->num_rows;
+		if ($this->capture_err())
 			return $this->capture_err();
-		if($check > 0){
+		if ($check > 0) {
 			$resp['status'] = 'failed';
 			$resp['msg'] = "Product already exist.";
 			return json_encode($resp);
 			exit;
 		}
-		if(empty($id)){
+		if (empty($id)) {
 			$sql = "INSERT INTO `product` set {$data} ";
 			$save = $this->conn->query($sql);
-		}else{
+		} else {
 			$sql = "UPDATE `product` set {$data} where id = '{$id}' ";
 			$save = $this->conn->query($sql);
 		}
-		if($save){
+		if ($save) {
 			$resp['status'] = 'success';
-			if(empty($id))
-				$this->settings->set_flashdata('success',"New Product successfully saved.");
+			if (empty($id))
+				$this->settings->set_flashdata('success', "New Product successfully saved.");
 			else
-				$this->settings->set_flashdata('success',"Product successfully updated.");
-		}else{
+				$this->settings->set_flashdata('success', "Product successfully updated.");
+		} else {
 			$resp['status'] = 'failed';
-			$resp['err'] = $this->conn->error."[{$sql}]";
+			$resp['err'] = $this->conn->error . "[{$sql}]";
 		}
 		return json_encode($resp);
 	}
-	function delete_product(){
+	function delete_product()
+	{
 		extract($_POST);
 		$del = $this->conn->query("DELETE FROM `product` where id = '{$id}'");
-		if($del){
+		if ($del) {
 			$resp['status'] = 'success';
-			$this->settings->set_flashdata('success',"Product successfully deleted.");
-		}else{
+			$this->settings->set_flashdata('success', "Product successfully deleted.");
+		} else {
 			$resp['status'] = 'failed';
 			$resp['error'] = $this->conn->error;
 		}
 		return json_encode($resp);
-
 	}
 	// product list update,save and delete section end 
 	//daily rate update section start
-	function daily_rate(){
+	function daily_rate()
+	{
 		extract($_POST);
 		$data = "";
-		foreach($_POST as $k =>$v){
-			if(!in_array($k,array('id','description'))){
-				if(!empty($data)) $data .=",";
+		foreach ($_POST as $k => $v) {
+			if (!in_array($k, array('id', 'description'))) {
+				if (!empty($data)) $data .= ",";
 				$data .= " `{$k}`='{$v}' ";
 			}
 		}
 		$sql = "UPDATE `product` set {$data} where id = '{$id}' ";
 		$update = $this->conn->query($sql);
-		if($update){
+		if ($update) {
 			$resp['status'] = 'success';
-				$this->settings->set_flashdata('success',"Daily Rate successfully updated.");
-		}else{
+			$this->settings->set_flashdata('success', "Daily Rate successfully updated.");
+		} else {
 			$resp['status'] = 'failed';
-			$resp['err'] = $this->conn->error."[{$sql}]";
+			$resp['err'] = $this->conn->error . "[{$sql}]";
 		}
 		return json_encode($resp);
-
 	}
 	// daily rate section end
-	
+
 	// client list update,save and delete section start 
-	function save_client(){
+	function save_client()
+	{
 		extract($_POST);
 		$data = "";
-		foreach($_POST as $k =>$v){
-			if(!in_array($k,array('id','description'))){
-				if(!empty($data)) $data .=",";
+		foreach ($_POST as $k => $v) {
+			if (!in_array($k, array('id', 'description'))) {
+				if (!empty($data)) $data .= ",";
 				$data .= " `{$k}`='{$v}' ";
 			}
 		}
-		if(isset($_POST['description'])){
-			if(!empty($data)) $data .=",";
-				$data .= " `description`='".addslashes(htmlentities($description))."' ";
+		if (isset($_POST['description'])) {
+			if (!empty($data)) $data .= ",";
+			$data .= " `description`='" . addslashes(htmlentities($description)) . "' ";
 		}
-		$check = $this->conn->query("SELECT * FROM `clients` where `firstname` = '{$firstname}' ".(!empty($id) ? " and id != {$id} " : "")." ")->num_rows;
-		if($this->capture_err())
+		$check = $this->conn->query("SELECT * FROM `clients` where `firstname` = '{$firstname}' " . (!empty($id) ? " and id != {$id} " : "") . " ")->num_rows;
+		if ($this->capture_err())
 			return $this->capture_err();
-		if($check > 0){
+		if ($check > 0) {
 			$resp['status'] = 'failed';
 			$resp['msg'] = "Client already exist.";
 			return json_encode($resp);
 			exit;
 		}
-		if(empty($id)){
+		if (empty($id)) {
 			$sql = "INSERT INTO `clients` set {$data} ";
 			$save = $this->conn->query($sql);
-		}else{
+		} else {
 			$sql = "UPDATE `clients` set {$data} where id = '{$id}' ";
 			$save = $this->conn->query($sql);
 		}
-		if($save){
+		if ($save) {
 			$resp['status'] = 'success';
-			if(empty($id))
-				$this->settings->set_flashdata('success',"New Client successfully saved.");
+			if (empty($id))
+				$this->settings->set_flashdata('success', "New Client successfully saved.");
 			else
-				$this->settings->set_flashdata('success',"Client successfully updated.");
-		}else{
+				$this->settings->set_flashdata('success', "Client successfully updated.");
+		} else {
 			$resp['status'] = 'failed';
-			$resp['err'] = $this->conn->error."[{$sql}]";
+			$resp['err'] = $this->conn->error . "[{$sql}]";
 		}
 		return json_encode($resp);
 	}
-	function delete_client(){
+	function delete_client()
+	{
 		extract($_POST);
 		$del = $this->conn->query("DELETE FROM `clients` where id = '{$id}'");
-		if($del){
+		if ($del) {
 			$resp['status'] = 'success';
-			$this->settings->set_flashdata('success',"Client successfully deleted.");
-		}else{
+			$this->settings->set_flashdata('success', "Client successfully deleted.");
+		} else {
 			$resp['status'] = 'failed';
 			$resp['error'] = $this->conn->error;
 		}
 		return json_encode($resp);
-
 	}
 	// client list update,save and delete section end 
 
 
-	function save_quotation(){
-		foreach($_POST as $k =>$v){
+	function save_quotation()
+	{
+		foreach ($_POST as $k => $v) {
 			$_POST[$k] = addslashes($v);
 		}
 		extract($_POST);
 		$data = "";
-		foreach($_POST as $k =>$v){
-			if(!in_array($k,array('id','description'))){
-				if(!empty($data)) $data .=",";
+		foreach ($_POST as $k => $v) {
+			if (!in_array($k, array('id', 'description'))) {
+				if (!empty($data)) $data .= ",";
 				$v = addslashes($v);
 				$data .= " `{$k}`='{$v}' ";
 			}
 		}
-		if(isset($_POST['description'])){
-			if(!empty($data)) $data .=",";
-				$data .= " `description`='".addslashes(htmlentities($description))."' ";
+		if (isset($_POST['description'])) {
+			if (!empty($data)) $data .= ",";
+			$data .= " `description`='" . addslashes(htmlentities($description)) . "' ";
 		}
-		if(empty($id)){
+		if (empty($id)) {
 			$sql = "INSERT INTO `quotation_list` set {$data} ";
 			$save = $this->conn->query($sql);
-			$id= $this->conn->insert_id;
-		}else{
+			$id = $this->conn->insert_id;
+		} else {
 			$sql = "UPDATE `quotation_list` set {$data} where id = '{$id}' ";
 			$save = $this->conn->query($sql);
 		}
-		if($save){
+		if ($save) {
 			$resp['msg'] = " Quotation Successfully saved.";
-			$thumb_fname = base_app."uploads/thumbnails/".$id.".png";
-			if(isset($_FILES['thumbnail']['tmp_name']) && !empty($_FILES['thumbnail']['tmp_name'])){
+			$thumb_fname = base_app . "uploads/thumbnails/" . $id . ".png";
+			if (isset($_FILES['thumbnail']['tmp_name']) && !empty($_FILES['thumbnail']['tmp_name'])) {
 				$upload = $_FILES['thumbnail']['tmp_name'];
-                   $type = mime_content_type($upload);
-                   $allowed = array('image/png','image/jpeg');
-                   
-                   if(!in_array($type,$allowed)){
-                       $resp['msg'].=" But Image failed to upload due to invalid file type.";
-                   }else{
-                       $gdImg = ($type == 'image/png')? imagecreatefrompng($upload) : imagecreatefromjpeg($upload);
-                       if($gdImg){
-                            list($width, $height) = getimagesize($upload);
-                            // new size variables
-                            $new_height = 400; 
-                            $new_width = 400;
+				$type = mime_content_type($upload);
+				$allowed = array('image/png', 'image/jpeg');
 
-                            $t_image = imagecreatetruecolor($new_width, $new_height);
-                            //Resizing the imgage
-                            imagecopyresampled($t_image, $gdImg, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-                            if(is_file($thumb_fname))
-                            unlink($thumb_fname);
-                            imagepng($t_image,$thumb_fname);
-                            imagedestroy($t_image);
-                            imagedestroy($gdImg);
-                       }else{
-                       $resp['msg'].=" But Image failed to upload due to unkown reason.";
-                       }
-                   }
+				if (!in_array($type, $allowed)) {
+					$resp['msg'] .= " But Image failed to upload due to invalid file type.";
+				} else {
+					$gdImg = ($type == 'image/png') ? imagecreatefrompng($upload) : imagecreatefromjpeg($upload);
+					if ($gdImg) {
+						list($width, $height) = getimagesize($upload);
+						// new size variables
+						$new_height = 400;
+						$new_width = 400;
+
+						$t_image = imagecreatetruecolor($new_width, $new_height);
+						//Resizing the imgage
+						imagecopyresampled($t_image, $gdImg, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+						if (is_file($thumb_fname))
+							unlink($thumb_fname);
+						imagepng($t_image, $thumb_fname);
+						imagedestroy($t_image);
+						imagedestroy($gdImg);
+					} else {
+						$resp['msg'] .= " But Image failed to upload due to unkown reason.";
+					}
+				}
 			}
-			if(isset($_FILES['images']['tmp_name']) && !empty($_FILES['images']['tmp_name']) && count($_FILES['images']['tmp_name']) > 0){
-                $dir = base_app.'uploads/'.$id.'/';
-                if(!is_dir($dir))
-                    mkdir($dir);
-                foreach($_FILES['images']['tmp_name'] as $k=>$v){
-					if(empty($v))
-					continue;
-                    $upload = $v;
-                    $type = mime_content_type($upload);
-                    $allowed = array('image/png','image/jpeg');
-                    $_name = str_replace(".".pathinfo($_FILES['images']['name'][$k], PATHINFO_EXTENSION),'',$_FILES['images']['name'][$k]);
-                    $ii = 1;
-                    while(true){
-                        $fname = $dir.$_name.'.png';
-                        if(is_file($fname)){
-                            $_name = $_name.'_'.($ii++);
-                        }else{
-                            break;
-                        }
-                    }
-                    if(!in_array($type,$allowed)){
-                        $resp['msg'].=" But Image failed to upload due to invalid file type.";
-                    }else{
-                        $gdImg = ($type == 'image/png')? imagecreatefrompng($upload) : imagecreatefromjpeg($upload);
-                        if($gdImg){
-                                list($width, $height) = getimagesize($upload);
-                                // new size variables
-                                $new_height = 600; 
-                                $new_width = 1000;
+			if (isset($_FILES['images']['tmp_name']) && !empty($_FILES['images']['tmp_name']) && count($_FILES['images']['tmp_name']) > 0) {
+				$dir = base_app . 'uploads/' . $id . '/';
+				if (!is_dir($dir))
+					mkdir($dir);
+				foreach ($_FILES['images']['tmp_name'] as $k => $v) {
+					if (empty($v))
+						continue;
+					$upload = $v;
+					$type = mime_content_type($upload);
+					$allowed = array('image/png', 'image/jpeg');
+					$_name = str_replace("." . pathinfo($_FILES['images']['name'][$k], PATHINFO_EXTENSION), '', $_FILES['images']['name'][$k]);
+					$ii = 1;
+					while (true) {
+						$fname = $dir . $_name . '.png';
+						if (is_file($fname)) {
+							$_name = $_name . '_' . ($ii++);
+						} else {
+							break;
+						}
+					}
+					if (!in_array($type, $allowed)) {
+						$resp['msg'] .= " But Image failed to upload due to invalid file type.";
+					} else {
+						$gdImg = ($type == 'image/png') ? imagecreatefrompng($upload) : imagecreatefromjpeg($upload);
+						if ($gdImg) {
+							list($width, $height) = getimagesize($upload);
+							// new size variables
+							$new_height = 600;
+							$new_width = 1000;
 
-                                $t_image = imagecreatetruecolor($new_width, $new_height);
-                                //Resizing the imgage
-                                imagecopyresampled($t_image, $gdImg, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-                                imagepng($t_image,$fname);
-                                imagedestroy($t_image);
-                                imagedestroy($gdImg);
-                        }else{
-                        $resp['msg'].=" But Image failed to upload due to unkown reason.";
-                        }
-                    }
-                }
-            }
+							$t_image = imagecreatetruecolor($new_width, $new_height);
+							//Resizing the imgage
+							imagecopyresampled($t_image, $gdImg, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+							imagepng($t_image, $fname);
+							imagedestroy($t_image);
+							imagedestroy($gdImg);
+						} else {
+							$resp['msg'] .= " But Image failed to upload due to unkown reason.";
+						}
+					}
+				}
+			}
+			if (isset($_FILES['upload_po']['tmp_name']) && !empty($_FILES['upload_po']['tmp_name'])) {
+			$uploaddir = base_app . "uploads/" . $id . "/";
+			$uploadfile = $uploaddir . $id.".pdf";
+			if (move_uploaded_file($_FILES['upload_po']['tmp_name'], $uploadfile)) {
+				$resp['msg'] .= "File is valid, and was successfully uploaded.\n";
+			} else {
+				$resp['msg'] .= "Possible file upload attack!\n";
+			}
+			}
 			$resp['status'] = 'success';
-			if(empty($id))
-				$this->settings->set_flashdata('success',"New Quotation successfully saved.");
+			if (empty($id))
+				$this->settings->set_flashdata('success', "New Quotation successfully saved.");
 			else
-				$this->settings->set_flashdata('success',"Quotation successfully updated.");
-		}else{
+				$this->settings->set_flashdata('success', "Quotation successfully updated.");
+		} else {
 			$resp['status'] = 'failed';
-			$resp['err'] = $this->conn->error."[{$sql}]";
+			$resp['err'] = $this->conn->error . "[{$sql}]";
 		}
 		return json_encode($resp);
 	}
-	function delete_quotation(){
+	function delete_quotation()
+	{
 		extract($_POST);
 		$del = $this->conn->query("DELETE FROM `quotation_list` where id = '{$id}'");
-		if($del){
+		if ($del) {
 			$resp['status'] = 'success';
-			$this->settings->set_flashdata('success',"Quotation successfully deleted.");
-			if(is_file(base_app.'uploads/thumbnails/'.$id.'.png'))
-			unlink(base_app.'uploads/thumbnails/'.$id.'.png');
-			$img_path = (base_app.'uploads/'.$id.'/');
-			if(is_dir($img_path)){
+			$this->settings->set_flashdata('success', "Quotation successfully deleted.");
+			if (is_file(base_app . 'uploads/thumbnails/' . $id . '.png'))
+				unlink(base_app . 'uploads/thumbnails/' . $id . '.png');
+			$img_path = (base_app . 'uploads/' . $id . '/');
+			if (is_dir($img_path)) {
 				$scandir = scandir($img_path);
-				foreach($scandir as $img){
-					if(!in_array($img,array('.','..')))
-					unlink($img_path.$img);
+				foreach ($scandir as $img) {
+					if (!in_array($img, array('.', '..')))
+						unlink($img_path . $img);
 				}
 				rmdir($img_path);
 			}
-		}else{
+		} else {
 			$resp['status'] = 'failed';
 			$resp['error'] = $this->conn->error;
 		}
 		return json_encode($resp);
-
 	}
-	function delete_img(){
+	function delete_img()
+	{
 		extract($_POST);
-		if(is_file($path)){
-			if(unlink($path)){
+		if (is_file($path)) {
+			if (unlink($path)) {
 				$resp['status'] = 'success';
-			}else{
+			} else {
 				$resp['status'] = 'failed';
-				$resp['error'] = 'failed to delete '.$path;
+				$resp['error'] = 'failed to delete ' . $path;
 			}
-		}else{
+		} else {
 			$resp['status'] = 'failed';
-			$resp['error'] = 'Unkown '.$path.' path';
+			$resp['error'] = 'Unkown ' . $path . ' path';
 		}
 		return json_encode($resp);
 	}
-	function save_booking(){
+	function save_booking()
+	{
 		extract($_POST);
 		$data = "";
-		if(!isset($client_id))
-		$_POST['client_id'] = $this->settings->userdata('id');
-		foreach($_POST as $k =>$v){
-			if(!in_array($k,array('id','description'))){
-				if(!empty($data)) $data .=",";
+		if (!isset($client_id))
+			$_POST['client_id'] = $this->settings->userdata('id');
+		foreach ($_POST as $k => $v) {
+			if (!in_array($k, array('id', 'description'))) {
+				if (!empty($data)) $data .= ",";
 				$data .= " `{$k}`='{$v}' ";
 			}
 		}
-		if(empty($id)){
+		if (empty($id)) {
 			$sql = "INSERT INTO `booking_list` set {$data} ";
 			$save = $this->conn->query($sql);
-		}else{
-			if($status == 1){
+		} else {
+			if ($status == 1) {
 				$stock = $this->conn->query("SELECT quantity FROM `quotation_list` where id = '{$quotation_id}'")->fetch_array()['quantity'];
-				if($approved_quantity<=$stock){
+				if ($approved_quantity <= $stock) {
 					$sql = "UPDATE `booking_list` set approved_quantity = approved_quantity + '{$approved_quantity}', status='1' where id ='{$id}'";
 					$save = $this->conn->query($sql);
 					$qur = "UPDATE `quotation_list` set quantity = quantity - '{$approved_quantity}' where id = '{$quotation_id}'";
 					$save = $this->conn->query($qur);
 				}
-			}elseif($status == 3){
+			} elseif ($status == 3) {
 				$stock = $this->conn->query("SELECT quantity FROM `quotation_list` where id = '{$quotation_id}'")->fetch_array()['quantity'];
-				if($approved_quantity<=$stock){
+				if ($approved_quantity <= $stock) {
 					$sql = "UPDATE `booking_list` set approved_quantity= approved_quantity + '{$approved_quantity}', status='3' where id ='{$id}'";
 					$save = $this->conn->query($sql);
 					$qur = "UPDATE `quotation_list` set quantity = quantity - '{$approved_quantity}' where id = '{$quotation_id}'";
 					$save = $this->conn->query($qur);
 				}
-			}elseif($status == 2){
+			} elseif ($status == 2) {
 				$sql = "UPDATE `booking_list` set status='2' where id ='{$id}'";
 				$save = $this->conn->query($sql);
 			}
 		}
-		if($save){
+		if ($save) {
 			$resp['status'] = 'success';
-			if(!empty($id))
-				$this->settings->set_flashdata('success',"Quotation Booking successfully updated.");
-		}else{
+			if (!empty($id))
+				$this->settings->set_flashdata('success', "Quotation Booking successfully updated.");
+		} else {
 			$resp['status'] = 'failed';
-			$resp['err'] = $this->conn->error."[{$sql}]";
+			$resp['err'] = $this->conn->error . "[{$sql}]";
 		}
 		return json_encode($resp);
 	}
-	function delete_booking(){
+	function delete_booking()
+	{
 		extract($_POST);
 		$del = $this->conn->query("DELETE FROM `booking_list` where id = '{$id}'");
-		if($del){
+		if ($del) {
 			$resp['status'] = 'success';
-			$this->settings->set_flashdata('success',"Booking successfully deleted.");
-		}else{
+			$this->settings->set_flashdata('success', "Booking successfully deleted.");
+		} else {
 			$resp['status'] = 'failed';
 			$resp['error'] = $this->conn->error;
 		}
 		return json_encode($resp);
-
 	}
 	//Quation manage
-	function close_account(){
+	function close_account()
+	{
 		extract($_POST);
-			$sql = "UPDATE `booking_list` set booking_status ='0' where id = '{$id}' ";
-			$save = $this->conn->query($sql);
-		if($save){
+		$sql = "UPDATE `booking_list` set booking_status ='0' where id = '{$id}' ";
+		$save = $this->conn->query($sql);
+		if ($save) {
 			$resp['status'] = 'success';
-			$this->settings->set_flashdata('success',"Account has been successfully closed.");
-		}else{
+			$this->settings->set_flashdata('success', "Account has been successfully closed.");
+		} else {
 			$resp['status'] = 'failed';
-			$resp['error'] = $this->conn->error."[{$sql}]";
+			$resp['error'] = $this->conn->error . "[{$sql}]";
 		}
 		return json_encode($resp);
-
 	}
 	// user register section start
-	function register(){
+	function register()
+	{
 		extract($_POST);
 		$data = "";
 		$_POST['password'] = md5($_POST['password']);
-		foreach($_POST as $k =>$v){
-			if(!in_array($k,array('id'))){
-				if(!empty($data)) $data .=",";
+		foreach ($_POST as $k => $v) {
+			if (!in_array($k, array('id'))) {
+				if (!empty($data)) $data .= ",";
 				$data .= " `{$k}`='{$v}' ";
 			}
 		}
-		$check = $this->conn->query("SELECT * FROM `clients` where `email` = '{$email}' ".(!empty($id) ? " and id != {$id} " : "")." ")->num_rows;
-		if($this->capture_err())
+		$check = $this->conn->query("SELECT * FROM `clients` where `email` = '{$email}' " . (!empty($id) ? " and id != {$id} " : "") . " ")->num_rows;
+		if ($this->capture_err())
 			return $this->capture_err();
-		if($check > 0){
+		if ($check > 0) {
 			$resp['status'] = 'failed';
 			$resp['msg'] = "Email already taken.";
 			return json_encode($resp);
 			exit;
 		}
-		if(empty($id)){
+		if (empty($id)) {
 			$sql = "INSERT INTO `clients` set {$data} ";
 			$save = $this->conn->query($sql);
 			$id = $this->conn->insert_id;
-		}else{
+		} else {
 			$sql = "UPDATE `clients` set {$data} where id = '{$id}' ";
 			$save = $this->conn->query($sql);
 		}
-		if($save){
-			$dir = base_app."uploads/clients/".$id."/";
-			if(isset($_FILES['user']['tmp_name']) && !empty($_FILES['user']['tmp_name'])){
-				if(!is_dir($dir))
-                    mkdir($dir);
-					$thumb_fname = $dir."user.png";
+		if ($save) {
+			$dir = base_app . "uploads/clients/" . $id . "/";
+			if (isset($_FILES['user']['tmp_name']) && !empty($_FILES['user']['tmp_name'])) {
+				if (!is_dir($dir))
+					mkdir($dir);
+				$thumb_fname = $dir . "user.png";
 				$upload = $_FILES['user']['tmp_name'];
-                   $type = mime_content_type($upload);
-                   $allowed = array('image/png','image/jpeg');
-                   
-                   if(!in_array($type,$allowed)){
-                       $resp['msg'].=" But Image failed to upload due to invalid file type.";
-                   }else{
-                       $gdImg = ($type == 'image/png')? imagecreatefrompng($upload) : imagecreatefromjpeg($upload);
-                       if($gdImg){
-                            list($width, $height) = getimagesize($upload);
-                            // new size variables
-                            $new_height = 400; 
-                            $new_width = 400;
+				$type = mime_content_type($upload);
+				$allowed = array('image/png', 'image/jpeg');
 
-                            $t_image = imagecreatetruecolor($new_width, $new_height);
-                            //Resizing the imgage
-                            imagecopyresampled($t_image, $gdImg, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-                            if(is_file($thumb_fname))
-                            unlink($thumb_fname);
-                            imagepng($t_image,$thumb_fname);
-                            imagedestroy($t_image);
-                            imagedestroy($gdImg);
-                       }else{
-                       $resp['msg'].=" But Image failed to upload due to unkown reason.";
-                       }
-                   }
+				if (!in_array($type, $allowed)) {
+					$resp['msg'] .= " But Image failed to upload due to invalid file type.";
+				} else {
+					$gdImg = ($type == 'image/png') ? imagecreatefrompng($upload) : imagecreatefromjpeg($upload);
+					if ($gdImg) {
+						list($width, $height) = getimagesize($upload);
+						// new size variables
+						$new_height = 400;
+						$new_width = 400;
+
+						$t_image = imagecreatetruecolor($new_width, $new_height);
+						//Resizing the imgage
+						imagecopyresampled($t_image, $gdImg, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+						if (is_file($thumb_fname))
+							unlink($thumb_fname);
+						imagepng($t_image, $thumb_fname);
+						imagedestroy($t_image);
+						imagedestroy($gdImg);
+					} else {
+						$resp['msg'] .= " But Image failed to upload due to unkown reason.";
+					}
+				}
 			}
-			if(isset($_FILES['sign']['tmp_name']) && !empty($_FILES['sign']['tmp_name'])){
-				if(!is_dir($dir))
-                    mkdir($dir);
-					$thumb_fname = $dir."sign.png";
+			if (isset($_FILES['sign']['tmp_name']) && !empty($_FILES['sign']['tmp_name'])) {
+				if (!is_dir($dir))
+					mkdir($dir);
+				$thumb_fname = $dir . "sign.png";
 				$upload = $_FILES['sign']['tmp_name'];
-                   $type = mime_content_type($upload);
-                   $allowed = array('image/png','image/jpeg');
-                   
-                   if(!in_array($type,$allowed)){
-                       $resp['msg'].=" But Image failed to upload due to invalid file type.";
-                   }else{
-                       $gdImg = ($type == 'image/png')? imagecreatefrompng($upload) : imagecreatefromjpeg($upload);
-                       if($gdImg){
-                            list($width, $height) = getimagesize($upload);
-                            // new size variables
-                            $new_height = 400; 
-                            $new_width = 400;
+				$type = mime_content_type($upload);
+				$allowed = array('image/png', 'image/jpeg');
 
-                            $t_image = imagecreatetruecolor($new_width, $new_height);
-                            //Resizing the imgage
-                            imagecopyresampled($t_image, $gdImg, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-                            if(is_file($thumb_fname))
-                            unlink($thumb_fname);
-                            imagepng($t_image,$thumb_fname);
-                            imagedestroy($t_image);
-                            imagedestroy($gdImg);
-                       }else{
-                       $resp['msg'].=" But Image failed to upload due to unkown reason.";
-                       }
-                   }
+				if (!in_array($type, $allowed)) {
+					$resp['msg'] .= " But Image failed to upload due to invalid file type.";
+				} else {
+					$gdImg = ($type == 'image/png') ? imagecreatefrompng($upload) : imagecreatefromjpeg($upload);
+					if ($gdImg) {
+						list($width, $height) = getimagesize($upload);
+						// new size variables
+						$new_height = 400;
+						$new_width = 400;
+
+						$t_image = imagecreatetruecolor($new_width, $new_height);
+						//Resizing the imgage
+						imagecopyresampled($t_image, $gdImg, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+						if (is_file($thumb_fname))
+							unlink($thumb_fname);
+						imagepng($t_image, $thumb_fname);
+						imagedestroy($t_image);
+						imagedestroy($gdImg);
+					} else {
+						$resp['msg'] .= " But Image failed to upload due to unkown reason.";
+					}
+				}
 			}
-			if(isset($_FILES['idfront']['tmp_name']) && !empty($_FILES['idfront']['tmp_name'])){
-				if(!is_dir($dir))
-                    mkdir($dir);
-					$thumb_fname = $dir."idfront.png";
+			if (isset($_FILES['idfront']['tmp_name']) && !empty($_FILES['idfront']['tmp_name'])) {
+				if (!is_dir($dir))
+					mkdir($dir);
+				$thumb_fname = $dir . "idfront.png";
 				$upload = $_FILES['idfront']['tmp_name'];
-                   $type = mime_content_type($upload);
-                   $allowed = array('image/png','image/jpeg');
-                   
-                   if(!in_array($type,$allowed)){
-                       $resp['msg'].=" But Image failed to upload due to invalid file type.";
-                   }else{
-                       $gdImg = ($type == 'image/png')? imagecreatefrompng($upload) : imagecreatefromjpeg($upload);
-                       if($gdImg){
-                            list($width, $height) = getimagesize($upload);
-                            // new size variables
-                            $new_height = 400; 
-                            $new_width = 400;
+				$type = mime_content_type($upload);
+				$allowed = array('image/png', 'image/jpeg');
 
-                            $t_image = imagecreatetruecolor($new_width, $new_height);
-                            //Resizing the imgage
-                            imagecopyresampled($t_image, $gdImg, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-                            if(is_file($thumb_fname))
-                            unlink($thumb_fname);
-                            imagepng($t_image,$thumb_fname);
-                            imagedestroy($t_image);
-                            imagedestroy($gdImg);
-                       }else{
-                       $resp['msg'].=" But Image failed to upload due to unkown reason.";
-                       }
-                   }
+				if (!in_array($type, $allowed)) {
+					$resp['msg'] .= " But Image failed to upload due to invalid file type.";
+				} else {
+					$gdImg = ($type == 'image/png') ? imagecreatefrompng($upload) : imagecreatefromjpeg($upload);
+					if ($gdImg) {
+						list($width, $height) = getimagesize($upload);
+						// new size variables
+						$new_height = 400;
+						$new_width = 400;
+
+						$t_image = imagecreatetruecolor($new_width, $new_height);
+						//Resizing the imgage
+						imagecopyresampled($t_image, $gdImg, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+						if (is_file($thumb_fname))
+							unlink($thumb_fname);
+						imagepng($t_image, $thumb_fname);
+						imagedestroy($t_image);
+						imagedestroy($gdImg);
+					} else {
+						$resp['msg'] .= " But Image failed to upload due to unkown reason.";
+					}
+				}
 			}
-			if(isset($_FILES['idback']['tmp_name']) && !empty($_FILES['idback']['tmp_name'])){
-				if(!is_dir($dir))
-                    mkdir($dir);
-					$thumb_fname = $dir."idback.png";
+			if (isset($_FILES['idback']['tmp_name']) && !empty($_FILES['idback']['tmp_name'])) {
+				if (!is_dir($dir))
+					mkdir($dir);
+				$thumb_fname = $dir . "idback.png";
 				$upload = $_FILES['idback']['tmp_name'];
-                   $type = mime_content_type($upload);
-                   $allowed = array('image/png','image/jpeg');
-                   
-                   if(!in_array($type,$allowed)){
-                       $resp['msg'].=" But Image failed to upload due to invalid file type.";
-                   }else{
-                       $gdImg = ($type == 'image/png')? imagecreatefrompng($upload) : imagecreatefromjpeg($upload);
-                       if($gdImg){
-                            list($width, $height) = getimagesize($upload);
-                            // new size variables
-                            $new_height = 400; 
-                            $new_width = 400;
+				$type = mime_content_type($upload);
+				$allowed = array('image/png', 'image/jpeg');
 
-                            $t_image = imagecreatetruecolor($new_width, $new_height);
-                            //Resizing the imgage
-                            imagecopyresampled($t_image, $gdImg, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
-                            if(is_file($thumb_fname))
-                            unlink($thumb_fname);
-                            imagepng($t_image,$thumb_fname);
-                            imagedestroy($t_image);
-                            imagedestroy($gdImg);
-                       }else{
-                       $resp['msg'].=" But Image failed to upload due to unkown reason.";
-                       }
-                   }
+				if (!in_array($type, $allowed)) {
+					$resp['msg'] .= " But Image failed to upload due to invalid file type.";
+				} else {
+					$gdImg = ($type == 'image/png') ? imagecreatefrompng($upload) : imagecreatefromjpeg($upload);
+					if ($gdImg) {
+						list($width, $height) = getimagesize($upload);
+						// new size variables
+						$new_height = 400;
+						$new_width = 400;
+
+						$t_image = imagecreatetruecolor($new_width, $new_height);
+						//Resizing the imgage
+						imagecopyresampled($t_image, $gdImg, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+						if (is_file($thumb_fname))
+							unlink($thumb_fname);
+						imagepng($t_image, $thumb_fname);
+						imagedestroy($t_image);
+						imagedestroy($gdImg);
+					} else {
+						$resp['msg'] .= " But Image failed to upload due to unkown reason.";
+					}
+				}
 			}
 			$resp['status'] = 'success';
-			if(empty($id))
-				$this->settings->set_flashdata('success',"Account successfully created.");
+			if (empty($id))
+				$this->settings->set_flashdata('success', "Account successfully created.");
 			else
-				$this->settings->set_flashdata('success',"Account successfully updated.");
+				$this->settings->set_flashdata('success', "Account successfully updated.");
 			// foreach($_POST as $k =>$v){
 			// 		$this->settings->set_userdata($k,$v);
 			// }
 			// $this->settings->set_userdata('id',$id);
 
-		}else{
+		} else {
 			$resp['status'] = 'failed';
-			$resp['err'] = $this->conn->error."[{$sql}]";
+			$resp['err'] = $this->conn->error . "[{$sql}]";
 		}
 		return json_encode($resp);
 	}
 	// user register section end 
-	
-	function rent_avail(){
+
+	function rent_avail()
+	{
 		extract($_POST);
 		// 	$whereand = '';
 		// 	if(isset($id) && $id > 0){
@@ -647,22 +669,23 @@ Class Master extends DBConnection {
 		// }
 		$check = $this->conn->query("SELECT quantity FROM `booking_list` where quotation_id='{$_POST['quotation_id']}' and status != 0 and id='{$_POST['id']}' ");
 
-		if($check < $quantity){
+		if ($check < $quantity) {
 			$resp['status'] = 'not_available';
 			$resp['msg'] = 'No Unit Available on selected dates.';
-		}else{
+		} else {
 			$resp['status'] = 'success';
 		}
 		return json_encode($resp);
 	}
-	function update_booking_status(){
+	function update_booking_status()
+	{
 		extract($_POST);
 		$update = $this->conn->query("UPDATE `rent_list` set status = '{$status}' where id='{$id}'");
-		if($update){
-			$resp['status']='success';
-		}else{
-			$resp['status']='failed';
-			$resp['error']=$this->conn->error;
+		if ($update) {
+			$resp['status'] = 'success';
+		} else {
+			$resp['status'] = 'failed';
+			$resp['error'] = $this->conn->error;
 		}
 		return json_encode($resp);
 	}
@@ -674,57 +697,57 @@ $sysset = new SystemSettings();
 switch ($action) {
 	case 'save_product':
 		echo $Master->save_product();
-	break;
+		break;
 	case 'delete_product':
 		echo $Master->delete_product();
-	break;
+		break;
 	case 'daily_rate':
 		echo $Master->daily_rate();
-	break;
+		break;
 	case 'save_client':
 		echo $Master->save_client();
-	break;
+		break;
 	case 'delete_client':
 		echo $Master->delete_client();
-	break;
+		break;
 	case 'save_company':
 		echo $Master->save_company();
-	break;
+		break;
 	case 'close_account':
 		echo $Master->close_account();
-	break;
+		break;
 	case 'delete_company':
 		echo $Master->delete_company();
-	break;
+		break;
 	case 'save_transaction':
 		echo $Master->save_transaction();
-	break;
+		break;
 	case 'save_quotation':
 		echo $Master->save_quotation();
-	break;
+		break;
 	case 'delete_quotation':
 		echo $Master->delete_quotation();
-	break;
-	
+		break;
+
 	case 'save_booking':
 		echo $Master->save_booking();
-	break;
+		break;
 	case 'delete_booking':
 		echo $Master->delete_booking();
-	break;
+		break;
 	case 'register':
 		echo $Master->register();
-	break;
+		break;
 	case 'rent_avail':
 		echo $Master->rent_avail();
-	break;
+		break;
 	case 'update_booking_status':
 		echo $Master->update_booking_status();
-	break;
+		break;
 	case 'delete_img':
 		echo $Master->delete_img();
-	break;
+		break;
 	default:
 		// echo $sysset->index();
-	break;
+		break;
 }
