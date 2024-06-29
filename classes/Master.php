@@ -431,7 +431,8 @@ class Master extends DBConnection
 			if ($status == 1) {
 				$stock = $this->conn->query("SELECT quantity FROM `quotation_list` where id = '{$quotation_id}'")->fetch_array()['quantity'];
 				if ($approved_quantity <= $stock) {
-					$sql = "UPDATE `booking_list` set approved_quantity = approved_quantity + '{$approved_quantity}', status='1' where id ='{$id}'";
+					$date=date('Y-m-d H:i:sa');
+					$sql = "UPDATE `booking_list` set approved_quantity = approved_quantity + '{$approved_quantity}', status='1', confirm_order='{$date}' where id ='{$id}'";
 					$save = $this->conn->query($sql);
 					$qur = "UPDATE `quotation_list` set quantity = quantity - '{$approved_quantity}' where id = '{$quotation_id}'";
 					$save = $this->conn->query($qur);

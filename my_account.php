@@ -72,9 +72,11 @@
                                         </button>
                                         <div class="dropdown-menu" role="menu">
                                             <a class="dropdown-item view_data" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-th-list text-dark"></span> View Details</a>
-                                          <?php  if($row['status'] == 1): ?>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="?p=transaction&id=<?php echo $row['id'] ?>"><span class="fa fa-indian-rupee-sign text-dark"></span> View Transaction</a>
+                                            <?php if ($row['status'] == 1) : ?>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" href="?p=transaction&id=<?php echo $row['id'] ?>"><span class="fa fa-indian-rupee-sign text-dark"></span> View Transaction</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item download" href="pdf/invoice.php?id=<?php echo $row['id'] ?>" target="_blank"><span class="fa fa-download text-dark"></span> Download Invoice</a>
                                             <?php endif; ?>
                                         </div>
                                     </td>
@@ -91,9 +93,6 @@
             $('.view_data').click(function() {
                 uni_modal("Order Details", "./admin/bookings/view_booking.php?view=user&id=" + $(this).attr('data-id'), 'large')
             })
-            // $('.transaction_data').click(function() {
-            //      uni_modal("Order Details", "./admin/maintenance/transaction.php?view=user&client_id="+<?php echo $_settings->userdata('id') ?>"&quotation_id="+ $(this).attr('data-id'), 'large')
-            // })
             $('table').dataTable();
 
         })
