@@ -16,10 +16,10 @@
                     <img class="img-fluid" src="<?php echo $_settings->info('carousel_2') ?>" alt="">
                 </div>
                 <div class="owl-carousel-item">
-                    <img class="img-fluid" src="<?php echo $_settings->info('carousel_3') ?>" alt="">
+                    <img class="img-fluid" src="<?php echo $_settings->info('carousel_3') ?>" loading="lazy" alt="">
                 </div>
                 <div class="owl-carousel-item">
-                    <img class="img-fluid" src="<?php echo $_settings->info('carousel_4') ?>" alt="">
+                    <img class="img-fluid" src="<?php echo $_settings->info('carousel_4') ?>" loading="lazy" alt="">
                 </div>
             </div>
         </div>
@@ -32,7 +32,7 @@
         <div class="row g-5 align-items-center">
             <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
                 <div class="about-img position-relative overflow-hidden p-5 pe-0">
-                    <img class="img-fluid w-100" src="<?php echo base_url ?>uploads/1.jpg">
+                    <img class="img-fluid w-100" src="<?php echo base_url ?>uploads/1.jpg" loading="lazy">
                 </div>
             </div>
             <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
@@ -77,7 +77,7 @@
             <div id="tab-1" class="tab-pane fade show p-0 active">
                 <div class="row g-4">
                     <?php
-                    $qur = $conn->query("SELECT b.*,c.category, d.name from `quotation_list` b inner join product c on b.product_id = c.id inner join company_list d on b.company_id = d.id  where b.status = 1 ");
+                    $qur = $conn->query("SELECT b.*,c.category, d.name from `quotation_list` b inner join product c on b.product_id = c.id inner join company_list d on b.company_id = d.id  where b.status = 1");
                     while ($row = $qur->fetch_assoc()) :
                         $upload_path = base_app . '/uploads/' . $row['id'];
                         $img = "/uploads/thumbnails/" . $row['id'] . '.png';
@@ -86,7 +86,7 @@
                             <a class="col mb-5 text-decoration-none text-dark" id="quotation" href=".?p=view_quotation&id=<?php echo md5($row['id']) ?>">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <img class="card-img-top w-100 quotation-cover" src="<?php echo validate_image($img) ?>" alt="">
+                                        <img class="card-img-top w-100 quotation-cover" src="<?php echo validate_image($img) ?>" loading="lazy" alt="">
                                         <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3"><?php echo round(($row['po_rate']-$row['daily_rate'])*100/$row['po_rate'],2)?>% Off</div>
                                         <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><b><?php echo $row['category'] ?></b></div>
                                     </div>
@@ -108,9 +108,9 @@
                             </a>
                         </div>
                     <?php endwhile; ?>
-                    <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
-                        <a class="btn btn-primary py-3 px-5" href="">Browse More Property</a>
-                    </div>
+                    <!-- <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
+                        <a class="btn btn-primary py-3 px-5" href="">Browse More Material</a>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -126,7 +126,7 @@
             <div class="bg-white rounded p-4" style="border: 1px dashed rgba(0, 185, 142, .3)">
                 <div class="row g-5 align-items-center">
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                        <img class="img-fluid rounded w-100" src="<?php echo base_url ?>uploads/call-to-action.jpg" alt="">
+                        <img class="img-fluid rounded w-100" src="<?php echo base_url ?>uploads/call-to-action.jpg" loading="lazy" alt="">
                     </div>
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                         <div class="mb-4">
@@ -155,7 +155,7 @@
             <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="team-item rounded overflow-hidden">
                     <div class="position-relative">
-                        <img class="img-fluid" src="<?php echo base_url ?>uploads/team-4.jpg" alt="">
+                        <img class="img-fluid" src="<?php echo base_url ?>uploads/team-4.jpg" loading="lazy" alt="">
                         <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
                             <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
                             <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
@@ -171,7 +171,7 @@
             <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="team-item rounded overflow-hidden">
                     <div class="position-relative">
-                        <img class="img-fluid" src="<?php echo base_url ?>uploads/team-4.jpg" alt="">
+                        <img class="img-fluid" src="<?php echo base_url ?>uploads/team-4.jpg" loading="lazy" alt="">
                         <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
                             <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
                             <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
@@ -187,7 +187,7 @@
             <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                 <div class="team-item rounded overflow-hidden">
                     <div class="position-relative">
-                        <img class="img-fluid" src="<?php echo base_url ?>uploads/team-4.jpg" alt="">
+                        <img class="img-fluid" src="<?php echo base_url ?>uploads/team-4.jpg" loading="lazy" alt="">
                         <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
                             <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
                             <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
@@ -203,7 +203,7 @@
             <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
                 <div class="team-item rounded overflow-hidden">
                     <div class="position-relative">
-                        <img class="img-fluid" src="<?php echo base_url ?>uploads/team-4.jpg" alt="">
+                        <img class="img-fluid" src="<?php echo base_url ?>uploads/team-4.jpg" loading="lazy" alt="">
                         <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
                             <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
                             <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
@@ -234,7 +234,7 @@
                 <div class="bg-white border rounded p-4">
                     <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
                     <div class="d-flex align-items-center">
-                        <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-1.jpg" style="width: 45px; height: 45px;">
+                        <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-1.jpg" loading="lazy" style="width: 45px; height: 45px;">
                         <div class="ps-3">
                             <h6 class="fw-bold mb-1">Client Name</h6>
                             <small>Profession</small>
@@ -246,7 +246,7 @@
                 <div class="bg-white border rounded p-4">
                     <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
                     <div class="d-flex align-items-center">
-                        <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-2.jpg" style="width: 45px; height: 45px;">
+                        <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-2.jpg" loading="lazy" style="width: 45px; height: 45px;">
                         <div class="ps-3">
                             <h6 class="fw-bold mb-1">Client Name</h6>
                             <small>Profession</small>
@@ -258,7 +258,7 @@
                 <div class="bg-white border rounded p-4">
                     <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
                     <div class="d-flex align-items-center">
-                        <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-3.jpg" style="width: 45px; height: 45px;">
+                        <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-3.jpg" loading="lazy" style="width: 45px; height: 45px;">
                         <div class="ps-3">
                             <h6 class="fw-bold mb-1">Client Name</h6>
                             <small>Profession</small>
@@ -277,7 +277,7 @@
 //             uni_modal("", "login.php");
 //             return false;
 //         }
-//         uni_modal("Bike Rental Booking", "book_to_rent.php?id=<?php //echo isset($id) ? $id : '' ?>", 'mid-large')
+//         uni_modal("Booking Material", "book_to_quotation.php?id=<?php //echo isset($id) ? $id : '' ?>", 'mid-large')
 //     })
 // })
 </script>

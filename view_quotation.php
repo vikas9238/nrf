@@ -75,7 +75,7 @@ if ($qur->num_rows > 0) {
                                 <a class="col mb-5 text-decoration-none text-dark" id="quotation" href=".?p=view_quotation&id=<?php echo md5($row['id']) ?>">
                                     <div class="property-item rounded overflow-hidden">
                                         <div class="position-relative overflow-hidden">
-                                            <img class="card-img-top w-100 quotation-cover" src="<?php echo validate_image("uploads/thumbnails/" . $row['id'] . ".png") ?>" alt="">
+                                            <img class="card-img-top w-100 quotation-cover" src="<?php echo validate_image("uploads/thumbnails/" . $row['id'] . ".png") ?>" loading="lazy" alt="">
                                             <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3"><?php echo round(($row['po_rate'] - $row['daily_rate']) * 100 / $row['po_rate'], 2) ?>% Off</div>
                                             <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><b><?php echo $row['category'] ?></b></div>
                                         </div>

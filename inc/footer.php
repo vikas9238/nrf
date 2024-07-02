@@ -87,22 +87,22 @@
                         <h5 class="text-white mb-4">Photo Gallery</h5>
                         <div class="row g-2 pt-2">
                             <div class="col-4">
-                                <img class="img-fluid rounded bg-light p-1" src="<?php echo $_settings->info('carousel_1') ?>" alt="">
+                                <img class="img-fluid rounded bg-light p-1" src="<?php echo $_settings->info('carousel_1') ?>" loading="lazy" alt="">
                             </div>
                             <div class="col-4">
-                                <img class="img-fluid rounded bg-light p-1" src="<?php echo $_settings->info('carousel_2') ?>" alt="">
+                                <img class="img-fluid rounded bg-light p-1" src="<?php echo $_settings->info('carousel_2') ?>" loading="lazy" alt="">
                             </div>
                             <div class="col-4">
-                                <img class="img-fluid rounded bg-light p-1" src="<?php echo $_settings->info('carousel_3') ?>" alt="">
+                                <img class="img-fluid rounded bg-light p-1" src="<?php echo $_settings->info('carousel_3') ?>" loading="lazy" alt="">
                             </div>
                             <div class="col-4">
-                                <img class="img-fluid rounded bg-light p-1" src="<?php echo $_settings->info('carousel_4') ?>" alt="">
+                                <img class="img-fluid rounded bg-light p-1" src="<?php echo $_settings->info('carousel_4') ?>" loading="lazy" alt="">
                             </div>
                             <div class="col-4">
-                                <img class="img-fluid rounded bg-light p-1" src="<?php echo $_settings->info('carousel_1') ?>" alt="">
+                                <img class="img-fluid rounded bg-light p-1" src="<?php echo $_settings->info('carousel_1') ?>" loading="lazy" alt="">
                             </div>
                             <div class="col-4">
-                                <img class="img-fluid rounded bg-light p-1" src="<?php echo $_settings->info('carousel_2') ?>" alt="">
+                                <img class="img-fluid rounded bg-light p-1" src="<?php echo $_settings->info('carousel_2') ?>" loading="lazy" alt="">
                             </div>
                         </div>
                     </div>
