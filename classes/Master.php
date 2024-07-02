@@ -427,6 +427,7 @@ class Master extends DBConnection
 		if (empty($id)) {
 			$sql = "INSERT INTO `booking_list` set {$data} ";
 			$save = $this->conn->query($sql);
+			$id = $this->conn->insert_id;
 		} else {
 			if ($status == 1) {
 				$stock = $this->conn->query("SELECT quantity FROM `quotation_list` where id = '{$quotation_id}'")->fetch_array()['quantity'];
@@ -451,6 +452,38 @@ class Master extends DBConnection
 			}
 		}
 		if ($save) {
+			$dir = base_app . "uploads/screenshot/";
+			if (isset($_FILES['screenshot']['tmp_name']) && !empty($_FILES['screenshot']['tmp_name'])) {
+				if (!is_dir($dir))
+					mkdir($dir);
+				$thumb_fname = $dir . $transaction.".png";
+				$upload = $_FILES['screenshot']['tmp_name'];
+				$type = mime_content_type($upload);
+				$allowed = array('image/png', 'image/jpeg');
+
+				if (!in_array($type, $allowed)) {
+					$resp['msg'] .= " But Image failed to upload due to invalid file type.";
+				} else {
+					$gdImg = ($type == 'image/png') ? imagecreatefrompng($upload) : imagecreatefromjpeg($upload);
+					if ($gdImg) {
+						list($width, $height) = getimagesize($upload);
+						// new size variables
+						$new_height = 400;
+						$new_width = 400;
+
+						$t_image = imagecreatetruecolor($new_width, $new_height);
+						//Resizing the imgage
+						imagecopyresampled($t_image, $gdImg, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+						if (is_file($thumb_fname))
+							unlink($thumb_fname);
+						imagepng($t_image, $thumb_fname);
+						imagedestroy($t_image);
+						imagedestroy($gdImg);
+					} else {
+						$resp['msg'] .= " But Image failed to upload due to unkown reason.";
+					}
+				}
+			}
 			$resp['status'] = 'success';
 			if (!empty($id))
 				$this->settings->set_flashdata('success', "Quotation Booking successfully updated.");

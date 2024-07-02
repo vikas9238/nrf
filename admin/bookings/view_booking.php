@@ -31,6 +31,7 @@ if(isset($quotation_id)){
             <p><b>Client Email:</b> <?php echo $email ?></p>
             <p><b>Client Contact:</b> <?php echo $contact ?></p>
             <p><b>Client Address:</b> <?php echo $address ?></p>
+            <img src="<?php echo base_url.'uploads/screenshot/'.$transaction.'.png' ?>" alt="screenshot" height="250" width="300">
         </div>
         <div class="col-md-6">
             <p><b>Product:</b> <?php echo $quotation_meta['category'] ?></p>
@@ -39,6 +40,7 @@ if(isset($quotation_id)){
             <p><b>Daily Rate:</b> <?php echo number_format($daily_rate) ?></p>
             <p><b>Order Quantity:</b> <?php echo $quantity ?> <?php if($quotation_meta['po_unit']==1): ?> TON<?php else: ?> CFT<?php endif; ?></p>
             <p><b>Investe Amount:</b> <?php echo $daily_rate*$quantity ?></p>
+            <p><b>Payment Mode:</b> <?php echo $mode ?></p>
             <p><b>Client Profit:</b> <?php echo ($po_rate-$daily_rate)*$quantity/2 ?></p><hr>
             <p><b>Approved Quantity:</b> <?php echo $approved_quantity ?> <?php if($quotation_meta['po_unit']==1): ?> TON<?php else: ?> CFT<?php endif; ?></p>
             <p><b>Investe Amount:</b> <?php echo $daily_rate*$approved_quantity ?></p>
@@ -75,7 +77,7 @@ if(isset($quotation_id)){
         <button type="button" id="update" class="btn btn-sm btn-flat btn-primary">Edit</button>
         <?php endif; ?>
     <?php endif; ?>
-    <button type="button" class="btn btn-secondary btn-sm btn-flat" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-secondary btn-sm btn-flat" data-dismiss="modal" onclick="$('.nav-bar').removeClass('d-none')">Close</button>
 </div>
 <style>
     #uni_modal>.modal-dialog>.modal-content>.modal-footer{

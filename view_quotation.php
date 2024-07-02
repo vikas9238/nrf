@@ -116,7 +116,7 @@ if ($qur->num_rows > 0) {
                 uni_modal("", "login.php");
                 return false;
             }
-            uni_modal("Material Booking", "book_to_quotation.php?id=<?php echo isset($id) ? $id : '' ?>", 'mid-large')
+            uni_modal("", "book_to_quotation.php?id=<?php echo isset($id) ? $id : '' ?>", 'mid-large')
         })
         $('#login').click(function() {
             uni_modal("", "login.php")

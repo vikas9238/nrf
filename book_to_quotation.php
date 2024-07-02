@@ -10,18 +10,11 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
 }
 ?>
 <div class="container-fluid">
+    <h3 class="text-center book">Material Booking</h3>
+    <hr class='book'>
     <form action="" id="book-form">
         <input type="hidden" id="quotation_id" value="<?php echo $_GET['id'] ?>">
         <p>Quantity</p>
-        <!-- <div class="d-flex">
-            <a id="dec" class="border-[#bfbfbf] border-r-2 pr-5">
-                <i class="fa-solid fa-minus"></i>
-            </a>
-            <p id="counter" class="font-bold text-bold">1</p>
-            <a id="inc" class="border-[#bfbfbf] border-l-2 pl-5">
-                <i class="fa-solid fa-plus"></i>
-            </a>
-        </div><hr> -->
         <input type="number" id="quantity" value="1" class="form-control text-center form-conrtrol-sm rounded-0">
         <p class="text-decoration-underline text-primary">Price Details</p>
         <div>
@@ -68,12 +61,212 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
             </div>
         </div>
     </form>
+    <div class="modal-footer book">
+        <button type="button" id="next" class="btn btn-sm btn-flat btn-primary">Next</button>
+        <button type="button" class="btn btn-secondary btn-sm btn-flat" data-dismiss="modal">Close</button>
+    </div>
+    <div class="payment mt-2">
+        <h3 class="text-center">Payment</h3>
+        <hr>
+        <p class='text-primary text-decoration-underline'>Payment Mode:</p>
+        <div class="mode">
+         <input type="radio" id="ac" name="payment" value="Account">
+         <label for="ac">Account/ NEFT/ RTGS/ IMPS Payment</label><br>
+         <input type="radio" id="qr" name="payment" value="UPI" checked>
+         <label for="qr">UPI/QR Payment</label><br>
+        </div>
+         <hr>
+        <div class="upi">
+            <p class="text-primary">Scan the QR Code with any UPI App and pay the amount then download the source code.</p>
+            <center><img src="" alt="QR CODE" class="get_qr mt-1"></center>
+            <div class="upi-id-content">
+                <div>
+                <strong id="upi-id">nrfindustry@ybl</strong>
+                <button id="copy-button" class="copy-button">Copy</button>
+                </div>
+                <lottie-player 
+                    src="https://lottie.host/2b51d7af-7099-49f5-93df-f8190dde11bb/WU9eejAueC.json"
+                    background="#FFFFFF"
+                    speed="1.5"
+                    loop
+                    autoplay
+                    direction="1"
+                    mode="normal" class="upi-icon"
+                ></lottie-player>
+            </div>
+        </div>
+        <div class="account">
+            <p class="text-primary">Account Details</p>
+            <div class="account-content">
+                <div>
+                <strong>Account Number: </strong>
+                <span id="account-no">201003171098</span>
+                <button id="copy-account" class="copy-button">Copy</button>
+                </div>
+                <div>
+                <strong>IFSC: </strong>
+                <span id="ifsc">INDB0000393</span>
+                <button id="copy-ifsc" class="copy-button">Copy</button>
+                </div>
+                <div>
+                <strong>Account Holder Name: </strong>
+                <span id="name">Nrf Industry And Trading Pvt Ltd</span>
+                <button id="copy-name" class="copy-button">Copy</button>
+                </div>
+                <div>
+                <strong>Branch Address: </strong>
+                <span>Boring Road, Patna-800013,Bihar</span>
+                </div>
+                <lottie-player 
+                    src="https://lottie.host/2b51d7af-7099-49f5-93df-f8190dde11bb/WU9eejAueC.json"
+                    background="#FFFFFF"
+                    speed="1.5"
+                    loop
+                    autoplay
+                    direction="1"
+                    mode="normal" class="upi-icon"
+                ></lottie-player>
+            </div>
+        </div><hr>
+        <div class="flex mt-2">
+            <label class="text-primary">UTR/REFERENCE/TRANSACTION ID**</label>
+            <input type="number" name="transaction" id="transaction" placeholder="UTR/REFERENCE/TRANSACTION ID**" class="mt-2 id form-control form-conrtrol-sm rounded-0" require>
+        </div>
+        <div class="form-group">
+            <label for="" class="control-label text-primary">Screen Shot**</label>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input rounded-circle" id="customFile" name="screenshot" accept="image/png,image/jpeg" onchange="displayImg(this,$(this))" required>
+                <label class="custom-file-label" for="customFile">Choose file</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="submit" class="btn btn-sm btn-flat btn-primary">Submit</button>
+            <button type="button" class="btn btn-secondary btn-sm btn-flat" data-dismiss="modal">Close</button>
+        </div>
+    </div>
 </div>
+<style>
+    #uni_modal>.modal-dialog>.modal-content>.modal-footer,#uni_modal .modal-content>.modal-header {
+        display:none;
+    }
+    #uni_modal .modal-body{
+        padding:0;
+    }
+    .get_qr {
+        height: 200px;
+        width: 200px;
+        border: 1px solid #999;
+        background: #efefef;
+    }
+    .payment {
+        width: 100%;
+        height: 100%;
+        display: none;
+    }
+    .flex {
+        display: flex;
+        flex-direction: column;
+    }
+    #upi-id {
+    margin-top: 20px;
+    text-align: center;
+    }
+
+    .upi-id-content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px; 
+    }
+        #upi-id strong {
+        color: #007bff;
+        user-select: text;
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    .copy-button {
+        display: inline-block;
+        padding: 8px 15px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        margin-top: 10px;
+        border-radius: 5px;
+        height: min-content;
+        cursor: pointer;
+    }
+</style>
 
 <script>
-    // var inc = document.querySelector("#inc");
-    // var dec = document.querySelector("#dec");
-    // var counter = document.querySelector("#counter");
+    function displayImg(input,_this) {
+        var fnames = []
+        Object.keys(input.files).map(k=>{
+            fnames.push(input.files[k].name)
+        })
+        _this.siblings('.custom-file-label').html(JSON.stringify(fnames))
+	}
+    const copyButton = document.getElementById("copy-button");
+    const copyname = document.getElementById("copy-name");
+    const copyaccount = document.getElementById("copy-account");
+    const copyifsc = document.getElementById("copy-ifsc");
+    const upiIdText = document.getElementById("upi-id");
+    const nameText = document.getElementById("name");
+    const accountText = document.getElementById("account-no");
+    const ifscText = document.getElementById("ifsc");
+
+    copyButton.addEventListener("click", function () {
+        const textToCopy = upiIdText.textContent;
+        const tempInput = document.createElement("input");
+        tempInput.value = textToCopy;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+        copyButton.textContent = "Copied!";
+        setTimeout(function () {
+            copyButton.textContent = "Copy";
+        }, 2500);
+    });
+    copyname.addEventListener("click", function () {
+        const textToCopy = nameText.textContent;
+        const tempInput = document.createElement("input");
+        tempInput.value = textToCopy;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+        copyname.textContent = "Copied!";
+        setTimeout(function () {
+            copyname.textContent = "Copy";
+        }, 2500);
+    });
+    copyaccount.addEventListener("click", function () {
+        const textToCopy = accountText.textContent;
+        const tempInput = document.createElement("input");
+        tempInput.value = textToCopy;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+        copyaccount.textContent = "Copied!";
+        setTimeout(function () {
+            copyaccount.textContent = "Copy";
+        }, 2500);
+    });
+    copyifsc.addEventListener("click", function () {
+        const textToCopy = ifscText.textContent;
+        const tempInput = document.createElement("input");
+        tempInput.value = textToCopy;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+        copyifsc.textContent = "Copied!";
+        setTimeout(function () {
+            copyifsc.textContent = "Copy";
+        }, 2500);
+    });
     var today_quantity=<?php echo $quantity ?>;
     var item = document.querySelector("#item");
     var po = document.querySelector("#po");
@@ -82,28 +275,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
     var profit = document.querySelector("#profit");
     var investor_profit = document.querySelector("#investor_profit");
     var nrf_charge = document.querySelector("#nrf_charge");
-    // inc.addEventListener("click", () => {
-    //     counter.innerText = parseInt(counter.innerText) + 1;
-    //     item.innerText = parseInt(item.innerText) + 1;
-    //     po.innerText = parseInt(item.innerText) * <?php echo $po_rate ?>;
-    //     margin.innerText = -parseInt(item.innerText) * <?php echo $po_rate - $daily_rate ?>;
-    //     profit.innerText = parseInt(item.innerText) * <?php echo $po_rate - $daily_rate ?>;
-    //     nrf_charge.innerText = -parseInt(item.innerText) * <?php echo ($po_rate - $daily_rate)/2 ?>;
-    //     investor_profit.innerText = parseInt(item.innerText) * <?php echo ($po_rate - $daily_rate)/2 ?>;
-    //     amount.innerText = parseInt(item.innerText) * <?php echo $daily_rate ?>;
-    // });
-    // dec.addEventListener("click", () => {
-    //     if (parseInt(counter.innerText) > 1) {
-    //         counter.innerText = parseInt(counter.innerText) - 1;
-    //         item.innerText = parseInt(item.innerText) - 1;
-    //         po.innerText = parseInt(item.innerText) * <?php echo isset($po_rate) ? $po_rate : '' ?>;
-    //         margin.innerText = -parseInt(item.innerText) * <?php echo $po_rate - $daily_rate ?>;
-    //         profit.innerText = parseInt(item.innerText) * <?php echo $po_rate - $daily_rate ?>;
-    //         nrf_charge.innerText = -parseInt(item.innerText) * <?php echo ($po_rate - $daily_rate)/2 ?>;
-    //         investor_profit.innerText = parseInt(item.innerText) * <?php echo ($po_rate - $daily_rate)/2 ?>;
-    //         amount.innerText = parseInt(item.innerText) * <?php echo $daily_rate ?>;
-    //     }
-    // });
+  
     $('#quantity').change(function(){
         var quantity = $('#quantity').val()
         if(quantity <= 0){
@@ -122,7 +294,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
         investor_profit.innerText = quantity * <?php echo ($po_rate - $daily_rate)/2 ?>;
         amount.innerText = quantity * <?php echo $daily_rate ?>;
     })
-    $('#book-form').submit(function(e) {
+    $('#next').click(function(e) {
         e.preventDefault();
         if(!document.querySelector('input[name="aggrement"]').checked){
             alert_toast("Please agree to the terms and conditions", 'warning');
@@ -133,16 +305,62 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
         var quantity = document.querySelector('#item').innerText;
         var po_rate =<?php echo $po_rate ?>;
         var daily_rate = <?php echo $daily_rate ?>;
+        var amount = quantity * daily_rate;
+        $("#book-form").hide();
+        $(".book").hide();
+        $(".payment").show();
+        $(".account").hide();
+        var num = <?php echo $_settings->userdata('contact') ?>;
+        var link = "upi://pay?pa=nrfindustry@ybl%26am="+amount+"%26tr=" + num;
+        var upi = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + link;
+        console.log(upi);
+        $(".get_qr").attr("src", upi);
+    })
+    $('.mode').click(function () {
+        $('input:radio[name=payment]:checked').change(function () {
+            if ($("input[name='payment']:checked").val() == 'Account') {
+                $(".upi").hide();
+                $(".account").show();
+            }
+            if ($("input[name='payment']:checked").val() == 'UPI') {
+                $(".account").hide();
+                $(".upi").show();
+            }
+        });
+    });
+    $('#submit').click(function() {
+        if(!$('#transaction').val()){
+            alert_toast("Please Enter the UTR/REFERENCE/TRANSACTION ID", 'warning');
+            return false;
+        }
+        if(!document.getElementById('customFile').files.length){
+            alert_toast("Please Upload the Screen Shot for verification", 'warning');
+            return false;
+        }
+        $('.err-msg').remove();
+        var quotation_id = $('#quotation_id').val()
+        var quantity = document.querySelector('#item').innerText;
+        var po_rate =<?php echo $po_rate ?>;
+        var daily_rate = <?php echo $daily_rate ?>;
+        var fileInput=document.getElementById('customFile');
+        var file=fileInput.files[0];
+        var formData=new FormData();
+        formData.append('quotation_id',quotation_id);
+        formData.append('quantity',quantity);
+        formData.append('po_rate',po_rate);
+        formData.append('daily_rate',daily_rate);
+        formData.append('transaction',$('#transaction').val());
+        formData.append('screenshot',file);
+        formData.append('mode',$('input[name="payment"]:checked').val());
         start_loader();
         $.ajax({
             url: _base_url_ + "classes/Master.php?f=save_booking",
-            data: {
-                quotation_id: quotation_id,
-                quantity: quantity,
-                po_rate: po_rate,
-                daily_rate: daily_rate
-            },
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
             method: 'POST',
+            type: 'POST',
             dataType: 'json',
             error: err => {
                 console.log(err)
@@ -174,111 +392,4 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
             }
         })
     })
-    // function calc_rent_days(){
-    //     var ds = new Date($('#date_start').val())
-    //     var de = new Date($('#date_end').val())
-    //     var diff = de- ds;
-    //     var days = (Math.floor((diff)/(1000*60*60*24))) +1
-    //     $('#rent_days').val(days)
-    //     if(days > 0){
-    //         calc_amount()
-    //     }
-    // }
-    // function calc_amount(){
-    //     var dr = "<?php echo isset($daily_rate) ? $daily_rate : '' ?>";
-    //     var days = $('#rent_days').val()
-    //     var amount  = dr * days;
-    //     console.log(amount)
-    //     $('#amount').val(amount)
-    // }
-    // $(function(){
-    //     $('#date_start, #date_end').change(function(){
-    //         $('#msg').text('')
-    //         $('#date_start, #date_end').removeClass('border-success border-danger')
-    //         var ds = $('#date_start').val()
-    //         var de = $('#date_end').val()
-    //         var bike_id = "<?php echo isset($id) ? $id : '' ?>";
-    //         var max_unit = "<?php echo isset($quantity) ? $quantity : '' ?>";
-    //         if(ds == '' || de == '' || bike_id == '' || max_unit == '')
-    //         return false;
-    //         if(de < ds){
-    //             $('#date_start, #date_end').addClass('border-danger')
-    //             $('#msg').text("Invalid Selected Dates")
-    //             return false;
-    //         }
-    //         $('#check-availability-loader').removeClass('d-none')
-    //         $('#uni_modal button').attr('disabled',true)
-    //         $.ajax({
-    //             url:'classes/Master.php?f=rent_avail',
-    //             method:"POST",
-    //             data:{ds:ds,de:de,bike_id:bike_id,max_unit:max_unit},
-    //             dataType:'json',
-    //             error:err=>{
-    //                 console.log(err)
-    //                 alert_toast('An error occured while checking availability','error')
-    //                 $('#check-availability-loader').addClass('d-none')
-    //                 $('#uni_modal button').attr('disabled',false)
-    //             },
-    //             success:function(resp){
-    //                 if(resp.status == 'success'){
-    //                     $('#date_start, #date_end').addClass('border-success')
-    //                 }else if(resp.status == 'not_available'){
-    //                     $('#date_start, #date_end').addClass('border-danger')
-    //                     $('#msg').text(resp.msg)
-    //                 }else{
-    //                     alert_toast('An error occured while checking availability','error')
-    //                 }
-    //                 $('#check-availability-loader').addClass('d-none')
-    //                 $('#uni_modal button').attr('disabled',false)
-    //                 calc_rent_days()
-    //             }
-    //         })
-
-    //     })
-    //     $('#book-form').submit(function(e){
-    //         e.preventDefault();
-    //         var _this = $(this)
-    //         if(_this.find('.border-danger').length > 0){
-    //             alert_toast('Can\'t proceed submission due to invalid inputs in some fields.','warning')
-    //             return false;
-    //         }
-    //         $('.err-msg').remove();
-    //         start_loader();
-    //         $.ajax({
-    //             url:_base_url_+"classes/Master.php?f=save_booking",
-    //             data: new FormData($(this)[0]),
-    //             cache: false,
-    //             contentType: false,
-    //             processData: false,
-    //             method: 'POST',
-    //             type: 'POST',
-    //             dataType: 'json',
-    //             error:err=>{
-    //                 console.log(err)
-    //                 alert_toast("An error occured",'error');
-    //                 end_loader();
-    //             },
-    //             success:function(resp){
-    //                 if(typeof resp =='object' && resp.status == 'success'){
-    //                     end_loader()
-    //                     $('#uni_modal').modal('hide')
-    //                     setTimeout(() => {
-    //                         uni_modal('','success_booking.php')
-    //                     }, 500);
-    //                 }else if(resp.status == 'failed' && !!resp.msg){
-    //                     var el = $('<div>')
-    //                         el.addClass("alert alert-danger err-msg").text(resp.msg)
-    //                         _this.prepend(el)
-    //                         el.show('slow')
-    //                         $("html, body").animate({ scrollTop: _this.closest('.card').offset().top }, "fast");
-    //                         end_loader()
-    //                 }else{
-    //                     alert_toast("An error occured",'error');
-    //                     end_loader();
-    //                     console.log(resp)
-    //                 }
-    //             }
-    //         })
-    //     })
-    // })
 </script>

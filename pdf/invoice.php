@@ -108,7 +108,7 @@ $html = '<!DOCTYPE html>
               800001</strong
             >
           </p>
-          <p><strong>Email:</strong> info@nrfindustry.com</p>
+          <p><strong>Email:</strong> contact@nrfindustry.in</p>
           <p><strong>Phone:</strong> +91-9876543210</p>
           <p><strong>GST No:</strong> 10AAGCN1641R1ZE</p>
         </div>

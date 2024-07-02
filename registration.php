@@ -69,7 +69,7 @@
                 <div class="form-group">
                     <label for="" class="control-label">Images</label>
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input rounded-circle" id="customFile" name="user" accept="image/png,image/jpeg" onchange="displayImg(this,$(this))" required multiple="multiple">
+                        <input type="file" class="custom-file-input rounded-circle" id="customFile" name="user" accept="image/png,image/jpeg" onchange="displayImg(this,$(this))" required>
                         <label class="custom-file-label" for="customFile">Choose file</label>
                     </div>
                 </div>
