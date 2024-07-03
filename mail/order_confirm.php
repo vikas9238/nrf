@@ -12,6 +12,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['firstname']) && !empt
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
     $email = $_POST['email'];
+    $id = $_POST['id'];
+    $date = $_POST['date'];
+    $product = $_POST['product'];
+    $daily_rate = $_POST['daily_rate'];
+    $quantity = $_POST['quantity'];
+    $amount = $_POST['amount'];
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
 try {
@@ -36,13 +42,18 @@ try {
 
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject = 'Account Registration Pending For Approval';
+    $mail->Subject = 'Order Confirmation - Thank You for Your Purchase!';
     $mail->Body    = "Dear $firstname $lastname,<br>
     
-    <p>Thank you for registering with NRF Industry And Trading Private Limited. We have received your account registration details and are currently reviewing your information.</p>
+    <p>We are pleased to inform you that your order has been successfully confirmed! Thank you for choosing NRF Industry AND Trading Private Limited for your purchase.</p>
     
-    <p>Our team is working diligently to process your request. You will receive an email notification once your account has been approved. If we require any additional information to complete the process, we will contact you promptly.</p>
-    
+    <p>Order Details:<br>
+    Order Id: $id<br>
+    Date of Order: $date<br>
+    Material Name: $product<br>
+    Price: $daily_rate<br>
+    Quantity: $quantity<br>
+    Total Amount: $amount</p>    
     <p>We appreciate your patience during this time. If you have any urgent inquiries or need further assistance, please don't hesitate to contact our support team at <b>Email:</b><a href='mailto:contact@nrfindustry.in'>contact@nrfindustry.in</a> <b>Contact:</b><a href='tel:+919876543210'>+91-9876543210</a>.</p>
     
     <p>Thank you for choosing NRF Industry And Trading Private Limited. We look forward to welcoming you soon.</p>
