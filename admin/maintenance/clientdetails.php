@@ -38,7 +38,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img class="img-fluid" src="<?php echo base_url.'uploads/clients/'.$id.'/'.'idfront.png' ?>" alt="Signature">
+                            <img class="img-fluid" src="<?php echo base_url.'uploads/clients/'.$id.'/'.'idfront.png' ?>" alt="Aadhar Front">
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -46,7 +46,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img class="img-fluid" src="<?php echo base_url.'uploads/clients/'.$id.'/'.'idback.png' ?>" alt="Signature">
+                            <img class="img-fluid" src="<?php echo base_url.'uploads/clients/'.$id.'/'.'idback.png' ?>" alt="Aadhar Back">
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -95,7 +95,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                         <?php echo $account ?>
                                     </td>
                                     <th>
-                                        IFSC Code
+                                        IFSCode
                                     </th>
                                     <td>
                                         <?php echo $ifsc ?>

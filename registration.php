@@ -117,6 +117,9 @@
         })
         $('#registration').submit(function(e) {
             e.preventDefault();
+            var firstname = $('[name="firstname"]').val();
+            var lastname = $('[name="lastname"]').val();
+            var email = $('[name="email"]').val();
             var _this = $(this)
 			 $('.err-msg').remove();
 			start_loader();
@@ -138,8 +141,15 @@
                     if (typeof resp == 'object' && resp.status == 'success') {
                         alert_toast("Account succesfully registered", 'success')
                         setTimeout(function() {
+                            $.ajax({
+                                url: _base_url_+"mail/register.php",
+                                method: 'POST',
+                                data: { firstname: firstname,lastname:lastname, email: email},
+                                dataType: 'json',
+                            });
                             location.reload()
                         }, 2000)
+                        
                     } else if (resp.status == 'failed' && !!resp.msg) {
                         var _err_el = $('<div>')
                         _err_el.addClass("alert alert-danger err-msg").text(resp.msg)

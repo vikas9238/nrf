@@ -209,7 +209,7 @@ class Master extends DBConnection
 			if (!empty($data)) $data .= ",";
 			$data .= " `description`='" . addslashes(htmlentities($description)) . "' ";
 		}
-		$check = $this->conn->query("SELECT * FROM `clients` where `firstname` = '{$firstname}' " . (!empty($id) ? " and id != {$id} " : "") . " ")->num_rows;
+		$check = $this->conn->query("SELECT * FROM `clients` where `email` = '{$email}' " . (!empty($id) ? " and id != {$id} " : "") . " ")->num_rows;
 		if ($this->capture_err())
 			return $this->capture_err();
 		if ($check > 0) {

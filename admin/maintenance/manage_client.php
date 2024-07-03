@@ -21,24 +21,49 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 			<input name="lastname" id="lastname" class="form-control form no-resize" value="<?php echo isset($lastname) ? $lastname : ''; ?> " required>
 		</div>
 		<div class="form-group">
+			<label for="email" class="control-label">Email</label>
+			<input name="email" id="email" type="email" class="form-control form no-resize" value="<?php echo isset($email) ? $email : ''; ?> " required>
+		</div>
+		<div class="form-group">
 			<label for="contact" class="control-label">Contact</label>
 			<input name="contact" id="" class="form-control form no-resize" value="<?php echo isset($contact) ? $contact : ''; ?>">
 		</div>
-		<div class="form-group">
+		<div class="form-group status">
 			<label for="status" class="control-label">Status</label>
 			<select name="status" id="status" class="custom-select selevt">
 			<option value="1" <?php echo isset($status) && $status == 1 ? 'selected' : '' ?>>Active</option>
 			<option value="0" <?php echo isset($status) && $status == 0 ? 'selected' : '' ?>>Inactive</option>
 			</select>
 		</div>
+		<div class="form-group reason">
+			<label for="reason" class="control-label">Reason</label>
+			<textarea id="reason" class="form-control form no-resize" required></textarea>
+		</div>
 	</form>
 </div>
+<style>
+	.reason{
+		display: none;
+	}
+</style>
 <script>
   
 	$(document).ready(function(){
+		$(".status").change(function(){
+			var status= $(this).find('[name="status"]').val();
+			if(status == 0){
+				$(".reason").show();
+			}else{
+				$(".reason").hide();	
+			}
+		});
 		$('#category-form').submit(function(e){
 			e.preventDefault();
+			var firstname = $('#firstname').val();
+			var lastname = $('#lastname').val();
+			var email = $('#email').val();
             var _this = $(this)
+			var status= $(this).find('[name="status"]').val();
 			 $('.err-msg').remove();
 			start_loader();
 			$.ajax({
@@ -57,6 +82,31 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 				},
 				success:function(resp){
 					if(typeof resp =='object' && resp.status == 'success'){
+						if(status == 1){
+							var check=confirm("Do you want to send mail to the client?");
+							if(check == true){
+								$.ajax({
+                                url: _base_url_+"mail/welcome.php",
+                                method: 'POST',
+                                data: { firstname: firstname,lastname:lastname, email: email},
+                                dataType: 'json',
+                            });
+							alert_toast("Mail Send Successfully",'success');
+							}
+						}
+						else if(status == 0){
+							var reason= $('#reason').val();
+							var check=confirm("Do you want to send mail to the client?");
+							if(check == true){
+								$.ajax({
+								url: _base_url_+"mail/reject.php",
+								method: 'POST',
+								data: { firstname: firstname,lastname:lastname, email: email,reason:reason},
+								dataType: 'json',
+							});
+							alert_toast("Mail Send Successfully",'success');
+							}
+						}
 						location.reload()
 					}else if(resp.status == 'failed' && !!resp.msg){
                         var el = $('<div>')

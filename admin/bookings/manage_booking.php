@@ -1,7 +1,7 @@
 <?php
 require_once('../../config.php');
 if (isset($_GET['id']) && $_GET['id'] > 0) {
-    $qry = $conn->query("SELECT * from `booking_list` where id = '{$_GET['id']}' ");
+    $qry = $conn->query("SELECT r.*,c.firstname,c.lastname,c.email from `booking_list` r inner join clients c on c.id = r.client_id where r.id = '{$_GET['id']}' ");
     if ($qry->num_rows > 0) {
         foreach ($qry->fetch_assoc() as $k => $v) {
             $$k = stripslashes($v);
@@ -50,25 +50,16 @@ if (isset($quotation_id)) {
         <div class="form-group">
             <label for="" class="control-label">Status</label>
             <select name="status" id="" class="custom-select custol-select-sm">
-                <option value="0" <?php echo $status == 0 ? "selected" : '' ?>>Pending</option>
-                <option value="2" <?php echo $status == 2 ? "selected" : '' ?>>Cancelled</option>
-                <option value="3" <?php echo $status == 3 ? "selected" : '' ?>>Active</option>
-                <option value="1" <?php echo $status == 1 ? "selected" : '' ?>>Confirmed</option>
+                <option value="0" <?php echo isset($status) && $status == 0 ? "selected" : '' ?>>Pending</option>
+                <option value="2" <?php echo isset($status) && $status == 2 ? "selected" : '' ?>>Cancelled</option>
+                <option value="3" <?php echo isset($status) && $status == 3 ? "selected" : '' ?>>Active</option>
+                <option value="1" <?php echo isset($status) && $status == 1 ? "selected" : '' ?>>Confirmed</option>
             </select>
         </div>
     </form>
 </div>
 
 <script>
-    // function calc_rent_days(){
-    //     var quantity = new Date($('#quantity').val())
-    //     var daily_rate = <?php echo isset($daily_rate) ? $daily_rate : '' ?>;
-    //     var days = (Math.floor((diff)/(1000*60*60*24))) +1
-    //     $('#rent_days').val(days)
-    //     if(days > 0){
-    //         calc_amount()
-    //     }
-    // }
     function calc_amount() {
         var daily_rate = "<?php echo isset($daily_rate) ? $daily_rate : '' ?>";
         var quantity = $('#approved_quantity').val()
@@ -100,43 +91,15 @@ if (isset($quotation_id)) {
                 $('#msg').text("Order quantity are smaller then you Entered.")            
                 return false;
             }
-            // $('#check-availability-loader').removeClass('d-none')
-            // $('#uni_modal button').attr('disabled', true)
             calc_amount()
-            // $.ajax({
-            //     url: _base_url_ + "classes/Master.php?f=rent_avail",
-            //     data: {
-            //         quantity: quantity,
-            //         quotation_id: quotation_id,
-            //         id: id
-            //     },
-            //     method: 'POST',
-            //     dataType: 'json',
-            //     error: err => {
-            //         console.log(err)
-            //         alert_toast('An error occured while checking availability', 'error')
-            //         $('#check-availability-loader').addClass('d-none')
-            //         $('#uni_modal button').attr('disabled', false)
-            //     },
-            //     success: function(resp) {
-            //         if (resp.status == 'success') {
-            //             $('#quantity').addClass('border-success')
-            //         } else if (resp.status == 'not_available') {
-            //             $('#quantity').addClass('border-danger')
-            //             $('#msg').text(resp.msg)
-            //         } else {
-            //             alert_toast('An error occured while checking availability', 'error')
-            //         }
-            //         $('#check-availability-loader').addClass('d-none')
-            //         $('#uni_modal button').attr('disabled', false)
-            //         calc_amount()
-            //     }
-            // })
-
         })
         $('#book-form').submit(function(e) {
             e.preventDefault();
+            var firstname = "<?php echo $firstname ?>";
+			var lastname = "<?php echo $lastname ?>";
+			var email = "<?php echo $email ?>";
             var _this = $(this)
+			var status= $(this).find('[name="status"]').val();
             if (_this.find('.border-danger').length > 0) {
                 alert_toast('Can\'t proceed submission due to invalid inputs in some fields.', 'warning')
                 return false;
@@ -159,6 +122,35 @@ if (isset($quotation_id)) {
                 },
                 success: function(resp) {
                     if (typeof resp == 'object' && resp.status == 'success') {
+                        if (status == 1) {
+                            var check = confirm("Do you want to send mail to the client?");
+                            if (check == true) {
+                                $.ajax({
+                                url: _base_url_+"mail/order_confirm.php",
+                                method: 'POST',
+                                data: { firstname: firstname,lastname:lastname, email: email},
+                                dataType: 'json',
+                                });
+                                alert_toast("Mail Send Successfully", 'success');
+                            }
+                        }
+                        //  else if (status == 0) {
+                        //     var check = confirm("Do you want to send mail to the client?");
+                        //     if (check == true) {
+                        //         $.ajax({
+                        //             url: _base_url_ + "mail/reject.php",
+                        //             method: 'POST',
+                        //             data: {
+                        //                 firstname: firstname,
+                        //                 lastname: lastname,
+                        //                 email: email,
+                        //                 reason: reason
+                        //             },
+                        //             dataType: 'json',
+                        //         });
+                        //         alert_toast("Mail Send Successfully", 'success');
+                        //     }
+                        // }
                         location.reload()
                     } else if (resp.status == 'failed' && !!resp.msg) {
                         var el = $('<div>')

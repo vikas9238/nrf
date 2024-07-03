@@ -338,6 +338,9 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
             return false;
         }
         $('.err-msg').remove();
+        var firstname="<?php echo $_settings->userdata('firstname') ?>";
+        var lastname="<?php echo $_settings->userdata('lastname') ?>";
+        var email="<?php echo $_settings->userdata('email') ?>";
         var quotation_id = $('#quotation_id').val()
         var quantity = document.querySelector('#item').innerText;
         var po_rate =<?php echo $po_rate ?>;
@@ -373,6 +376,12 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                     $('#uni_modal').modal('hide')
                     $('.nav-bar').removeClass('d-none')
                     setTimeout(() => {
+                        $.ajax({
+                                url: _base_url_+"mail/booking.php",
+                                method: 'POST',
+                                data: { firstname: firstname,lastname:lastname, email: email},
+                                dataType: 'json',
+                            });
                         uni_modal('', 'success_booking.php')
                     }, 500);
                 } else if (resp.status == 'failed' && !!resp.msg) {

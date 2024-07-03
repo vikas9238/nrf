@@ -174,3 +174,4 @@ $dompdf->loadHtml($html);
 $dompdf->setPaper('A4', 'portrait');
 $dompdf->render();
 $dompdf->stream("invoice.pdf");
+$pdfstring = $dompdf->output();
