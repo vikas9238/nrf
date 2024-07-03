@@ -11,7 +11,7 @@ require_once '../vendor/autoload.php';
 
 use Dompdf\Dompdf;
 
-$qry = $conn->query("SELECT b.*,c.firstname,c.lastname,c.email,c.contact,c.address,c.gender,co.name,p.category,q.address as location from `booking_list` b inner join quotation_list q on q.id=b.quotation_id inner join clients c on c.id = b.client_id inner join company_list co on co.id=q.company_id inner join product p on p.id=q.product_id where b.id = '{$_GET['id']}' ");
+$qry = $conn->query("SELECT b.*,c.firstname,c.lastname,c.email,c.contact,c.address,c.gender,co.name,p.category,q.address as location from `booking_list` b inner join quotation_list q on q.id=b.quotation_id inner join clients c on c.id = b.client_id inner join company_list co on co.id=q.company_id inner join product p on p.id=q.product_id where b.id = '{$_POST['id']}' ");
 if ($qry->num_rows > 0) {
     foreach ($qry->fetch_assoc() as $k => $v) {
         $$k = $v;
