@@ -16,15 +16,17 @@
 			<table class="table table-hovered table-striped">
 				<colgroup>
 					<col width="5%">
+					<col width="10%">
 					<col width="20%">
-					<col width="35%">
+					<col width="30%">
 					<col width="15%">
 					<col width="10%">
-					<col width="15%">
+					<col width="10%">
 				</colgroup>
 				<thead>
 					<tr class="bg-navy disabled">
 						<th>#</th>
+						<th>Client ID</th>
 						<th>Date Created</th>
 						<th>Name</th>
 						<th>Contact</th>
@@ -40,6 +42,7 @@
 					?>
 						<tr>
 							<td class="text-center"><a href="?page=maintenance/clientdetails&id=<?php echo $row['id'] ?>"><?php echo $i++ ?></a></td>
+							<td class="text-center"><a href="?page=maintenance/clientdetails&id=<?php echo $row['id'] ?>"><?php echo $row['id'] ?></a></td>
 							<td><?php echo date("Y-m-d H:i",strtotime($row['date_created'])) ?></td>
 							<td><?php echo $row['firstname'] ?>&nbsp;<?php echo $row['lastname'] ?></td>
 							<td><?php echo $row['contact'] ?></td>

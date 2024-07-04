@@ -122,7 +122,7 @@ $html = '<!DOCTYPE html>
           </div>
           <div class="right">
             <p><strong>Order Details</strong></p>
-            <p><strong>Order Id:</strong> '.$id.'</p>
+            <p><strong>Order Id:</strong> #'.$id.'</p>
             <p><strong>Order Date:</strong> '.$date_created.'</p>
             <p><strong>Order Confirm Date:</strong> '.$confirm_order.'</p>
             <p><strong>Invoice Download Date:</strong> '.date('Y-m-d H:i:sa').'</p>

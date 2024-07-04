@@ -21,6 +21,7 @@
 			<table class="table table-bordered table-striped">
 				<colgroup>
 					<col width="5%">
+					<col width="10%">
 					<col width="15%">
 					<col width="25%">
 					<col width="20%">
@@ -30,6 +31,7 @@
 				<thead>
 					<tr class="bg-navy text-white">
 						<th>#</th>
+						<th>Order ID</th>
 						<th>Date Booked</th>
 						<th>Order Details</th>
 						<th>Client</th>
@@ -45,6 +47,7 @@
 					?>
 						<tr>
 							<td class="text-center"><?php echo $i++; ?></td>
+							<td class="text-center"><?php echo $row['id'] ?></td>
 							<td><?php echo date("Y-m-d H:i",strtotime($row['date_created'])) ?></td>
 							<td>
 								<small><span class="text-muted">Company:</span><?php echo $row['name'] ?></small><br>

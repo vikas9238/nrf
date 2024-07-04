@@ -31,6 +31,7 @@ if(isset($quotation_id)){
             <p><b>Client Email:</b> <?php echo $email ?></p>
             <p><b>Client Contact:</b> <?php echo $contact ?></p>
             <p><b>Client Address:</b> <?php echo $address ?></p>
+            <p><b>Transaction ID:</b> <?php echo $transaction ?></p>
             <img src="<?php echo base_url.'uploads/screenshot/'.$transaction.'.png' ?>" alt="screenshot" height="250" width="300">
         </div>
         <div class="col-md-6">

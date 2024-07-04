@@ -16,16 +16,18 @@
 			<table class="table table-bordered table-striped">
 				<colgroup>
 					<col width="5%">
+					<col width="10%">
 					<col width="15%">
-					<col width="20%">
+					<col width="15%">
 					<col width="20%">
 					<col width="15%">
 					<col width="10%">
-					<col width="15%">
+					<col width="10%">
 				</colgroup>
 				<thead>
 					<tr class="bg-navy disabled">
 						<th>#</th>
+						<th>Quotation ID</th>
 						<th>Date Created</th>
 						<th>Product</th>
 						<th>Company Info</th>
@@ -49,6 +51,7 @@
 						<tr>
 							<!-- <td class="text-center"><?php //echo $i++; ?></td> -->
 							<td class="text-center"><?php echo $i++ ?></td>
+							<td class="text-center"><?php echo $row['id'] ?></td>
 							<td><?php echo date("Y-m-d H:i",strtotime($row['date_created'])) ?></td>
 							<td><?php echo $row['category'] ?></td>
 							<td class="lh-1" ><?php echo $row['name'] ?></td>

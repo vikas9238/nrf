@@ -95,15 +95,9 @@ if (isset($quotation_id)) {
         })
         $('#book-form').submit(function(e) {
             e.preventDefault();
-            var firstname = "<?php echo $firstname ?>";
-			var lastname = "<?php echo $lastname ?>";
-			var email = "<?php echo $email ?>";
             var id="<?php echo $id ?>";
-            var date="<?php echo $date_created ?>";
-            var daily_rate = "<?php echo $daily_rate ?>";
-            var quantity = $('#approved_quantity').val();
-            var amount = $('.amount').val();
-            var product = "<?php echo $quotation_meta['category'] ?>";
+            // var quantity = $('#approved_quantity').val();
+            // var amount = $('.amount').val();
             var _this = $(this)
 			var status= $(this).find('[name="status"]').val();
             if (_this.find('.border-danger').length > 0) {
@@ -134,7 +128,7 @@ if (isset($quotation_id)) {
                                 $.ajax({
                                 url: _base_url_+"mail/order_confirm.php",
                                 method: 'POST',
-                                data: { firstname: firstname,lastname:lastname, email: email,product:product,daily_rate: daily_rate,quantity: quantity,amount: amount,id:id,date:date},
+                                data: {id:id},
                                 dataType: 'json',
                                 });
                                 alert_toast("Mail Send Successfully", 'success');

@@ -117,15 +117,17 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                         <table class="table table-bordered table-striped">
                                             <colgroup>
                                                 <col width="8%">
-                                                <col width="22%">
+                                                <col width="8%">
+                                                <col width="18%">
+                                                <col width="20%">
                                                 <col width="25%">
-                                                <col width="30%">
                                                 <col width="5%">
                                                 <col width="10%">
                                             </colgroup>
                                             <thead>
                                                 <tr class="bg-navy disabled">
                                                     <th>#</th>
+                                                    <th>Order ID</th>
                                                     <th>Date Created</th>
                                                     <th>Category</th>
                                                     <th>Company</th>
@@ -146,6 +148,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                                 ?>
                                                     <tr>
                                                         <td class="text-center"><a href="?page=maintenance/quotation&id=<?php echo $row['id'] ?>"><?php echo $i++ ?></a></td>
+                                                        <td class="text-center"><a href="?page=maintenance/quotation&id=<?php echo $row['id'] ?>"><?php echo $row['id'] ?></a></td>
                                                         <td><?php echo date("Y-m-d H:i", strtotime($row['date_created'])) ?></td>
                                                         <td><?php echo $row['category'] ?></td>
                                                         <td class="lh-1"> <?php echo $row['name'] ?></td>
