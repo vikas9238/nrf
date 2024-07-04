@@ -43,7 +43,7 @@ try {
     
     <p>Please note that if the payment is found to be invalid or unsuccessful, the material will not be booked. We kindly request your patience as we complete this verification process.</p>
     
-    <p>If you have any questions or concerns, please feel free to reach out to our customer service team at <b>Email:</b><a href='mailto:contact@nrfindustry.in'>contact@nrfindustry.in</a> <b>Contact:</b><a href='tel:+919876543210'>+91-9876543210</a>.</p>
+    <p>If you have any questions or concerns, please feel free to reach out to our customer service team at <b>Email:</b><a href='mailto:contact@nrfindustry.in'> contact@nrfindustry.in</a> <b>Contact:</b><a href='tel:+918789045931'> +91-8789045931</a>.</p>
     
     <p>Thank you for your understanding and patience.</p>
     

@@ -43,7 +43,7 @@ try {
     
     <p>Our team is working diligently to process your request. You will receive an email notification once your account has been approved. If we require any additional information to complete the process, we will contact you promptly.</p>
     
-    <p>We appreciate your patience during this time. If you have any urgent inquiries or need further assistance, please don't hesitate to contact our support team at <b>Email:</b><a href='mailto:contact@nrfindustry.in'>contact@nrfindustry.in</a> <b>Contact:</b><a href='tel:+919876543210'>+91-9876543210</a>.</p>
+    <p>We appreciate your patience during this time. If you have any urgent inquiries or need further assistance, please don't hesitate to contact our support team at <b>Email:</b><a href='mailto:contact@nrfindustry.in'> contact@nrfindustry.in</a> <b>Contact:</b><a href='tel:+918789045931'> +91-8789045931</a>.</p>
     
     <p>Thank you for choosing NRF Industry And Trading Private Limited. We look forward to welcoming you soon.</p>
     

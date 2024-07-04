@@ -43,7 +43,7 @@ try {
 
     <p>You can now access all the features and benefits of our platform. Please log in using the credentials you provided during registration to get started.</p>
 
-    <p>If you have any questions or encounter any issues while using our platform, feel free to reach out to our support team at <b>Email:</b><a href='mailto:contact@nrfindustry.in'>contact@nrfindustry.in</a> <b>Contact:</b><a href='tel:+919876543210'>+91-9876543210</a> We're here to assist you.</p>
+    <p>If you have any questions or encounter any issues while using our platform, feel free to reach out to our support team at <b>Email:</b><a href='mailto:contact@nrfindustry.in'> contact@nrfindustry.in</a> <b>Contact:</b><a href='tel:+918789045931'> +91-8789045931</a> We're here to assist you.</p>
 
     <p>Thank you for choosing NRF Industry And Trading Private Limited. We look forward to serving you.</p>
 

@@ -42,7 +42,7 @@ try {
     
     <p>I hope this message finds you well. We wanted to inform you that the payment for the amount $amount has been successfully processed for your recent order on nrfindustry.in  However, your recent material booking request with us is currently pending confirmation. If we are unable to confirm your booking within the next 72 hours, we will initiate a refund for your payment.</p>
         
-    <p>If you have any questions or concerns, please feel free to reach out to our customer service team at <b>Email:</b><a href='mailto:contact@nrfindustry.in'>contact@nrfindustry.in</a> <b>Contact:</b><a href='tel:+919876543210'>+91-9876543210</a>.</p>
+    <p>If you have any questions or concerns, please feel free to reach out to our customer service team at <b>Email:</b><a href='mailto:contact@nrfindustry.in'> contact@nrfindustry.in</a> <b>Contact:</b><a href='tel:+918789045931'> +91-8789045931</a>.</p>
     
     <p>Thank you for your understanding and patience.</p>
     

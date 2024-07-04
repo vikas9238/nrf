@@ -1,10 +1,19 @@
 <?php
+//Import PHPMailer classes into the global namespace
+//These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+//Load Composer's autoloader
+require '../vendor/autoload.php';
 require_once('../config.php');
 require_once '../vendor/autoload.php';
 
 use Dompdf\Dompdf;
 
 ini_set('memory_limit', '256M'); // Increase PHP memory limit
+if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['id'])) {
 
 $qry = $conn->query("SELECT b.*,c.firstname,c.lastname,c.email,c.contact,c.address,c.gender,co.name,p.category,q.address as location from `booking_list` b inner join quotation_list q on q.id=b.quotation_id inner join clients c on c.id = b.client_id inner join company_list co on co.id=q.company_id inner join product p on p.id=q.product_id where b.id = '{$_POST['id']}' ");
 set_time_limit(300); // Increase the maximum execution time to 5 minutes
@@ -112,7 +121,7 @@ $html = '<!DOCTYPE html>
             >
           </p>
           <p><strong>Email:</strong> contact@nrfindustry.in</p>
-          <p><strong>Phone:</strong> +91-9876543210</p>
+          <p><strong>Phone:</strong> +91-8789045931</p>
           <p><strong>GST No:</strong> 10AAGCN1641R1ZE</p>
         </div>
         <div class="details">
@@ -180,15 +189,6 @@ $dompdf->render();
 $output = $dompdf->output();
 file_put_contents('invoice.pdf', $output); // Save the PDF locally
 
-//Import PHPMailer classes into the global namespace
-//These must be at the top of your script, not inside a function
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
-//Load Composer's autoloader
-require '../vendor/autoload.php';
-if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['id'])) {
     // Retrieve form data
     $id = $_POST['id'];
     // $quantity = $_POST['quantity'];
@@ -230,7 +230,7 @@ try {
     Price: $daily_rate<br>
     Quantity: $approved_quantity	<br>
     Total Amount: $amount</p>    
-    <p>We appreciate your patience during this time. If you have any urgent inquiries or need further assistance, please don't hesitate to contact our support team at <b>Email:</b><a href='mailto:contact@nrfindustry.in'>contact@nrfindustry.in</a> <b>Contact:</b><a href='tel:+919876543210'>+91-9876543210</a>.</p>
+    <p>We appreciate your patience during this time. If you have any urgent inquiries or need further assistance, please don't hesitate to contact our support team at <b>Email:</b><a href='mailto:contact@nrfindustry.in'> contact@nrfindustry.in</a> <b>Contact:</b><a href='tel:+918789045931'> +91-8789045931</a>.</p>
     
     <p>Thank you for choosing NRF Industry And Trading Private Limited. We look forward to welcoming you soon.</p>
     
