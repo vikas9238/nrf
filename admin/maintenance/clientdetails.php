@@ -19,10 +19,10 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle" src="<?php echo base_url.'uploads/clients/'.$id.'/'.'user.png' ?>" alt="User profile picture">
+                            <img class="profile-user-img img-fluid img-circle" src="<?php echo base_url . 'uploads/clients/' . $id . '/' . 'user.png' ?>" alt="User profile picture">
                         </div>
 
-                        <h3 class="profile-username text-center"><?php echo $firstname,$lastname ?></h3>
+                        <h3 class="profile-username text-center"><?php echo $firstname, $lastname ?></h3>
 
                     </div>
                     <!-- /.card-body -->
@@ -30,7 +30,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img class="img-fluid" src="<?php echo base_url.'uploads/clients/'.$id.'/'.'sign.png' ?>" alt="Signature">
+                            <img class="img-fluid" src="<?php echo base_url . 'uploads/clients/' . $id . '/' . 'sign.png' ?>" alt="Signature">
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -38,7 +38,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img class="img-fluid" src="<?php echo base_url.'uploads/clients/'.$id.'/'.'idfront.png' ?>" alt="Aadhar Front">
+                            <img class="img-fluid" src="<?php echo base_url . 'uploads/clients/' . $id . '/' . 'idfront.png' ?>" alt="Aadhar Front">
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -46,7 +46,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img class="img-fluid" src="<?php echo base_url.'uploads/clients/'.$id.'/'.'idback.png' ?>" alt="Aadhar Back">
+                            <img class="img-fluid" src="<?php echo base_url . 'uploads/clients/' . $id . '/' . 'idback.png' ?>" alt="Aadhar Back">
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -113,7 +113,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                             </div>
                             <div class="card-body">
                                 <div class="container-fluid">
-                                    <div class="container-fluid">
+                                    <div class="table-responsive">
                                         <table class="table table-bordered table-striped">
                                             <colgroup>
                                                 <col width="8%">
@@ -141,7 +141,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                                 $qry = $conn->query("SELECT b.*,c.category, d.name,q.description from `booking_list` b inner join quotation_list q on b.quotation_id = q.id inner join product c on q.product_id = c.id inner join company_list d on q.company_id = d.id where b.client_id = '{$_GET['id']}' and b.status='1' ");
                                                 //("SELECT Orders.OrderID, Customers.CustomerName, Shippers.ShipperName FROM ((Orders INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID)INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID);")
                                                 while ($row = $qry->fetch_assoc()) :
-                                                    foreach($row as $k=> $v){
+                                                    foreach ($row as $k => $v) {
                                                         $row[$k] = trim(stripslashes($v));
                                                     }
                                                     $row['description'] = strip_tags(stripslashes(html_entity_decode($row['description'])));
