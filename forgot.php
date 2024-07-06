@@ -12,22 +12,16 @@
         </button>
     </h3>
         <div class="col-lg-12">
-            <h3 class="text-center">Login</h3>
+            <h3 class="text-center">Forgot Password</h3>
             <hr>
-            <form action="" id="login-form">
+            <form action="" id="forgot-form">
                 <div class="form-group">
                     <label for="" class="control-label">Email</label>
-                    <input type="email" class="form-control form" name="email" required>
+                    <input type="email" class="form-control form" placeholder="Enter email address" name="email" required>
                 </div>
-                <div class="form-group">
-                    <label for="" class="control-label">Password</label>
-                    <input type="password" class="form-control form" name="password" required>
-                </div>
-                <div class="link forget-pass text-left"><a href="javascript:void()" id="forgot">Forgot password?</a></div>
-
                 <div class="form-group d-flex justify-content-between">
                     <a href="javascript:void()" id="create_account">Create Account</a>
-                    <button class="btn btn-primary btn-flat">Login</button>
+                    <button class="btn btn-primary btn-flat">Continue</button>
                 </div>
             </form>
         </div>
@@ -38,62 +32,43 @@
         $('#create_account').click(function(){
             uni_modal("","registration.php","mid-large")
         })
-        $('#forgot').click(function(){
-            uni_modal("","forgot.php","mid-large")
-        })
-        $('#login-form').submit(function(e){
+        $('#forgot-form').submit(function(e){
             e.preventDefault();
             start_loader()
             if($('.err-msg').length > 0)
                 $('.err-msg').remove();
             $.ajax({
-                url:_base_url_+"classes/Login.php?f=login_user",
+                url:_base_url_+"classes/Login.php?f=forgot_password",
                 method:"POST",
                 data:$(this).serialize(),
                 dataType:"json",
                 error:err=>{
                     console.log(err)
-                        Swal.fire({
+                    Swal.fire({
                             icon: "error",
                             title: "Oops...",
                             text: "Something went wrong!",
-                            });                    
-                        end_loader()
+                            });
+                    end_loader()
                 },
                 success:function(resp){
                     if(typeof resp == 'object' && resp.status == 'success'){
                         end_loader()
                         Swal.fire({
-                                    title: "Login Successfully",
-                                    // text: "You can now login!",
+                                    title: "Password reset link sent to your email!",
+                                    text: "Check Your email for the reset link!",
                                     icon: "success"
                                     }).then(function(){
                                         location.reload();
                                     });
-                        // alert_toast("Login Successfully",'success')
+                        // alert_toast("Password reset link sent to your email",'success')
                         // setTimeout(function(){
                         //     location.reload()
-                        // },2000)
+                        // },1500)
                     }else if(resp.status == 'incorrect'){
-                        var _err_el = $('<div>')
-                            _err_el.addClass("alert alert-danger err-msg").text("Incorrect Credentials.")
-                        $('#login-form').prepend(_err_el)
+                        $('#forgot-form').prepend('<div class="alert alert-danger err-msg">Email not found.</div>')
                         end_loader()
-                        
-                    }else if(resp.status == 'inactive'){
-                        var _err_el = $('<div>')
-                            _err_el.addClass("alert alert-info err-msg").text("Your account are inactive, Please Contact Admin.")
-                        $('#login-form').prepend(_err_el)
-                        end_loader()
-                        
-                    }else if(resp.status == 'pending'){
-                        var _err_el = $('<div>')
-                            _err_el.addClass("alert alert-warning err-msg").text("Your Account are waiting for approvel, Please Wait....")
-                        $('#login-form').prepend(_err_el)
-                        end_loader()
-                        
                     }else{
-                        console.log(resp)
                         alert_toast("an error occured",'error')
                         end_loader()
                     }
@@ -101,4 +76,3 @@
             })
         })
     })
-</script>

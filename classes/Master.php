@@ -1,5 +1,10 @@
 <?php
 require_once('../config.php');
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+require '../vendor/autoload.php';
+
 class Master extends DBConnection
 {
 	private $settings;
@@ -723,6 +728,48 @@ class Master extends DBConnection
 		}
 		return json_encode($resp);
 	}
+	function contact_us()
+	{
+		extract($_POST);
+		$mail = new PHPMailer(true);
+			try {
+				$mail->isSMTP();                                            //Send using SMTP
+				$mail->Host       = 'smtp.hostinger.com';                     //Set the SMTP server to send through
+				$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+				$mail->Username   = 'no-reply@nrfindustry.in';                     //SMTP username
+				$mail->Password   = 'Nrf@9238';                               //SMTP password
+				$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
+				$mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+				//Recipients
+				$mail->setFrom('no-reply@nrfindustry.in', 'NRF INDUSTRY');
+				$mail->addAddress('contact@nrfindustry.in');     //Add a recipient
+			
+				//Content
+				$mail->isHTML(true);                                  //Set email format to HTML
+				$mail->Subject = "New Contact Form Enquiry";
+				$mail->Body    = "<p>Name: $name</p>    
+								<p>Email: $email</p>
+								<p>Subject: $subject</p>
+								<p>Message: $message</p>";
+				if($mail->send()) {
+					$resp['status'] = 'success';
+				}else{
+					$resp['status'] = 'failed';
+					$resp['_error'] = $mail->ErrorInfo;
+				}
+			} catch (Exception $e) {
+				$resp['status'] = 'failed';
+				$resp['_error'] = $mail->ErrorInfo;
+			}
+		// if ($update) {
+		// 	$resp['status'] = 'success';
+		// } else {
+		// 	$resp['status'] = 'failed';
+		// 	$resp['error'] = $this->conn->error;
+		// }
+		return json_encode($resp);
+	}
 }
 
 $Master = new Master();
@@ -780,6 +827,9 @@ switch ($action) {
 		break;
 	case 'delete_img':
 		echo $Master->delete_img();
+		break;
+	case 'contact_us':
+		echo $Master->contact_us();
 		break;
 	default:
 		// echo $sysset->index();
