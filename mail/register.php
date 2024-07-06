@@ -4,6 +4,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+require_once('../config.php');
 
 //Load Composer's autoloader
 require '../vendor/autoload.php';
@@ -12,6 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['firstname']) && !empt
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
     $email = $_POST['email'];
+    $mobile=$_settings->info('mobile');
+    $company_email=$_settings->info('email');
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
 try {
@@ -43,7 +46,7 @@ try {
     
     <p>Our team is working diligently to process your request. You will receive an email notification once your account has been approved. If we require any additional information to complete the process, we will contact you promptly.</p>
     
-    <p>We appreciate your patience during this time. If you have any urgent inquiries or need further assistance, please don't hesitate to contact our support team at <b>Email:</b><a href='mailto:contact@nrfindustry.in'> contact@nrfindustry.in</a> <b>Contact:</b><a href='tel:+918789045931'> +91-8789045931</a>.</p>
+    <p>We appreciate your patience during this time. If you have any urgent inquiries or need further assistance, please don't hesitate to contact our support team at <b>Email:</b><a href='mailto:$company_email'> $company_email</a> <b>Contact:</b><a href='tel:$mobile'> +91-$mobile</a>.</p>
     
     <p>Thank you for choosing NRF Industry And Trading Private Limited. We look forward to welcoming you soon.</p>
     

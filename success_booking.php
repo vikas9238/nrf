@@ -8,6 +8,6 @@
     <p>आपका बुकिंग अनुरोध सफलतापूर्वक सबमिट कर दिया गया है, हालांकि भुगतान की जांच अभी बाकी है यदि भुगतान अमान्य पाया जाता है तो सामग्री बुक नहीं की जाएगी| धन्यवाद.</p>
 
     <center>
-        <button class="btn btn-sm btn-dark rounded-0" type="button" data-dismiss="modal">Close</button>
+        <button class="btn btn-sm btn-dark rounded-0" type="button" data-dismiss="modal" onclick="location.reload();">Close</button>
     </center>
 </div>

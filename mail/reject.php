@@ -4,6 +4,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+require_once('../config.php');
 
 //Load Composer's autoloader
 require '../vendor/autoload.php';
@@ -13,6 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['firstname']) && !empt
     $lastname = $_POST['lastname'];
     $email = $_POST['email'];
     $reason = $_POST['reason'];
+    $mobile=$_settings->info('mobile');
+    $company_email=$_settings->info('email');
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
 try {
@@ -46,7 +49,7 @@ try {
     $reason<br>
     <p>These reasons may include incomplete information provided, mismatched details with our system requirements, or other issues that prevented us from approving your registration.</p>
     <p>We kindly ask you to review the information provided and register again using the following link: <a href='https://nrfindustry.in/'>click here</a>. Please ensure that all required fields are completed accurately to facilitate a successful registration process.</p>
-    <p>If you would like to discuss this further or believe there may have been a mistake, please don't hesitate to contact our support team at <b>Email:</b><a href='mailto:contact@nrfindustry.in'> contact@nrfindustry.in</a> <b>Contact:</b><a href='tel:+918789045931'> +91-8789045931</a>. We are here to assist you and resolve any concerns you may have.</p>
+    <p>If you would like to discuss this further or believe there may have been a mistake, please don't hesitate to contact our support team at <b>Email:</b><a href='mailto:$company_email'> $company_email</a> <b>Contact:</b><a href='tel:$mobile'> +91-$mobile</a>. We are here to assist you and resolve any concerns you may have.</p>
     
     <p>Thank you for your understanding. We value your interest in NRF Industry And Trading Private Limited and apologize for any inconvenience caused.</p>
     

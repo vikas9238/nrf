@@ -65,9 +65,9 @@
                 <div class="row g-5">
                     <div class="col-lg-3 col-md-6">
                         <h5 class="text-white mb-4">Get In Touch</h5>
-                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Patna, Bihar, INDIA</p>
-                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+91 1234567890</p>
-                        <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@nrf.com</p>
+                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i><?php echo  $_settings->info('address') ?></p>
+                        <a href="tel:<?php echo  $_settings->info('mobile') ?>" class="text-white-50"><p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+91 <?php echo  $_settings->info('mobile') ?></p></a>
+                        <a href="mailto:<?php echo  $_settings->info('email') ?>" class="text-white-50"><p class="mb-2"><i class="fa fa-envelope me-3"></i><?php echo  $_settings->info('email') ?></p></a>
                         <div class="d-flex pt-2">
                             <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
                             <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>

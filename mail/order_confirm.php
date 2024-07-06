@@ -114,14 +114,13 @@ $html = '<!DOCTYPE html>
         <h1>Invoice</h1>
         <div class="NRF">
           <h2>NRF INDUSTRY AND TRADING PRIVATE LIMITED</h2>
-          <p>
+           <p>
             <strong
-              >Ram Nagar, Opp Jakkanpur Thana, Pathar Gali, Patna -
-              800001</strong
+              >'.$_settings->info('address').'</strong
             >
           </p>
-          <p><strong>Email:</strong> contact@nrfindustry.in</p>
-          <p><strong>Phone:</strong> +91-8789045931</p>
+          <p><strong>Email:</strong> '.$_settings->info('email').'</p>
+          <p><strong>Phone:</strong> +91-'.$_settings->info('mobile').'</p>
           <p><strong>GST No:</strong> 10AAGCN1641R1ZE</p>
         </div>
         <div class="details">
@@ -194,6 +193,8 @@ file_put_contents('invoice.pdf', $output); // Save the PDF locally
     $id = $_POST['id'];
     // $quantity = $_POST['quantity'];
     $amount = $daily_rate*$approved_quantity;
+    $mobile=$_settings->info('mobile');
+    $company_email=$_settings->info('email');
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
 try {
@@ -231,7 +232,7 @@ try {
     Price: $daily_rate<br>
     Quantity: $approved_quantity	<br>
     Total Amount: $amount</p>    
-    <p>We appreciate your patience during this time. If you have any urgent inquiries or need further assistance, please don't hesitate to contact our support team at <b>Email:</b><a href='mailto:contact@nrfindustry.in'> contact@nrfindustry.in</a> <b>Contact:</b><a href='tel:+918789045931'> +91-8789045931</a>.</p>
+    <p>We appreciate your patience during this time. If you have any urgent inquiries or need further assistance, please don't hesitate to contact our support team at <b>Email:</b><a href='mailto:$company_email'> $company_email</a> <b>Contact:</b><a href='tel:$mobile'> +91-$mobile</a>.</p>
     
     <p>Thank you for choosing NRF Industry And Trading Private Limited. We look forward to welcoming you soon.</p>
     

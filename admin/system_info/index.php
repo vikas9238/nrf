@@ -37,6 +37,18 @@
 					<label for="short_name" class="control-label">System Short Name</label>
 					<input type="text" class="form-control form-control-sm" name="short_name" id="short_name" value="<?php echo  $_settings->info('short_name') ?>">
 				</div> -->
+				<div class="form-group">
+					<label for="email" class="control-label">Email ID</label>
+					<input type="email" class="form-control form-control-sm" name="email" id="email" value="<?php echo  $_settings->info('email') ?>">
+				</div>
+				<div class="form-group">
+					<label for="mobile" class="control-label">Mobile Number</label>
+					<input type="number" class="form-control form-control-sm" name="mobile" id="mobile" value="<?php echo  $_settings->info('mobile') ?>">
+				</div>
+				<div class="form-group">
+					<label for="address" class="control-label">Address</label>
+					<input type="text" class="form-control form-control-sm" name="address" id="address" value="<?php echo  $_settings->info('address') ?>">
+				</div>
 			<div class="form-group">
 				<label for="" class="control-label">About Us</label>
 	             <textarea name="about_us" id="" cols="30" rows="2" class="form-control summernote"><?php echo  is_file(base_app.'about.html') ? file_get_contents(base_app.'about.html') : "" ?></textarea>

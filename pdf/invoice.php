@@ -104,12 +104,11 @@ $html = '<!DOCTYPE html>
           <h2>NRF INDUSTRY AND TRADING PRIVATE LIMITED</h2>
           <p>
             <strong
-              >Ram Nagar, Opp Jakkanpur Thana, Pathar Gali, Patna -
-              800001</strong
+              >'.$_settings->info('address').'</strong
             >
           </p>
-          <p><strong>Email:</strong> contact@nrfindustry.in</p>
-          <p><strong>Phone:</strong> +91-8789045931</p>
+          <p><strong>Email:</strong> '.$_settings->info('email').'</p>
+          <p><strong>Phone:</strong> +91-'.$_settings->info('mobile').'</p>
           <p><strong>GST No:</strong> 10AAGCN1641R1ZE</p>
         </div>
         <div class="details">
