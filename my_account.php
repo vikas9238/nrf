@@ -14,9 +14,11 @@
                         </a>
                     </div>
                     <hr class="border-warning">
+                    <div class="table-responsive">
                     <table class="table table-stripped text-dark">
                         <colgroup>
                             <col width="5%">
+                            <col width="10%">
                             <col width="15%">
                             <col width="25%">
                             <col width="20%">
@@ -26,6 +28,7 @@
                         <thead>
                             <tr class="bg-navy text-white">
                                 <th>#</th>
+                                <th>Order ID</th>
                                 <th>Date Booked</th>
                                 <th>Booking Details</th>
                                 <th>Company Details</th>
@@ -41,6 +44,7 @@
                             ?>
                                 <tr>
                                     <td class="text-center"><?php echo $i++; ?></td>
+                                    <td class="text-center">#<?php echo $row['id']; ?></td>
                                     <td><?php echo date("Y-m-d H:i", strtotime($row['date_created'])) ?></td>
                                     <td>
                                         <small><span class="text-muted">PO Rate: </span><?php echo number_format($row['po_rate']) ?></small><br>
@@ -84,6 +88,7 @@
                             <?php endwhile; ?>
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>
