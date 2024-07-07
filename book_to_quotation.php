@@ -63,7 +63,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
     </form>
     <div class="modal-footer book">
         <button type="button" id="next" class="btn btn-sm btn-flat btn-primary">Next</button>
-        <button type="button" class="btn btn-secondary btn-sm btn-flat" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary btn-sm btn-flat" data-dismiss="modal" onclick="location.reload();">Close</button>
     </div>
     <div class="payment mt-2">
         <h3 class="text-center">Payment</h3>
@@ -141,7 +141,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
         </div>
         <div class="modal-footer">
             <button type="button" id="submit" class="btn btn-sm btn-flat btn-primary">Submit</button>
-            <button type="button" class="btn btn-secondary btn-sm btn-flat" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary btn-sm btn-flat" data-dismiss="modal" onclick="location.reload();">Close</button>
         </div>
     </div>
 </div>
