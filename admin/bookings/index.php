@@ -64,6 +64,8 @@
 										<span class="badge badge-danger">Cancelled</span>
 									<?php elseif ($row['status'] == 3) : ?>
 										<span class="badge badge-success">Active</span>
+									<?php elseif ($row['status'] == 4) : ?>
+										<span class="badge badge-info">Partial Confirm</span>
 									<?php endif; ?>
 								</td>
 								<td align="center">

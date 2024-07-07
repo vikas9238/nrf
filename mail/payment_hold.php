@@ -9,11 +9,10 @@ require_once('../config.php');
 
 //Load Composer's autoloader
 require '../vendor/autoload.php';
-if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['amount'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['name']) && !empty($_POST['email'])) {
     // Retrieve form data
     $name = $_POST['name'];
     $email = $_POST['email'];
-    $amount = $_POST['amount'];
     $mobile = $_settings->info('mobile');
     $company_email = $_settings->info('email');
     //Create an instance; passing `true` enables exceptions
@@ -40,15 +39,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['name']) && !empty($_P
 
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
-        $mail->Subject = "Your Payment For Rs $amount has been received";
+        $mail->Subject = "Action Required: Invalid Payment Detected";
         $mail->Body    = "Dear $name,<br>
     
-    <p>I hope this message finds you well. We wanted to inform you that the payment for the amount $amount has been successfully processed for your recent order on nrfindustry.in  However, your recent material booking request with us is currently in pending state. If we are unable to confirm your booking within the next 72 hours, we will initiate a refund for your payment.</p>
+    <p>Upon verification from our team, it has come to our attention that the client has made an invalid payment. Therefore, we will need to cancel their order.</p>
+    <p>Alternatively, if you believe this is an error, please send us a screenshot of the payment along with a reference number to <a href='mailto:$company_email'> $company_email</a> within the next 6 hours for further review.</p>
     <p>For further details, you can also view this transaction in your profile on our website at www.nrfindustry.in</p>
         
     <p>If you have any questions or concerns, please feel free to reach out to our customer service team at <b>Email:</b><a href='mailto:$company_email'> $company_email</a> <b>Contact:</b><a href='tel:$mobile'> +91-$mobile</a>.</p>
     
-    <p>Thank you for your understanding and patience.</p>
+    <p>Thank you for your prompt attention to this matter.</p>
     
     Best regards,<br>
     

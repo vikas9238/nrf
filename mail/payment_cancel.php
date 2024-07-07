@@ -9,11 +9,10 @@ require_once('../config.php');
 
 //Load Composer's autoloader
 require '../vendor/autoload.php';
-if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['amount'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['name']) && !empty($_POST['email'])) {
     // Retrieve form data
     $name = $_POST['name'];
     $email = $_POST['email'];
-    $amount = $_POST['amount'];
     $mobile = $_settings->info('mobile');
     $company_email = $_settings->info('email');
     //Create an instance; passing `true` enables exceptions
@@ -40,12 +39,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['name']) && !empty($_P
 
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
-        $mail->Subject = "Your Payment For Rs $amount has been received";
+        $mail->Subject = "Cancellation of Your Material Booking Request Due to Invalid Payment";
         $mail->Body    = "Dear $name,<br>
     
-    <p>I hope this message finds you well. We wanted to inform you that the payment for the amount $amount has been successfully processed for your recent order on nrfindustry.in  However, your recent material booking request with us is currently in pending state. If we are unable to confirm your booking within the next 72 hours, we will initiate a refund for your payment.</p>
-    <p>For further details, you can also view this transaction in your profile on our website at www.nrfindustry.in</p>
-        
+    <p>We regret to inform you that your recent payment has been identified as invalid following our verification process. Therefore, we are canceling your material booking request.</p>
+        <p>For further details, you can also view this transaction in your profile on our website at www.nrfindustry.in</p>
     <p>If you have any questions or concerns, please feel free to reach out to our customer service team at <b>Email:</b><a href='mailto:$company_email'> $company_email</a> <b>Contact:</b><a href='tel:$mobile'> +91-$mobile</a>.</p>
     
     <p>Thank you for your understanding and patience.</p>

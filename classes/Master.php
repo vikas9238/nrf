@@ -1,8 +1,10 @@
 <?php
 require_once('../config.php');
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+
 require '../vendor/autoload.php';
 
 class Master extends DBConnection
@@ -358,13 +360,13 @@ class Master extends DBConnection
 				}
 			}
 			if (isset($_FILES['upload_po']['tmp_name']) && !empty($_FILES['upload_po']['tmp_name'])) {
-			$uploaddir = base_app . "uploads/" . $id . "/";
-			$uploadfile = $uploaddir . $id.".pdf";
-			if (move_uploaded_file($_FILES['upload_po']['tmp_name'], $uploadfile)) {
-				$resp['msg'] .= "File is valid, and was successfully uploaded.\n";
-			} else {
-				$resp['msg'] .= "Possible file upload attack!\n";
-			}
+				$uploaddir = base_app . "uploads/" . $id . "/";
+				$uploadfile = $uploaddir . $id . ".pdf";
+				if (move_uploaded_file($_FILES['upload_po']['tmp_name'], $uploadfile)) {
+					$resp['msg'] .= "File is valid, and was successfully uploaded.\n";
+				} else {
+					$resp['msg'] .= "Possible file upload attack!\n";
+				}
 			}
 			$resp['status'] = 'success';
 			if (empty($id))
@@ -437,7 +439,7 @@ class Master extends DBConnection
 			if ($status == 1) {
 				$stock = $this->conn->query("SELECT quantity FROM `quotation_list` where id = '{$quotation_id}'")->fetch_array()['quantity'];
 				if ($approved_quantity <= $stock) {
-					$date=date('Y-m-d H:i:sa');
+					$date = date('Y-m-d H:i:sa');
 					$sql = "UPDATE `booking_list` set approved_quantity = approved_quantity + '{$approved_quantity}', status='1', confirm_order='{$date}' where id ='{$id}'";
 					$save = $this->conn->query($sql);
 					$qur = "UPDATE `quotation_list` set quantity = quantity - '{$approved_quantity}' where id = '{$quotation_id}'";
@@ -452,7 +454,7 @@ class Master extends DBConnection
 					$save = $this->conn->query($qur);
 				}
 			} elseif ($status == 2) {
-				$sql = "UPDATE `booking_list` set status='2' where id ='{$id}'";
+				$sql = "UPDATE `booking_list` set status='2',reason='{$reason}' where id ='{$id}'";
 				$save = $this->conn->query($sql);
 			}
 		}
@@ -461,7 +463,7 @@ class Master extends DBConnection
 			if (isset($_FILES['screenshot']['tmp_name']) && !empty($_FILES['screenshot']['tmp_name'])) {
 				if (!is_dir($dir))
 					mkdir($dir);
-				$thumb_fname = $dir . $transaction.".png";
+				$thumb_fname = $dir . $transaction . ".png";
 				$upload = $_FILES['screenshot']['tmp_name'];
 				$type = mime_content_type($upload);
 				$allowed = array('image/png', 'image/jpeg');
@@ -520,6 +522,66 @@ class Master extends DBConnection
 		if ($save) {
 			$resp['status'] = 'success';
 			$this->settings->set_flashdata('success', "Account has been successfully closed.");
+		} else {
+			$resp['status'] = 'failed';
+			$resp['error'] = $this->conn->error . "[{$sql}]";
+		}
+		return json_encode($resp);
+	}
+	//payment cancel
+	function payment_cancel()
+	{
+		extract($_POST);
+		$sql = "UPDATE `booking_list` set transaction_status ='2', status='2' where id = '{$_POST['id']}' ";
+		$save = $this->conn->query($sql);
+		if ($save) {
+			$resp['status'] = 'success';
+			$this->settings->set_flashdata('success', "Payment has been Cancel successfully.");
+		} else {
+			$resp['status'] = 'failed';
+			$resp['error'] = $this->conn->error . "[{$sql}]";
+		}
+		return json_encode($resp);
+	}
+	// payment verify
+	function verify_payment()
+	{
+		extract($_POST);
+		$sql = "UPDATE `booking_list` set transaction_status ='1' where id = '{$_POST['id']}' ";
+		$save = $this->conn->query($sql);
+		if ($save) {
+			$resp['status'] = 'success';
+			$this->settings->set_flashdata('success', "Payment has been verify successfully.");
+		} else {
+			$resp['status'] = 'failed';
+			$resp['error'] = $this->conn->error . "[{$sql}]";
+		}
+		return json_encode($resp);
+	}
+	// payment hold
+	function payment_hold()
+	{
+		extract($_POST);
+		$sql = "UPDATE `booking_list` set transaction_status ='3' where id = '{$_POST['id']}' ";
+		$save = $this->conn->query($sql);
+		if ($save) {
+			$resp['status'] = 'success';
+			$this->settings->set_flashdata('success', "Payment has been on Hold successfully.");
+		} else {
+			$resp['status'] = 'failed';
+			$resp['error'] = $this->conn->error . "[{$sql}]";
+		}
+		return json_encode($resp);
+	}
+	// payment paid
+	function payment_paid()
+	{
+		extract($_POST);
+		$sql = "UPDATE `booking_list` set refund_status='1',paid_txt_id='$paid_txt_id',paid_date='$paid_date' where id = '{$_POST['id']}' ";
+		$save = $this->conn->query($sql);
+		if ($save) {
+			$resp['status'] = 'success';
+			$this->settings->set_flashdata('success', "Refund has been Paid successfully.");
 		} else {
 			$resp['status'] = 'failed';
 			$resp['error'] = $this->conn->error . "[{$sql}]";
@@ -732,36 +794,36 @@ class Master extends DBConnection
 	{
 		extract($_POST);
 		$mail = new PHPMailer(true);
-			try {
-				$mail->isSMTP();                                            //Send using SMTP
-				$mail->Host       = 'smtp.hostinger.com';                     //Set the SMTP server to send through
-				$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-				$mail->Username   = 'no-reply@nrfindustry.in';                     //SMTP username
-				$mail->Password   = 'Nrf@9238';                               //SMTP password
-				$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
-				$mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+		try {
+			$mail->isSMTP();                                            //Send using SMTP
+			$mail->Host       = 'smtp.hostinger.com';                     //Set the SMTP server to send through
+			$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+			$mail->Username   = 'no-reply@nrfindustry.in';                     //SMTP username
+			$mail->Password   = 'Nrf@9238';                               //SMTP password
+			$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
+			$mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
-				//Recipients
-				$mail->setFrom('no-reply@nrfindustry.in', 'NRF INDUSTRY');
-				$mail->addAddress('contact@nrfindustry.in');     //Add a recipient
-			
-				//Content
-				$mail->isHTML(true);                                  //Set email format to HTML
-				$mail->Subject = "New Contact Form Enquiry";
-				$mail->Body    = "<p>Name: $name</p>    
+			//Recipients
+			$mail->setFrom('no-reply@nrfindustry.in', 'NRF INDUSTRY');
+			$mail->addAddress('contact@nrfindustry.in');     //Add a recipient
+
+			//Content
+			$mail->isHTML(true);                                  //Set email format to HTML
+			$mail->Subject = "New Contact Form Enquiry";
+			$mail->Body    = "<p>Name: $name</p>    
 								<p>Email: $email</p>
 								<p>Subject: $subject</p>
 								<p>Message: $message</p>";
-				if($mail->send()) {
-					$resp['status'] = 'success';
-				}else{
-					$resp['status'] = 'failed';
-					$resp['_error'] = $mail->ErrorInfo;
-				}
-			} catch (Exception $e) {
+			if ($mail->send()) {
+				$resp['status'] = 'success';
+			} else {
 				$resp['status'] = 'failed';
 				$resp['_error'] = $mail->ErrorInfo;
 			}
+		} catch (Exception $e) {
+			$resp['status'] = 'failed';
+			$resp['_error'] = $mail->ErrorInfo;
+		}
 		// if ($update) {
 		// 	$resp['status'] = 'success';
 		// } else {
@@ -796,6 +858,18 @@ switch ($action) {
 		break;
 	case 'close_account':
 		echo $Master->close_account();
+		break;
+	case 'verify_payment':
+		echo $Master->verify_payment();
+		break;
+	case 'payment_cancel':
+		echo $Master->payment_cancel();
+		break;
+	case 'payment_hold':
+		echo $Master->payment_hold();
+		break;
+	case 'payment_paid':
+		echo $Master->payment_paid();
 		break;
 	case 'delete_company':
 		echo $Master->delete_company();

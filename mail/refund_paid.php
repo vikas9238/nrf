@@ -9,13 +9,23 @@ require_once('../config.php');
 
 //Load Composer's autoloader
 require '../vendor/autoload.php';
-if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['amount'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['name']) && !empty($_POST['email'])) {
     // Retrieve form data
     $name = $_POST['name'];
     $email = $_POST['email'];
-    $amount = $_POST['amount'];
     $mobile = $_settings->info('mobile');
+    $amount = $_POST['amount'];
+    $date = $_POST['paid_date'];
+    $paid_txt_id = $_POST['paid_txt_id'];
+    $product = $_POST['product'];
+    $company = $_POST['company'];
     $company_email = $_settings->info('email');
+    $qry = $conn->query("SELECT * FROM `clients` WHERE `email` = $email");
+    if ($qry->num_rows > 0) {
+        foreach ($qry->fetch_assoc() as $k => $v) {
+            $$k = $v;
+        }
+    }
     //Create an instance; passing `true` enables exceptions
     $mail = new PHPMailer(true);
     try {
@@ -40,15 +50,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['name']) && !empty($_P
 
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
-        $mail->Subject = "Your Payment For Rs $amount has been received";
+        $mail->Subject = "Refund Successfully Sent to Your Account";
         $mail->Body    = "Dear $name,<br>
     
-    <p>I hope this message finds you well. We wanted to inform you that the payment for the amount $amount has been successfully processed for your recent order on nrfindustry.in  However, your recent material booking request with us is currently in pending state. If we are unable to confirm your booking within the next 72 hours, we will initiate a refund for your payment.</p>
-    <p>For further details, you can also view this transaction in your profile on our website at www.nrfindustry.in</p>
-        
-    <p>If you have any questions or concerns, please feel free to reach out to our customer service team at <b>Email:</b><a href='mailto:$company_email'> $company_email</a> <b>Contact:</b><a href='tel:$mobile'> +91-$mobile</a>.</p>
+    <p>I am writing to inform you that the refund of $product for $company project  has been successfully processed and sent to your bank account.</p>
+    <p>Details of the Refund:</p>
+        <p>Transaction Id: $paid_txt_id</p>
+       <p>Transaction Date: $date</p>
+        <p>Refund Amount: $amount</p>
+        <p>Bank Account Number: $account</p>
+        <p>For further details, you can also view this transaction in your profile on our website at www.nrfindustry.in</p>
+    <p>If you have any questions or concerns regarding this refund, please feel free to contact us at  <b>Email:</b><a href='mailto:$company_email'> $company_email</a> <b>Contact:</b><a href='tel:$mobile'> +91-$mobile</a>.</p>
     
-    <p>Thank you for your understanding and patience.</p>
+    <p>Thank you for your patience and understanding throughout this process.</p>
     
     Best regards,<br>
     

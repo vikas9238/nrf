@@ -15,14 +15,14 @@ use Dompdf\Dompdf;
 ini_set('memory_limit', '256M'); // Increase PHP memory limit
 if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['id'])) {
 
-$qry = $conn->query("SELECT b.*,c.firstname,c.lastname,c.email,c.contact,c.address,c.gender,co.name,p.category,q.address as location from `booking_list` b inner join quotation_list q on q.id=b.quotation_id inner join clients c on c.id = b.client_id inner join company_list co on co.id=q.company_id inner join product p on p.id=q.product_id where b.id = '{$_POST['id']}' ");
-set_time_limit(300); // Increase the maximum execution time to 5 minutes
-if ($qry->num_rows > 0) {
+  $qry = $conn->query("SELECT b.*,c.firstname,c.lastname,c.email,c.contact,c.address,c.gender,co.name,p.category,q.address as location from `booking_list` b inner join quotation_list q on q.id=b.quotation_id inner join clients c on c.id = b.client_id inner join company_list co on co.id=q.company_id inner join product p on p.id=q.product_id where b.id = '{$_POST['id']}' ");
+  set_time_limit(300); // Increase the maximum execution time to 5 minutes
+  if ($qry->num_rows > 0) {
     foreach ($qry->fetch_assoc() as $k => $v) {
-        $$k = $v;
+      $$k = $v;
     }
-}
-$html = '<!DOCTYPE html>
+  }
+  $html = '<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -116,27 +116,27 @@ $html = '<!DOCTYPE html>
           <h2>NRF INDUSTRY AND TRADING PRIVATE LIMITED</h2>
            <p>
             <strong
-              >'.$_settings->info('address').'</strong
+              >' . $_settings->info('address') . '</strong
             >
           </p>
-          <p><strong>Email:</strong> '.$_settings->info('email').'</p>
-          <p><strong>Phone:</strong> +91-'.$_settings->info('mobile').'</p>
+          <p><strong>Email:</strong> ' . $_settings->info('email') . '</p>
+          <p><strong>Phone:</strong> +91-' . $_settings->info('mobile') . '</p>
           <p><strong>GST No:</strong> 10AAGCN1641R1ZE</p>
         </div>
         <div class="details">
           <div class="left">
             <p><strong>Billed To</strong></p>
-            <p><strong>Name:</strong> ' .$firstname.$lastname.'</p>
-            <p><strong>Address:</strong> '.$address.'</p>
-            <p><strong>Contact:</strong> '.$contact.'</p>
-            <p><strong>Email:</strong> '.$email.'</p>
+            <p><strong>Name:</strong> ' . $firstname . $lastname . '</p>
+            <p><strong>Address:</strong> ' . $address . '</p>
+            <p><strong>Contact:</strong> ' . $contact . '</p>
+            <p><strong>Email:</strong> ' . $email . '</p>
           </div>
           <div class="right">
             <p><strong>Order Details</strong></p>
-            <p><strong>Order Id:</strong> #'.$id.'</p>
-            <p><strong>Order Date:</strong> '.$date_created.'</p>
-            <p><strong>Order Confirm Date:</strong> '.$confirm_order.'</p>
-            <p><strong>Invoice Download Date:</strong> '.date('Y-m-d H:i:sa').'</p>
+            <p><strong>Order Id:</strong> #' . $id . '</p>
+            <p><strong>Order Date:</strong> ' . $date_created . '</p>
+            <p><strong>Order Confirm Date:</strong> ' . $confirm_order . '</p>
+            <p><strong>Invoice Download Date:</strong> ' . date('Y-m-d H:i:sa') . '</p>
           </div>
         </div>
         <hr style="clear: both" />
@@ -153,12 +153,12 @@ $html = '<!DOCTYPE html>
           </thead>
           <tbody>
             <tr>
-              <td>'.$category .' ('.$name.', '.$location.')'.'</td>
-              <td>'.$approved_quantity.'</td>
-              <td>'.$po_rate.'</td>
-              <td>'.($po_rate-$daily_rate).'</td>
-              <td>'.$daily_rate.'</td>
-              <td>'.$daily_rate*$approved_quantity.'</td>
+              <td>' . $category . ' (' . $name . ', ' . $location . ')' . '</td>
+              <td>' . $approved_quantity . '</td>
+              <td>' . $po_rate . '</td>
+              <td>' . ($po_rate - $daily_rate) . '</td>
+              <td>' . $daily_rate . '</td>
+              <td>' . $daily_rate * $approved_quantity . '</td>
             </tr>
             <!-- Additional rows can be added here -->
           </tbody>
@@ -167,7 +167,7 @@ $html = '<!DOCTYPE html>
           <p>
             <strong>Total Amount:</strong
             ><span style="font-family: DejaVu Sans; sans-serif;"> &#8377;</span>
-            '.$daily_rate*$approved_quantity.'
+            ' . $daily_rate * $approved_quantity . '
           </p>
         </div>
         <div class="signature">
@@ -181,23 +181,23 @@ $html = '<!DOCTYPE html>
     </div>
   </body>
 </html>';
-$dompdf = new Dompdf();
-$dompdf->loadHtml($html);
-$dompdf->setPaper('A4', 'portrait');
-$dompdf->render();
-// $dompdf->stream("invoice.pdf");
-$output = $dompdf->output();
-file_put_contents('invoice.pdf', $output); // Save the PDF locally
+  $dompdf = new Dompdf();
+  $dompdf->loadHtml($html);
+  $dompdf->setPaper('A4', 'portrait');
+  $dompdf->render();
+  // $dompdf->stream("invoice.pdf");
+  $output = $dompdf->output();
+  file_put_contents('invoice.pdf', $output); // Save the PDF locally
 
-    // Retrieve form data
-    $id = $_POST['id'];
-    // $quantity = $_POST['quantity'];
-    $amount = $daily_rate*$approved_quantity;
-    $mobile=$_settings->info('mobile');
-    $company_email=$_settings->info('email');
-//Create an instance; passing `true` enables exceptions
-$mail = new PHPMailer(true);
-try {
+  // Retrieve form data
+  $id = $_POST['id'];
+  // $quantity = $_POST['quantity'];
+  $amount = $daily_rate * $approved_quantity;
+  $mobile = $_settings->info('mobile');
+  $company_email = $_settings->info('email');
+  //Create an instance; passing `true` enables exceptions
+  $mail = new PHPMailer(true);
+  try {
     //Server settings
     // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
     $mail->isSMTP();                                            //Send using SMTP
@@ -211,7 +211,7 @@ try {
     //Recipients
     $mail->setFrom('no-reply@nrfindustry.in', 'NRF INDUSTRY');
     $mail->addAddress($email);     //Add a recipient
- 
+
 
     //Attachments
     // $mail->addAttachment('$pdfstring','invoice.pdf');         //Add attachments
@@ -232,6 +232,7 @@ try {
     Price: $daily_rate<br>
     Quantity: $approved_quantity	<br>
     Total Amount: $amount</p>    
+    <p>For further details, you can also view this transaction in your profile on our website at www.nrfindustry.in</p>
     <p>We appreciate your patience during this time. If you have any urgent inquiries or need further assistance, please don't hesitate to contact our support team at <b>Email:</b><a href='mailto:$company_email'> $company_email</a> <b>Contact:</b><a href='tel:$mobile'> +91-$mobile</a>.</p>
     
     <p>Thank you for choosing NRF Industry And Trading Private Limited. We look forward to welcoming you soon.</p>
@@ -240,16 +241,16 @@ try {
     
     NRF Industry Team";
 
-    
+
 
     $mail->send();
     $res['status'] = 'success';
-    $res['msg']= 'Message has been sent';
+    $res['msg'] = 'Message has been sent';
     unlink('invoice.pdf'); // Delete the PDF file after sending the email
-} catch (Exception $e) {
+  } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-}
-}else{
-    echo 'Invalid Request';
+  }
+} else {
+  echo 'Invalid Request';
 }
 return json_encode($res);

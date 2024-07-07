@@ -37,7 +37,7 @@ if (isset($quotation_id)) {
         </div>
         <div class="form-group">
             <label for="quantity" class="control-label">Quantity/<?php if ($quotation_meta['po_unit'] == 1) : ?> TON<?php else : ?> CFT<?php endif; ?></label>
-            <input type="number" name="approved_quantity" id="approved_quantity" class="form-control form-conrtrol-sm rounded-0 text-right" value="<?php echo $quantity-$approved_quantity ?>" required>
+            <input type="number" name="approved_quantity" id="approved_quantity" class="form-control form-conrtrol-sm rounded-0 text-right" value="<?php echo $quantity - $approved_quantity ?>" required>
         </div>
         <div class="form-group">
             <label for="daily_rate" class="control-label">Daily Rate</label>
@@ -45,21 +45,39 @@ if (isset($quotation_id)) {
         </div>
         <div class="form-group">
             <label for="amount" class="control-label">Total Amount</label>
-            <input type="number" class="form-control form-conrtrol-sm rounded-0 text-right amount" value="<?php echo $daily_rate * ($quantity-$approved_quantity) ?>" required readonly>
+            <input type="number" class="form-control form-conrtrol-sm rounded-0 text-right amount" value="<?php echo $daily_rate * ($quantity - $approved_quantity) ?>" required readonly>
         </div>
-        <div class="form-group">
+        <div class="form-group status">
             <label for="" class="control-label">Status</label>
             <select name="status" id="" class="custom-select custol-select-sm">
                 <option value="0" <?php echo isset($status) && $status == 0 ? "selected" : '' ?>>Pending</option>
                 <option value="2" <?php echo isset($status) && $status == 2 ? "selected" : '' ?>>Cancelled</option>
                 <option value="3" <?php echo isset($status) && $status == 3 ? "selected" : '' ?>>Active</option>
                 <option value="1" <?php echo isset($status) && $status == 1 ? "selected" : '' ?>>Confirmed</option>
+                <option value="4" <?php echo isset($status) && $status == 1 ? "selected" : '' ?>>Partial Confirm</option>
             </select>
+        </div>
+        <div class="form-group reason">
+            <label for="reason" class="control-label">Reason</label>
+            <textarea id="reason" name='reason' class="form-control form no-resize" required></textarea>
         </div>
     </form>
 </div>
-
+<style>
+    .reason {
+        display: none;
+    }
+</style>
 <script>
+    $(".status").change(function() {
+        var status = $(this).find('[name="status"]').val();
+        if (status == 2) {
+            $(".reason").show();
+        } else {
+            $(".reason").hide();
+        }
+    });
+
     function calc_amount() {
         var daily_rate = "<?php echo isset($daily_rate) ? $daily_rate : '' ?>";
         var quantity = $('#approved_quantity').val()
@@ -70,7 +88,7 @@ if (isset($quotation_id)) {
     $(function() {
         var today_quantity = <?php echo $quotation_meta['quantity'] ?>;
         var quotation_id = $('#quotation_id').val()
-        var approved_quantity =<?php echo $quantity ?>-<?php echo $approved_quantity ?>;
+        var approved_quantity = <?php echo $quantity ?> - <?php echo $approved_quantity ?>;
         var id = $('#id').val()
         $('#approved_quantity').change(function() {
             $('#msg').text('')
@@ -81,25 +99,30 @@ if (isset($quotation_id)) {
                 $('#msg').text("Invalid Quantity")
                 return false;
             }
-            if(quantity > today_quantity){
+            if (quantity > today_quantity) {
                 $('#approved_quantity').addClass('border-danger')
-                $('#msg').text("Stock not available for the quantity you entered.")            
+                $('#msg').text("Stock not available for the quantity you entered.")
                 return false;
             }
-            if(quantity > approved_quantity){
+            if (quantity > approved_quantity) {
                 $('#approved_quantity').addClass('border-danger')
-                $('#msg').text("Order quantity are smaller then you Entered.")            
+                $('#msg').text("Order quantity are smaller then you Entered.")
                 return false;
             }
             calc_amount()
         })
         $('#book-form').submit(function(e) {
             e.preventDefault();
-            var id="<?php echo $id ?>";
-            // var quantity = $('#approved_quantity').val();
-            // var amount = $('.amount').val();
+            var id = "<?php echo $id ?>";
+            var firstname = "<?php echo $firstname ?>";
+            var lastname = "<?php echo $lastname ?>";
+            var email = "<?php echo $email ?>";
+            var reason = $('#reason').val();
+            var category = '<?php echo $quotation_meta['category'] ?>';
+            var amount = $('.amount').val();
+            var company = '<?php echo $quotation_meta['name'] ?>';
             var _this = $(this)
-			var status= $(this).find('[name="status"]').val();
+            var status = $(this).find('[name="status"]').val();
             if (_this.find('.border-danger').length > 0) {
                 alert_toast('Can\'t proceed submission due to invalid inputs in some fields.', 'warning')
                 return false;
@@ -126,31 +149,35 @@ if (isset($quotation_id)) {
                             var check = confirm("Do you want to send mail to the client?");
                             if (check == true) {
                                 $.ajax({
-                                url: _base_url_+"mail/order_confirm.php",
-                                method: 'POST',
-                                data: {id:id},
-                                dataType: 'json',
+                                    url: _base_url_ + "mail/order_confirm.php",
+                                    method: 'POST',
+                                    data: {
+                                        id: id
+                                    },
+                                    dataType: 'json',
+                                });
+                                alert_toast("Mail Send Successfully", 'success');
+                            }
+                        } else if (status == 2) {
+                            var check = confirm("Do you want to send mail to the client?");
+                            if (check == true) {
+                                $.ajax({
+                                    url: _base_url_ + "mail/order_cancel.php",
+                                    method: 'POST',
+                                    data: {
+                                        firstname: firstname,
+                                        lastname: lastname,
+                                        email: email,
+                                        reason: reason,
+                                        category: category,
+                                        amount: amount,
+                                        company: company
+                                    },
+                                    dataType: 'json',
                                 });
                                 alert_toast("Mail Send Successfully", 'success');
                             }
                         }
-                        //  else if (status == 0) {
-                        //     var check = confirm("Do you want to send mail to the client?");
-                        //     if (check == true) {
-                        //         $.ajax({
-                        //             url: _base_url_ + "mail/reject.php",
-                        //             method: 'POST',
-                        //             data: {
-                        //                 firstname: firstname,
-                        //                 lastname: lastname,
-                        //                 email: email,
-                        //                 reason: reason
-                        //             },
-                        //             dataType: 'json',
-                        //         });
-                        //         alert_toast("Mail Send Successfully", 'success');
-                        //     }
-                        // }
                         location.reload()
                     } else if (resp.status == 'failed' && !!resp.msg) {
                         var el = $('<div>')
