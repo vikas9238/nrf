@@ -300,6 +300,15 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
             alert_toast("Please agree to the terms and conditions", 'warning');
             return false;
         }
+var quantity = $('#quantity').val()
+        if(quantity <= 0){
+            alert_toast("Invalid Quantity", 'warning');
+            return false;
+        }
+        if(quantity > today_quantity){
+            alert_toast("Stock not available for the quantity you entered", 'warning');
+            return false;
+	}
         $('.err-msg').remove();
         var quotation_id = $('#quotation_id').val()
         var quantity = document.querySelector('#item').innerText;
