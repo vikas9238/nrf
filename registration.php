@@ -23,11 +23,11 @@
 
                 <div class="form-group">
                     <label for="" class="control-label">First Name</label>
-                    <input type="text" class="form-control form-control-sm form" name="firstname" required>
+                    <input type="text" class="form-control form-control-sm form" name="firstname" placeholder="Enter First Name" required>
                 </div>
                 <div class="form-group">
                     <label for="" class="control-label">Last Name</label>
-                    <input type="text" class="form-control form-control-sm form" name="lastname" required>
+                    <input type="text" class="form-control form-control-sm form" name="lastname" placeholder="Enter Last name" required>
                 </div>
                 <div class="form-group">
                     <label for="" class="control-label">Gender</label>
@@ -38,11 +38,11 @@
                 </div>
                 <div class="form-group">
                     <label for="" class="control-label">Contact</label>
-                    <input type="text" class="form-control form-control-sm form" name="contact" required>
+                    <input type="text" class="form-control form-control-sm form" name="contact" placeholder="Enter Mobile number" maxlength="10" pattern="[0-9]" required>
                 </div>
                 <div class="form-group">
                     <label for="" class="control-label">Email</label>
-                    <input type="email" class="form-control form-control-sm form" name="email" required>
+                    <input type="email" class="form-control form-control-sm form" name="email" placeholder="Enter Email ID" required>
                 </div>
                 <div class="form-group">
                     <label for="" class="control-label">Password</label>
@@ -50,13 +50,13 @@
                 </div>
                 <div class="form-group">
                     <label for="" class="control-label">Address</label>
-                    <textarea class="form-control form" rows='3' name="address" required></textarea>
+                    <textarea class="form-control form" rows='3' name="address" placeholder="Enter Residential address" required></textarea>
                 </div>
             </div>
             <div class="col-lg-7">
                 <div class="form-group">
                     <label for="" class="control-label">Account Number</label>
-                    <input type="text" class="form-control form-control-sm form" name="account" required>
+                    <input type="text" class="form-control form-control-sm form" name="account" minlength="10" placeholder="Enter Account number" pattern="[0-9]" required>
                 </div>
                 <div class="form-group">
                     <label for="" class="control-label">IFSCode</label>
