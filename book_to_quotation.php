@@ -313,7 +313,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
         $(".payment").show();
         $(".account").hide();
         var num = <?php echo $_settings->userdata('contact') ?>;
-        var link = "upi://pay?pa=nrfindustry@ybl%26am=" + amount + "%26tr=" + num;
+        var link = "upi://pay?pa=nrfindustry@ybl%26am=" + amount;
         var upi = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + link;
         console.log(upi);
         $(".get_qr").attr("src", upi);

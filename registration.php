@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group">
                     <label for="" class="control-label">Contact</label>
-                    <input type="text" class="form-control form-control-sm form" name="contact" placeholder="Enter Mobile number" pattern="/^\d{10}$/" required>
+                    <input type="text" class="form-control form-control-sm form" name="contact" placeholder="Enter Mobile number" pattern="\d{10,10}" title="Please enter valid Mobile Number" required>
                 </div>
                 <div class="form-group">
                     <label for="" class="control-label">Email</label>
@@ -56,11 +56,11 @@
             <div class="col-lg-7">
                 <div class="form-group">
                     <label for="" class="control-label">Account Number</label>
-                    <input type="text" class="form-control form-control-sm form" name="account" minlength="10" placeholder="Enter Account number" pattern="[0-9]" required>
+                    <input type="text" class="form-control form-control-sm form" name="account" placeholder="Enter Account number" pattern="\d{10,16}" title="Please enter valid account number" required>
                 </div>
                 <div class="form-group">
                     <label for="" class="control-label">IFSCode</label>
-                    <input type="text" class="form-control form-control-sm form" name="ifsc" placeholder="Enter IFSC Code" maxlength="11" pattern="^[A-Za-z]{4}0[A-Z0-9a-z]{6}$" title="Please enter valid IFSC Code. E.g. SBIN0123456"required>
+                    <input type="text" class="form-control form-control-sm form" name="ifsc" placeholder="Enter IFSC Code" maxlength="11" pattern="^[A-Za-z]{4}0[A-Z0-9a-z]{6}$" title="Please enter valid IFSC Code. E.g. SBIN0123456" required>
                 </div>
                 <div class="form-group">
                     <label for="" class="control-label">Pan Number</label>
@@ -104,13 +104,13 @@
 
 </div>
 <script>
-     function displayImg(input,_this) {
+    function displayImg(input, _this) {
         var fnames = []
-        Object.keys(input.files).map(k=>{
+        Object.keys(input.files).map(k => {
             fnames.push(input.files[k].name)
         })
         _this.siblings('.custom-file-label').html(JSON.stringify(fnames))
-	}
+    }
     $(function() {
         $('#login-show').click(function() {
             uni_modal("", "login.php")
@@ -121,39 +121,43 @@
             var lastname = $('[name="lastname"]').val();
             var email = $('[name="email"]').val();
             var _this = $(this)
-			 $('.err-msg').remove();
-			start_loader();
-			$.ajax({
-				url:_base_url_+"classes/Master.php?f=register",
-				data: new FormData($(this)[0]),
+            $('.err-msg').remove();
+            start_loader();
+            $.ajax({
+                url: _base_url_ + "classes/Master.php?f=register",
+                data: new FormData($(this)[0]),
                 cache: false,
                 contentType: false,
                 processData: false,
                 method: 'POST',
                 type: 'POST',
                 dataType: 'json',
-				error:err=>{
-					console.log(err)
-					Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: "Something went wrong!",
-                            });
-					end_loader();
-				},
+                error: err => {
+                    console.log(err)
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Something went wrong!",
+                    });
+                    end_loader();
+                },
                 success: function(resp) {
                     if (typeof resp == 'object' && resp.status == 'success') {
                         alert_toast("Account succesfully registered", 'success')
                         setTimeout(function() {
                             $.ajax({
-                                url: _base_url_+"mail/register.php",
+                                url: _base_url_ + "mail/register.php",
                                 method: 'POST',
-                                data: { firstname: firstname,lastname:lastname, email: email},
+                                data: {
+                                    firstname: firstname,
+                                    lastname: lastname,
+                                    email: email
+                                },
                                 dataType: 'json',
                             });
                             location.reload()
                         }, 2000)
-                        
+
                     } else if (resp.status == 'failed' && !!resp.msg) {
                         var _err_el = $('<div>')
                         _err_el.addClass("alert alert-danger err-msg").text(resp.msg)
