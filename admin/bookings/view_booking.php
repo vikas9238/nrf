@@ -43,13 +43,13 @@ if (isset($quotation_id)) {
                 <?php endif; ?>
             <?php endif; ?>
             <?php if ($transaction_status == 1) : ?>
-                <p><b>Payment Verified:</b> <span class="badge badge-success">Yes</span></p>
+                <p><b>Payment Verification:</b> <span class="badge badge-success">Pass</span></p>
             <?php elseif ($transaction_status == 2) : ?>
-                <p><b>Payment Verified:</b> <span class="badge badge-danger">No</span></p>
+                <p><b>Payment Verification:</b> <span class="badge badge-danger">Fail</span></p>
             <?php elseif ($transaction_status == 3) : ?>
-                <p><b>Payment Verified:</b> <span class="badge badge-warning">Hold</span></p>
+                <p><b>Payment Verification:</b> <span class="badge badge-warning">Hold</span></p>
             <?php else : ?>
-                <p><b>Payment Verified:</b> <span class="badge badge-info">Pending</span></p>
+                <p><b>Payment Verification:</b> <span class="badge badge-info">Pending</span></p>
             <?php endif; ?>
         </div>
         <div class="col-md-6">
@@ -66,31 +66,33 @@ if (isset($quotation_id)) {
             <p><b>Investe Amount:</b> <?php echo $daily_rate * $approved_quantity ?></p>
             <p><b>Client Profit:</b> <?php echo ($po_rate - $daily_rate) * $approved_quantity / 2 ?></p>
             <?php if ($status == 4 or $status == 2) : ?>
-                <p class="bg-primary"><b>Refund Remaining Amount:</b> <?php echo ($daily_rate * $quantity) - ($daily_rate * $approved_quantity) ?></p><br>
-                <?php if ($status == 2) : ?>
-                    <p><b>Reason For Cancellation:</b> <?php echo $reason ?></p>
-                <?php endif; ?>
-                <p><b>Refund Paid:</b> <?php
-                                        switch ($refund_status) {
-                                            case '0':
-                                                echo '<span class="badge badge-warning text-dark">Not</span>';
-                                                break;
-                                            case '1':
-                                                echo '<span class="badge badge-primary">Yes</span>';
-                                                break;
-                                        }
-                                        ?></p>
-                <p><b>Transaction ID:</b> <?php echo $paid_txt_id ?></p>
-                <p><b>Transaction Date:</b> <?php echo $paid_date ?></p>
-                <?php if (!isset($_GET['view'])) : ?>
-                    <?php if ($refund_status == 0) : ?>
-                        <a id='paid' class='btn btn-sm btn-flat btn-primary'>Paid</a><br>
-                        <div class="form-group paid_txt_id">
-                            <label for="paid_txt_id" class="control-label">Transaction Id</label>
-                            <input id="paid_txt_id" name='paid_txt_id' class="form-control form no-resize" required>
-                            <label for="date">Paid Date</label>
-                            <input type="date" name="paid_date" id="" class="form-control form no-resize" required>
-                        </div>
+                <?php if ($transaction_status != 2) : ?>
+                    <p class="bg-primary"><b>Refund Remaining Amount:</b> <?php echo ($daily_rate * $quantity) - ($daily_rate * $approved_quantity) ?></p><br>
+                    <?php if ($status == 2) : ?>
+                        <p><b>Reason For Cancellation:</b> <?php echo $reason ?></p>
+                    <?php endif; ?>
+                    <p><b>Refund Paid:</b> <?php
+                                            switch ($refund_status) {
+                                                case '0':
+                                                    echo '<span class="badge badge-warning text-dark">Not</span>';
+                                                    break;
+                                                case '1':
+                                                    echo '<span class="badge badge-primary">Yes</span>';
+                                                    break;
+                                            }
+                                            ?></p>
+                    <p><b>Transaction ID:</b> <?php echo $paid_txt_id ?></p>
+                    <p><b>Transaction Date:</b> <?php echo $paid_date ?></p>
+                    <?php if (!isset($_GET['view'])) : ?>
+                        <?php if ($refund_status == 0) : ?>
+                            <a id='paid' class='btn btn-sm btn-flat btn-primary'>Paid</a><br>
+                            <div class="form-group paid_txt_id">
+                                <label for="paid_txt_id" class="control-label">Transaction Id</label>
+                                <input id="paid_txt_id" name='paid_txt_id' class="form-control form no-resize" required>
+                                <label for="date">Paid Date</label>
+                                <input type="date" name="paid_date" id="" class="form-control form no-resize" required>
+                            </div>
+                        <?php endif; ?>
                     <?php endif; ?>
                 <?php endif; ?>
             <?php endif; ?>
