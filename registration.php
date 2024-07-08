@@ -64,7 +64,7 @@
                 </div>
                 <div class="form-group">
                     <label for="" class="control-label">Pan Number</label>
-                    <input type="text" class="form-control form-control-sm form" name="pan" required>
+                    <input type="text" class="form-control form-control-sm form" name="pan" placeholder="Enter Pan Number" maxlength="10" pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}" title="Please enter valid PAN number. E.g. AAAAA9999A" required>
                 </div>
                 <div class="form-group">
                     <label for="" class="control-label">Images</label>
