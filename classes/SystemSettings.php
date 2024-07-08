@@ -1,164 +1,195 @@
 <?php
-if(!class_exists('DBConnection')){
+if (!class_exists('DBConnection')) {
 	require_once('../config.php');
 	require_once('DBConnection.php');
 }
-class SystemSettings extends DBConnection{
-	public function __construct(){
+class SystemSettings extends DBConnection
+{
+	public function __construct()
+	{
 		parent::__construct();
 	}
-	function check_connection(){
-		return($this->conn);
+	function check_connection()
+	{
+		return ($this->conn);
 	}
-	function load_system_info(){
+	function load_system_info()
+	{
 		// if(!isset($_SESSION['system_info'])){
-			$sql = "SELECT * FROM system_info";
-			$qry = $this->conn->query($sql);
-				while($row = $qry->fetch_assoc()){
-					$_SESSION['system_info'][$row['meta_field']] = $row['meta_value'];
-				}
-		// }
-	}
-	function update_system_info(){
 		$sql = "SELECT * FROM system_info";
 		$qry = $this->conn->query($sql);
-			while($row = $qry->fetch_assoc()){
-				if(isset($_SESSION['system_info'][$row['meta_field']]))unset($_SESSION['system_info'][$row['meta_field']]);
-				$_SESSION['system_info'][$row['meta_field']] = $row['meta_value'];
-			}
+		while ($row = $qry->fetch_assoc()) {
+			$_SESSION['system_info'][$row['meta_field']] = $row['meta_value'];
+		}
+		// }
+	}
+	function update_system_info()
+	{
+		$sql = "SELECT * FROM system_info";
+		$qry = $this->conn->query($sql);
+		while ($row = $qry->fetch_assoc()) {
+			if (isset($_SESSION['system_info'][$row['meta_field']])) unset($_SESSION['system_info'][$row['meta_field']]);
+			$_SESSION['system_info'][$row['meta_field']] = $row['meta_value'];
+		}
 		return true;
 	}
-	function update_settings_info(){
+	function update_settings_info()
+	{
 		$data = "";
 		foreach ($_POST as $key => $value) {
-			if(!in_array($key,array("about_us","privacy_policy")))
-			if(isset($_SESSION['system_info'][$key])){
-				$value = str_replace("'", "&apos;", $value);
-				$qry = $this->conn->query("UPDATE system_info set meta_value = '{$value}' where meta_field = '{$key}' ");
-			}else{
-				$qry = $this->conn->query("INSERT into system_info set meta_value = '{$value}', meta_field = '{$key}' ");
-			}
+			if (!in_array($key, array("about_us", "privacy_policy")))
+				if (isset($_SESSION['system_info'][$key])) {
+					$value = str_replace("'", "&apos;", $value);
+					$qry = $this->conn->query("UPDATE system_info set meta_value = '{$value}' where meta_field = '{$key}' ");
+				} else {
+					$qry = $this->conn->query("INSERT into system_info set meta_value = '{$value}', meta_field = '{$key}' ");
+				}
 		}
-		if(isset($_POST['about_us'])){
-			file_put_contents('../about.html',$_POST['about_us']);
+		if (isset($_POST['about_us'])) {
+			file_put_contents('../about.html', $_POST['about_us']);
 		}
-		if(isset($_POST['privacy_policy'])){
-			file_put_contents('../privacy_policy.html',$_POST['privacy_policy']);
+		if (isset($_POST['privacy_policy'])) {
+			file_put_contents('../privacy_policy.html', $_POST['privacy_policy']);
 		}
-		if(isset($_FILES['img']) && $_FILES['img']['tmp_name'] != ''){
-			$fname = 'uploads/'.strtotime(date('y-m-d H:i')).'_'.$_FILES['img']['name'];
-			$move = move_uploaded_file($_FILES['img']['tmp_name'],'../'. $fname);
-			if(isset($_SESSION['system_info']['logo'])){
+		if (isset($_FILES['img']) && $_FILES['img']['tmp_name'] != '') {
+			$fname = 'uploads/' . strtotime(date('y-m-d H:i')) . '_' . $_FILES['img']['name'];
+			$move = move_uploaded_file($_FILES['img']['tmp_name'], '../' . $fname);
+			if (isset($_SESSION['system_info']['logo'])) {
 				$qry = $this->conn->query("UPDATE system_info set meta_value = '{$fname}' where meta_field = 'logo' ");
-				if(is_file('../'.$_SESSION['system_info']['logo'])) unlink('../'.$_SESSION['system_info']['logo']);
-			}else{
+				if (is_file('../' . $_SESSION['system_info']['logo'])) unlink('../' . $_SESSION['system_info']['logo']);
+			} else {
 				$qry = $this->conn->query("INSERT into system_info set meta_value = '{$fname}',meta_field = 'logo' ");
 			}
 		}
-		if(isset($_FILES['carousel_1']) && $_FILES['carousel_1']['tmp_name'] != ''){
-			$fname = 'uploads/'.strtotime(date('y-m-d H:i')).'_'.$_FILES['carousel_1']['name'];
-			$move = move_uploaded_file($_FILES['carousel_1']['tmp_name'],'../'. $fname);
-			if(isset($_SESSION['system_info']['carousel_1'])){
+		if (isset($_FILES['carousel_1']) && $_FILES['carousel_1']['tmp_name'] != '') {
+			$fname = 'uploads/' . strtotime(date('y-m-d H:i')) . '_' . $_FILES['carousel_1']['name'];
+			$move = move_uploaded_file($_FILES['carousel_1']['tmp_name'], '../' . $fname);
+			if (isset($_SESSION['system_info']['carousel_1'])) {
 				$qry = $this->conn->query("UPDATE system_info set meta_value = '{$fname}' where meta_field = 'carousel_1' ");
-				if(is_file('../'.$_SESSION['system_info']['carousel_1'])) unlink('../'.$_SESSION['system_info']['carousel_1']);
-			}else{
+				if (is_file('../' . $_SESSION['system_info']['carousel_1'])) unlink('../' . $_SESSION['system_info']['carousel_1']);
+			} else {
 				$qry = $this->conn->query("INSERT into system_info set meta_value = '{$fname}',meta_field = 'carousel_1' ");
 			}
 		}
-		if(isset($_FILES['carousel_2']) && $_FILES['carousel_2']['tmp_name'] != ''){
-			$fname = 'uploads/'.strtotime(date('y-m-d H:i')).'_'.$_FILES['carousel_2']['name'];
-			$move = move_uploaded_file($_FILES['carousel_2']['tmp_name'],'../'. $fname);
-			if(isset($_SESSION['system_info']['carousel_2'])){
+		if (isset($_FILES['carousel_2']) && $_FILES['carousel_2']['tmp_name'] != '') {
+			$fname = 'uploads/' . strtotime(date('y-m-d H:i')) . '_' . $_FILES['carousel_2']['name'];
+			$move = move_uploaded_file($_FILES['carousel_2']['tmp_name'], '../' . $fname);
+			if (isset($_SESSION['system_info']['carousel_2'])) {
 				$qry = $this->conn->query("UPDATE system_info set meta_value = '{$fname}' where meta_field = 'carousel_2' ");
-				if(is_file('../'.$_SESSION['system_info']['carousel_2'])) unlink('../'.$_SESSION['system_info']['carousel_2']);
-			}else{
+				if (is_file('../' . $_SESSION['system_info']['carousel_2'])) unlink('../' . $_SESSION['system_info']['carousel_2']);
+			} else {
 				$qry = $this->conn->query("INSERT into system_info set meta_value = '{$fname}',meta_field = 'carousel_2' ");
 			}
 		}
-		if(isset($_FILES['carousel_3']) && $_FILES['carousel_3']['tmp_name'] != ''){
-			$fname = 'uploads/'.strtotime(date('y-m-d H:i')).'_'.$_FILES['carousel_3']['name'];
-			$move = move_uploaded_file($_FILES['carousel_3']['tmp_name'],'../'. $fname);
-			if(isset($_SESSION['system_info']['carousel_3'])){
+		if (isset($_FILES['carousel_3']) && $_FILES['carousel_3']['tmp_name'] != '') {
+			$fname = 'uploads/' . strtotime(date('y-m-d H:i')) . '_' . $_FILES['carousel_3']['name'];
+			$move = move_uploaded_file($_FILES['carousel_3']['tmp_name'], '../' . $fname);
+			if (isset($_SESSION['system_info']['carousel_3'])) {
 				$qry = $this->conn->query("UPDATE system_info set meta_value = '{$fname}' where meta_field = 'carousel_3' ");
-				if(is_file('../'.$_SESSION['system_info']['carousel_3'])) unlink('../'.$_SESSION['system_info']['carousel_3']);
-			}else{
+				if (is_file('../' . $_SESSION['system_info']['carousel_3'])) unlink('../' . $_SESSION['system_info']['carousel_3']);
+			} else {
 				$qry = $this->conn->query("INSERT into system_info set meta_value = '{$fname}',meta_field = 'carousel_3' ");
 			}
 		}
-		if(isset($_FILES['carousel_4']) && $_FILES['carousel_4']['tmp_name'] != ''){
-			$fname = 'uploads/'.strtotime(date('y-m-d H:i')).'_'.$_FILES['carousel_4']['name'];
-			$move = move_uploaded_file($_FILES['carousel_4']['tmp_name'],'../'. $fname);
-			if(isset($_SESSION['system_info']['carousel_4'])){
+		if (isset($_FILES['carousel_4']) && $_FILES['carousel_4']['tmp_name'] != '') {
+			$fname = 'uploads/' . strtotime(date('y-m-d H:i')) . '_' . $_FILES['carousel_4']['name'];
+			$move = move_uploaded_file($_FILES['carousel_4']['tmp_name'], '../' . $fname);
+			if (isset($_SESSION['system_info']['carousel_4'])) {
 				$qry = $this->conn->query("UPDATE system_info set meta_value = '{$fname}' where meta_field = 'carousel_4' ");
-				if(is_file('../'.$_SESSION['system_info']['carousel_4'])) unlink('../'.$_SESSION['system_info']['carousel_4']);
-			}else{
+				if (is_file('../' . $_SESSION['system_info']['carousel_4'])) unlink('../' . $_SESSION['system_info']['carousel_4']);
+			} else {
 				$qry = $this->conn->query("INSERT into system_info set meta_value = '{$fname}',meta_field = 'carousel_4' ");
 			}
 		}
-		
+
 		$update = $this->update_system_info();
-		$flash = $this->set_flashdata('success','System Info Successfully Updated.');
-		if($update && $flash){
+		$flash = $this->set_flashdata('success', 'System Info Successfully Updated.');
+		if ($update && $flash) {
 			// var_dump($_SESSION);
 			return true;
 		}
 	}
-	function set_userdata($field='',$value=''){
-		if(!empty($field) && !empty($value)){
-			$_SESSION['userdata'][$field]= $value;
+	function set_userdata($field = '', $value = '')
+	{
+		if (!empty($field) && !empty($value)) {
+			$_SESSION['userdata'][$field] = $value;
 		}
 	}
-	function userdata($field = ''){
-		if(!empty($field)){
-			if(isset($_SESSION['userdata'][$field]))
+	function set_admindata($field = '', $value = '')
+	{
+		if (!empty($field) && !empty($value)) {
+			$_SESSION['admindata'][$field] = $value;
+		}
+	}
+	function userdata($field = '')
+	{
+		if (!empty($field)) {
+			if (isset($_SESSION['userdata'][$field]))
 				return $_SESSION['userdata'][$field];
 			else
 				return null;
-		}else{
+		} else {
 			return false;
 		}
 	}
-	function set_flashdata($flash='',$value=''){
-		if(!empty($flash) && !empty($value)){
-			$_SESSION['flashdata'][$flash]= $value;
-		return true;
+	function admindata($field = '')
+	{
+		if (!empty($field)) {
+			if (isset($_SESSION['admindata'][$field]))
+				return $_SESSION['admindata'][$field];
+			else
+				return null;
+		} else {
+			return false;
 		}
 	}
-	function chk_flashdata($flash = ''){
-		if(isset($_SESSION['flashdata'][$flash])){
+	function set_flashdata($flash = '', $value = '')
+	{
+		if (!empty($flash) && !empty($value)) {
+			$_SESSION['flashdata'][$flash] = $value;
 			return true;
-		}else{
+		}
+	}
+	function chk_flashdata($flash = '')
+	{
+		if (isset($_SESSION['flashdata'][$flash])) {
+			return true;
+		} else {
 			return false;
 		}
 	}
-	function flashdata($flash = ''){
-		if(!empty($flash)){
+	function flashdata($flash = '')
+	{
+		if (!empty($flash)) {
 			$_tmp = $_SESSION['flashdata'][$flash];
 			unset($_SESSION['flashdata']);
 			return $_tmp;
-		}else{
+		} else {
 			return false;
 		}
 	}
-	function sess_des(){
-		if(isset($_SESSION['userdata'])){
-				unset($_SESSION['userdata']);
+	function sess_des()
+	{
+		if (isset($_SESSION['admindata'])) {
+			unset($_SESSION['admindata']);
 			return true;
 		}
-			return true;
+		return true;
 	}
-	function info($field=''){
-		if(!empty($field)){
-			if(isset($_SESSION['system_info'][$field]))
+	function info($field = '')
+	{
+		if (!empty($field)) {
+			if (isset($_SESSION['system_info'][$field]))
 				return $_SESSION['system_info'][$field];
 			else
 				return false;
-		}else{
+		} else {
 			return false;
 		}
 	}
-	function set_info($field='',$value=''){
-		if(!empty($field) && !empty($value)){
+	function set_info($field = '', $value = '')
+	{
+		if (!empty($field) && !empty($value)) {
 			$_SESSION['system_info'][$field] = $value;
 		}
 	}
@@ -175,4 +206,3 @@ switch ($action) {
 		// echo $sysset->index();
 		break;
 }
-?>
