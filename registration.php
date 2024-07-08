@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group">
                     <label for="" class="control-label">Contact</label>
-                    <input type="text" class="form-control form-control-sm form" name="contact" placeholder="Enter Mobile number" maxlength="10" pattern="[0-9]" required>
+                    <input type="text" class="form-control form-control-sm form" name="contact" placeholder="Enter Mobile number" pattern="/^\d{10}$/" required>
                 </div>
                 <div class="form-group">
                     <label for="" class="control-label">Email</label>
