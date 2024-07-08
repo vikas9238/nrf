@@ -12,11 +12,11 @@ $link .= $_SERVER['REQUEST_URI'];
 if(!isset($_SESSION['userdata']) && !strpos($link, 'login.php')){
 	redirect('admin/login.php');
 }
-if(isset($_SESSION['userdata']) && strpos($link, 'login.php') && $_SESSION['userdata']['login_type'] ==  1){
+if(isset($_SESSION['userdata']) && strpos($link, 'login.php') && $_SESSION['userdata']['loggedin'] ==  1){
 	redirect('admin/index.php');
 }
 $module = array('','admin');
-if(isset($_SESSION['userdata']) && (strpos($link, 'index.php') || strpos($link, 'admin/')) && $_SESSION['userdata']['login_type'] !=  1){
+if(isset($_SESSION['userdata']) && (strpos($link, 'index.php') || strpos($link, 'admin/')) && $_SESSION['userdata']['loggedin'] !=  1){
 	echo "<script>alert('Access Denied!');location.replace('".base_url.$module[$_SESSION['userdata']['login_type']]."');</script>";
     exit;
 }
