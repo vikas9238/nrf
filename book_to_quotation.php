@@ -348,13 +348,14 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
         var po_rate = <?php echo $po_rate ?>;
         var daily_rate = <?php echo $daily_rate ?>;
         var fileInput = document.getElementById('customFile');
+        var transaction = $('#transaction').val();
         var file = fileInput.files[0];
         var formData = new FormData();
         formData.append('quotation_id', quotation_id);
         formData.append('quantity', quantity);
         formData.append('po_rate', po_rate);
         formData.append('daily_rate', daily_rate);
-        formData.append('transaction', $('#transaction').val());
+        formData.append('transaction', transaction);
         formData.append('screenshot', file);
         formData.append('mode', $('input[name="payment"]:checked').val());
         start_loader();
