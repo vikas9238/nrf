@@ -12,7 +12,7 @@ $link .= $_SERVER['REQUEST_URI'];
 if(!isset($_SESSION['userdata']) && !strpos($link, 'login.php')){
 	redirect('admin/login.php');
 }
-if(isset($_SESSION['userdata']) && strpos($link, 'login.php')){
+if(isset($_SESSION['userdata']) && strpos($link, 'login.php') && $_SESSION['userdata']['login_type'] ==  1){
 	redirect('admin/index.php');
 }
 $module = array('','admin');
