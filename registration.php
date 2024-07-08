@@ -60,7 +60,7 @@
                 </div>
                 <div class="form-group">
                     <label for="" class="control-label">IFSCode</label>
-                    <input type="text" class="form-control form-control-sm form" name="ifsc" required>
+                    <input type="text" class="form-control form-control-sm form" name="ifsc" placeholder="Enter IFSC Code" maxlength="11" pattern="^[A-Za-z]{4}0[A-Z0-9a-z]{6}$" title="Please enter valid IFSC Code. E.g. SBIN0123456"required>
                 </div>
                 <div class="form-group">
                     <label for="" class="control-label">Pan Number</label>
