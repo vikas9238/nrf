@@ -6,7 +6,7 @@ if (!isset($_GET['id'])) {
     $_settings->set_flashdata('error', 'No Booking ID Provided.');
     redirect('admin/?page=bookings');
 }
-$booking = $conn->query("SELECT r.*,concat(c.firstname,' ',c.lastname) as client,c.address,c.email,c.contact from `booking_list` r inner join clients c on c.id = r.client_id where r.id = '{$_GET['id']}' ");
+$booking = $conn->query("SELECT r.*,concat(c.firstname,' ',c.lastname) as client,c.address,c.email,c.contact,c.account from `booking_list` r inner join clients c on c.id = r.client_id where r.id = '{$_GET['id']}' ");
 if ($booking->num_rows > 0) {
     foreach ($booking->fetch_assoc() as $k => $v) {
         $$k = $v;
@@ -279,6 +279,7 @@ if (isset($quotation_id)) {
             var amount = '<?php echo ($daily_rate * $quantity) - ($daily_rate * $approved_quantity) ?>';
             var product = '<?php echo $quotation_meta['category'] ?>';
             var company = '<?php echo $quotation_meta['name'] ?>';
+            var account = '<?php echo $account ?>';
             $(".paid_txt_id").show();
             var paid_txt_id = $('#paid_txt_id').val();
             var paid_date = $('[name="paid_date"]').val();
@@ -319,7 +320,8 @@ if (isset($quotation_id)) {
                                     paid_txt_id: paid_txt_id,
                                     paid_date: paid_date,
                                     product: product,
-                                    company: company
+                                    company: company,
+                                    account: account
                                 },
                                 dataType: 'json',
                             });

@@ -20,12 +20,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['name']) && !empty($_P
     $product = $_POST['product'];
     $company = $_POST['company'];
     $company_email = $_settings->info('email');
-    $qry = $conn->query("SELECT * FROM `clients` WHERE `email` = $email");
-    if ($qry->num_rows > 0) {
-        foreach ($qry->fetch_assoc() as $k => $v) {
-            $$k = $v;
-        }
-    }
+    $account = $_POST['account'];
+    // $account = $this->conn->query("SELECT account FROM clients WHERE email = '$email'")->fetch_assoc()['account'];
+    // if ($qry->num_rows > 0) {
+    //     foreach ($qry->fetch_assoc() as $k => $v) {
+    //         $$k = $v;
+    //     }
+    // }
     //Create an instance; passing `true` enables exceptions
     $mail = new PHPMailer(true);
     try {
