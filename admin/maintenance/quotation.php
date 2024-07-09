@@ -49,7 +49,7 @@ $total_investment = $daily_rate * $approved_quantity;
                 <span class="info-box-text">Total Pending</span>
                 <span class="info-box-number">
                     <?php $pending = $profit + $total_investment - $paid_amount;
-                    echo (round($pending)) ?>
+                    echo $pending ?>
                 </span>
             </div>
             <!-- /.info-box-content -->
