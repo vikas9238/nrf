@@ -55,6 +55,80 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
             <!-- /.col -->
             <div class="col-md-9">
                 <div class="row">
+                    <!-- <div class="row"> -->
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box mb-3">
+                            <span class="info-box-icon bg-success elevation-1">
+                                <i class="far fa-money-bill-alt"></i>
+                            </span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Total Investment</span>
+                                <?php echo $investment = $conn->query("SELECT approved_quantity,daily_rate,SUM(approved_quantity * daily_rate) OVER () AS total_amount from `booking_list` where client_id = '{$_GET['id']}' and (status = 1 or status=4) ")->fetch_assoc()['total_amount'];
+                                ?>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box mb-3">
+                            <span class="info-box-icon bg-warning elevation-1">
+                                <i class="far fa-money-bill-alt"></i>
+                            </span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Total Profit</span>
+                                <?php $profit = $conn->query("SELECT approved_quantity,po_rate,daily_rate ,SUM(po_rate-daily_rate*approved_quantity) OVER () AS total_amount from `booking_list` where client_id = '{$_GET['id']}' and (status = 1 or status=4) ")->fetch_assoc()['total_amount'];
+                                ?>
+                                <?php echo $profit / 2 ?>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box mb-3">
+                            <span class="info-box-icon bg-danger elevation-1">
+                                <i class="far fa-money-bill-alt"></i>
+                            </span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Paid Amount</span>
+                                <?php echo $paid_amount = $conn->query("SELECT sum(paid_amount) as paid from `booking_list` where client_id = '{$_GET['id']}' and (status = 1 or status=4) ")->fetch_assoc()['paid'];
+                                ?>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+
+                    <!-- fix for small devices only -->
+                    <div class="clearfix hidden-md-up"></div>
+
+
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-info elevation-1">
+                                <i class="far fa-money-bill-alt"></i>
+                            </span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Total Dues</span>
+                                <span class="info-box-number">
+                                    <?php echo $due = ($profit / 2) + $investment - $paid_amount;
+                                    //echo $pending 
+                                    ?>
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- </div> -->
                     <div class="col-md-12 table-responsive">
                         <table class="table table-bordered table-striped">
                             <tbody>
