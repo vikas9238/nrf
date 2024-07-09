@@ -49,7 +49,7 @@ $total_investment = $daily_rate * $approved_quantity;
                 <span class="info-box-text">Total Pending</span>
                 <span class="info-box-number">
                     <?php $pending = $profit + $total_investment - $paid_amount;
-                    echo $pending ?>
+                    echo (round($pending)) ?>
                 </span>
             </div>
             <!-- /.info-box-content -->
@@ -129,11 +129,11 @@ $total_investment = $daily_rate * $approved_quantity;
                             </a>
                         </li>
                         <li class="nav-item">
-                        <?php if ($pending == 0) : ?>
-                            <a class="nav-link close_account" href="javascript:void(0)" data-id="<?php echo $_GET['id'] ?>">
-                                <i class="fas fa-ban"></i> Close Account
-                            </a>
-                        <?php endif ?>
+                            <?php if ($pending == 0) : ?>
+                                <a class="nav-link close_account" href="javascript:void(0)" data-id="<?php echo $_GET['id'] ?>">
+                                    <i class="fas fa-ban"></i> Close Account
+                                </a>
+                            <?php endif ?>
                         </li>
                     </ul>
                 </div>
@@ -225,7 +225,7 @@ $total_investment = $daily_rate * $approved_quantity;
                                     <?php echo $daily_rate ?>
                                 </td>
                                 <th>
-                                   Approved Quantity
+                                    Approved Quantity
                                 </th>
                                 <td>
                                     <?php echo $approved_quantity ?>
