@@ -19,7 +19,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
 		<input type="hidden" name="client_id" value="<?php echo $_GET['client_id'] ?>">
 		<div class="form-group">
 			<label for="amount" class="control-label">Amount</label>
-			<input name="amount" id="amount" type="number" class="form-control form-control-sm rounded-0" required />
+			<input name="amount" id="amount" type="text" class="form-control form-control-sm rounded-0" required />
 		</div>
 		<div class="form-group">
 			<label for="payment_mode" class="control-label">Payment Mode</label>
