@@ -52,7 +52,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
 		$('#transaction-form').submit(function(e) {
 			e.preventDefault();
 			var id = '<?php echo $_GET['id'] ?>';
-			var amount = $('#amount').val();
+			let amount = $('#amount').val();
 			var paid_txt_id = $('#reference_number').val();
 			var _this = $(this)
 			$('.err-msg').remove();
