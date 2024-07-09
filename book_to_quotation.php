@@ -347,6 +347,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
         var quantity = document.querySelector('#item').innerText;
         var po_rate = <?php echo $po_rate ?>;
         var daily_rate = <?php echo $daily_rate ?>;
+        var date_created = "<?php echo date('Y-m-d H:i:s') ?>";
         var fileInput = document.getElementById('customFile');
         var transaction = $('#transaction').val();
         var file = fileInput.files[0];
@@ -358,6 +359,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
         formData.append('transaction', transaction);
         formData.append('screenshot', file);
         formData.append('mode', $('input[name="payment"]:checked').val());
+        formData.append('date_created', date_created);
         start_loader();
         $.ajax({
             url: _base_url_ + "classes/Master.php?f=save_booking",

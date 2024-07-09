@@ -17,6 +17,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
 	<form action="" id="transaction-form">
 		<input type="hidden" name="quotation_id" value="<?php echo $_GET['id'] ?>">
 		<input type="hidden" name="client_id" value="<?php echo $_GET['client_id'] ?>">
+		<input type="hidden" name="date_created" value="<?php echo date('Y-m-d H:i:s') ?>">
 		<div class="form-group">
 			<label for="amount" class="control-label">Amount</label>
 			<input name="amount" id="amount" type="text" class="form-control form-control-sm rounded-0" required />

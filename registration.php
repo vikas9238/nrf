@@ -20,7 +20,7 @@
         <div class="row  align-items-center h-100">
 
             <div class="col-lg-5 border-right">
-
+                <input type="hidden" name="date_created" value="<?php echo date('Y-m-d H:i:s') ?>">
                 <div class="form-group">
                     <label for="" class="control-label">First Name</label>
                     <input type="text" class="form-control form-control-sm form" name="firstname" placeholder="Enter First Name" required>
