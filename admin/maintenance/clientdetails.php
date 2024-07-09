@@ -80,7 +80,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Total Profit</span>
-                                <?php $profit = $conn->query("SELECT approved_quantity,po_rate,daily_rate ,SUM(po_rate-daily_rate*approved_quantity) OVER () AS total_amount from `booking_list` where client_id = '{$_GET['id']}' and (status = 1 or status=4) ")->fetch_assoc()['total_amount'];
+                                <?php $profit = $conn->query("SELECT approved_quantity,po_rate,daily_rate ,SUM((po_rate-daily_rate)*approved_quantity) OVER () AS total_amount from `booking_list` where client_id = '{$_GET['id']}' and (status = 1 or status=4) ")->fetch_assoc()['total_amount'];
                                 ?>
                                 <?php echo $profit / 2 ?>
                             </div>
