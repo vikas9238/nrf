@@ -43,7 +43,8 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
 	$(document).ready(function() {
 		$('#amount').change(function() {
 			var amount = $(this).val();
-			if (amount >= <?php echo $pending ?>) {
+			var pending = Math.round(<?php echo $pending ?>);
+			if (amount >= pending) {
 				alert_toast("Amount must be less than or equal to <?php echo $pending ?>", 'warning');
 				$(this).val(<?php echo $pending ?>)
 			}
