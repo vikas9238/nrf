@@ -87,22 +87,22 @@
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
                                         <img class="card-img-top w-100 quotation-cover" src="<?php echo validate_image($img) ?>" loading="lazy" alt="">
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3"><?php echo round(($row['po_rate']-$row['daily_rate'])*100/$row['po_rate'],2)?>% Off</div>
+                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3"><?php echo round(($row['po_rate'] - $row['daily_rate']) * 100 / $row['daily_rate'], 2) ?>% Margin</div>
                                         <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><b><?php echo $row['category'] ?></b></div>
                                     </div>
                                     <div class="p-4 pb-0">
-                                    <?php if (isset($_SESSION['userdata']['id'])) : ?>
-                                        <p class="text-primary mb-3"><small class="text-decoration-line-through">&#8377;<?php echo $row['po_rate'] ?></small>&nbsp; <b> &#8377;<?php echo $row['daily_rate'] ?> /<?php if($row['po_unit']==1): ?> TON<?php else: ?> CFT<?php endif; ?></b></p>
+                                        <?php if (isset($_SESSION['userdata']['id'])) : ?>
+                                            <p class="text-primary mb-3"><small class="text-decoration-line-through">&#8377;<?php echo $row['po_rate'] ?></small>&nbsp; <b> &#8377;<?php echo $row['daily_rate'] ?> /<?php if ($row['po_unit'] == 1) : ?> TON<?php else : ?> CFT<?php endif; ?></b></p>
                                         <?php endif; ?>
-                                        <p class="d-block h5 mb-2" ><?php echo $row['name']?></p>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i><?php echo $row['address']?></p>
+                                        <p class="d-block h5 mb-2"><?php echo $row['name'] ?></p>
+                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i><?php echo $row['address'] ?></p>
                                     </div>
                                     <div class="d-flex border-top">
-                                    <?php if (isset($_SESSION['userdata']['id'])) : ?>
-                                    <small class="flex-fill text-center border-end py-2"><i class="fa fa-money-bill-trend-up text-primary me-2"></i><?php echo $row['po_rate']-$row['daily_rate']?></small>
-                                    <?php endif; ?>
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-handshake-angle text-primary me-2"></i><?php echo $row['po_quantity']?></small>
-                                        <small class="flex-fill text-center py-2"><i class="fa fa-hourglass-start text-primary me-2"></i><?php echo $row['quantity']?></small>
+                                        <?php if (isset($_SESSION['userdata']['id'])) : ?>
+                                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-money-bill-trend-up text-primary me-2"></i><?php echo $row['po_rate'] - $row['daily_rate'] ?></small>
+                                        <?php endif; ?>
+                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-handshake-angle text-primary me-2"></i><?php echo $row['po_quantity'] ?></small>
+                                        <small class="flex-fill text-center py-2"><i class="fa fa-hourglass-start text-primary me-2"></i><?php echo $row['quantity'] ?></small>
                                     </div>
                                 </div>
                             </a>
@@ -271,13 +271,15 @@
 </div>
 <!-- Testimonial End -->
 <script>
-//     $(document).ready(function(){
-//     $('#quotation').click(function() {
-//         if ('<?php //echo $_settings->userdata('id') ?>' <= 0) {
-//             uni_modal("", "login.php");
-//             return false;
-//         }
-//         uni_modal("Booking Material", "book_to_quotation.php?id=<?php //echo isset($id) ? $id : '' ?>", 'mid-large')
-//     })
-// })
+    //     $(document).ready(function(){
+    //     $('#quotation').click(function() {
+    //         if ('<?php //echo $_settings->userdata('id') 
+                    ?>' <= 0) {
+    //             uni_modal("", "login.php");
+    //             return false;
+    //         }
+    //         uni_modal("Booking Material", "book_to_quotation.php?id=<?php //echo isset($id) ? $id : '' 
+                                                                        ?>", 'mid-large')
+    //     })
+    // })
 </script>

@@ -47,7 +47,10 @@ if ($qur->num_rows > 0) {
                 </div>
                 <div class="mb-5">
                     <?php if (isset($_SESSION['userdata']['id'])) : ?>
-                        <a href="<?php echo base_url . 'uploads/' . $id . '/' . $id . '.pdf' ?>" target="_blank"><i class="fa-solid fa-download"></i> Download Purchase Order</a>
+                        <?php $pdf = file_exists(base_app . 'uploads/' . $id . '/' . $id . '.pdf') ?>
+                        <?php if (is_dir($pdf)) : ?>
+                            <a href="<?php echo base_url . 'uploads/' . $id . '/' . $id . '.pdf' ?>" target="_blank"><i class="fa-solid fa-download"></i> Download Purchase Order</a>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
                 <button class="btn btn-outline-dark flex-shrink-0" type="button" id="book_quotation">
@@ -76,7 +79,7 @@ if ($qur->num_rows > 0) {
                                     <div class="property-item rounded overflow-hidden">
                                         <div class="position-relative overflow-hidden">
                                             <img class="card-img-top w-100 quotation-cover" src="<?php echo validate_image("uploads/thumbnails/" . $row['id'] . ".png") ?>" loading="lazy" alt="">
-                                            <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3"><?php echo round(($row['po_rate'] - $row['daily_rate']) * 100 / $row['po_rate'], 2) ?>% Off</div>
+                                            <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3"><?php echo round(($row['po_rate'] - $row['daily_rate']) * 100 / $row['daily_rate'], 2) ?>% Margin</div>
                                             <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><b><?php echo $row['category'] ?></b></div>
                                         </div>
                                         <div class="p-4 pb-0">
