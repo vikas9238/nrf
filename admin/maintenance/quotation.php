@@ -129,7 +129,7 @@ $total_investment = $daily_rate * $approved_quantity;
                             </a>
                         </li>
                         <li class="nav-item">
-                            <?php if ($pending <= 0) : ?>
+                            <?php if ($pending = 0) : ?>
                                 <a class="nav-link close_account" href="javascript:void(0)" data-id="<?php echo $_GET['id'] ?>">
                                     <i class="fas fa-ban"></i> Close Account
                                 </a>
