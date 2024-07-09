@@ -57,7 +57,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
 			var _this = $(this)
 			$('.err-msg').remove();
 			var $form = $(this);
-			if ($form[0].checkValidity() === false) {
+			if ($form[0].checkValidity() == false) {
 				//  $form.addClass('was-validated')
 				alert_toast("Need To Fill Required Details", 'warning');
 				return false;
