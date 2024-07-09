@@ -47,8 +47,7 @@ if ($qur->num_rows > 0) {
                 </div>
                 <div class="mb-5">
                     <?php if (isset($_SESSION['userdata']['id'])) : ?>
-                        <?php $pdf = file_exists(base_app . 'uploads/' . $id . '/' . $id . '.pdf') ?>
-                        <?php if (is_dir($pdf)) : ?>
+                        <?php if (file_exists(base_app . 'uploads/' . $id . '/' . $id . '.pdf')) : ?>
                             <a href="<?php echo base_url . 'uploads/' . $id . '/' . $id . '.pdf' ?>" target="_blank"><i class="fa-solid fa-download"></i> Download Purchase Order</a>
                         <?php endif; ?>
                     <?php endif; ?>
