@@ -77,12 +77,14 @@ if (isset($quotation_id)) {
                                                     echo '<span class="badge badge-warning text-dark">Not</span>';
                                                     break;
                                                 case '1':
-                                                    echo '<span class="badge badge-primary">Yes</span>';
+                                                    echo '<span class="badge badge-success">Yes</span>';
                                                     break;
                                             }
                                             ?></p>
-                    <p><b>Transaction ID:</b> <?php echo $paid_txt_id ?></p>
-                    <p><b>Transaction Date:</b> <?php echo $paid_date ?></p>
+                    <?php if ($refund_status == 1) : ?>
+                        <p><b>Transaction ID:</b> <?php echo $paid_txt_id ?></p>
+                        <p><b>Transaction Date:</b> <?php echo $paid_date ?></p>
+                    <?php endif; ?>
                     <?php if (!isset($_GET['view'])) : ?>
                         <?php if ($refund_status == 0) : ?>
                             <a id='paid' class='btn btn-sm btn-flat btn-primary'>Paid</a><br>

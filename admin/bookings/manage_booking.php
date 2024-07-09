@@ -54,7 +54,7 @@ if (isset($quotation_id)) {
                 <option value="2" <?php echo isset($status) && $status == 2 ? "selected" : '' ?>>Cancelled</option>
                 <option value="3" <?php echo isset($status) && $status == 3 ? "selected" : '' ?>>Active</option>
                 <option value="1" <?php echo isset($status) && $status == 1 ? "selected" : '' ?>>Confirmed</option>
-                <option value="4" <?php echo isset($status) && $status == 1 ? "selected" : '' ?>>Partial Confirm</option>
+                <option value="4" <?php echo isset($status) && $status == 4 ? "selected" : '' ?>>Partial Confirm</option>
             </select>
         </div>
         <div class="form-group reason">
@@ -94,7 +94,7 @@ if (isset($quotation_id)) {
             $('#msg').text('')
             $('#approved_quantity').removeClass('border-success border-danger')
             var quantity = $('#approved_quantity').val()
-            if (quantity <= 0) {
+            if (quantity < 0) {
                 $('#approved_quantity').addClass('border-danger')
                 $('#msg').text("Invalid Quantity")
                 return false;
@@ -172,6 +172,19 @@ if (isset($quotation_id)) {
                                         category: category,
                                         amount: amount,
                                         company: company
+                                    },
+                                    dataType: 'json',
+                                });
+                                alert_toast("Mail Send Successfully", 'success');
+                            }
+                        } else if (status == 4) {
+                            var check = confirm("Do you want to send mail to the client?");
+                            if (check == true) {
+                                $.ajax({
+                                    url: _base_url_ + "mail/order_partial_confirm.php",
+                                    method: 'POST',
+                                    data: {
+                                        id: id
                                     },
                                     dataType: 'json',
                                 });

@@ -47,7 +47,7 @@
 						?>
 							<tr>
 								<td class="text-center"><?php echo $i++; ?></td>
-								<td class="text-center"><?php echo $row['id'] ?></td>
+								<td class="text-center">#<?php echo $row['id'] ?></td>
 								<td><?php echo date("Y-m-d H:i", strtotime($row['date_created'])) ?></td>
 								<td>
 									<small><span class="text-muted">Company:</span><?php echo $row['name'] ?></small><br>

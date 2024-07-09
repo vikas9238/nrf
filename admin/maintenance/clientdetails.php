@@ -148,7 +148,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                                 ?>
                                                     <tr>
                                                         <td class="text-center"><a href="?page=maintenance/quotation&id=<?php echo $row['id'] ?>"><?php echo $i++ ?></a></td>
-                                                        <td class="text-center"><a href="?page=maintenance/quotation&id=<?php echo $row['id'] ?>"><?php echo $row['id'] ?></a></td>
+                                                        <td class="text-center"><a href="?page=maintenance/quotation&id=<?php echo $row['id'] ?>">#<?php echo $row['id'] ?></a></td>
                                                         <td><?php echo date("Y-m-d H:i", strtotime($row['date_created'])) ?></td>
                                                         <td><?php echo $row['category'] ?></td>
                                                         <td class="lh-1"> <?php echo $row['name'] ?></td>
