@@ -69,6 +69,10 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                 </select>
             </div>
             <div class="form-group">
+                <label for="sold" class="control-label">Unit Sold</label>
+                <input type="text" pattern="[0-9]+" name="" id="sold" class="form-control form no-resize text-right" value="<?php echo isset($sold) ? $sold : 0; ?>" readonly>
+            </div>
+            <div class="form-group">
                 <label for="quantity" class="control-label">Available Unit</label>
                 <input type="text" pattern="[0-9]+" name="quantity" id="quantity" class="form-control form no-resize text-right" value="<?php echo isset($quantity) ? $quantity : 0; ?>" required>
             </div>
@@ -216,7 +220,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
     }
     $(document).ready(function() {
         $('.rem_img').click(function() {
-            _conf("Are sure to delete this image permanently?", 'delete_img', ["'" + $(this).attr('data-path') + "'"])
+            _conf("Are You sure to delete this image permanently?", 'delete_img', ["'" + $(this).attr('data-path') + "'"])
         })
         $('.select2').select2({
             placeholder: "Please Select here",
@@ -224,6 +228,15 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
         })
         $('#quotation-form').submit(function(e) {
             e.preventDefault();
+            var quantity = $('#quantity').val();
+            var po_quantity = $('#po_quantity').val();
+            var sold = $('#sold').val();
+            var total = parseInt(quantity) + parseInt(sold);
+            if (parseInt(po_quantity) < parseInt(total)) {
+                alert_toast("PO Quantity is smaller than available quantity", 'error');
+                quantity = $('#quantity').val(po_quantity - sold);
+                return false;
+            }
             var _this = $(this)
             $('.err-msg').remove();
             start_loader();

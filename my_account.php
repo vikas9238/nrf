@@ -7,6 +7,80 @@
         <div class="container">
             <div class="card rounded-0">
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <div class="info-box mb-3">
+                                <span class="info-box-icon bg-success elevation-1">
+                                    <i class="fas fa-solid fa-indian-rupee-sign"></i>
+                                </span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Total Investment</span>
+                                    <?php echo $investment = $conn->query("SELECT approved_quantity,daily_rate,SUM(approved_quantity * daily_rate) OVER () AS total_amount from `booking_list` where client_id = '{$_settings->userdata('id')}' and (status = 1 or status=4) ")->fetch_assoc()['total_amount'];
+                                    ?>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <div class="info-box mb-3">
+                                <span class="info-box-icon bg-warning elevation-1">
+                                    <i class="fas fa-solid fa-indian-rupee-sign"></i>
+                                </span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Total Profit</span>
+                                    <?php $profit = $conn->query("SELECT approved_quantity,po_rate,daily_rate ,SUM((po_rate-daily_rate)*approved_quantity) OVER () AS total_amount from `booking_list` where client_id = '{$_settings->userdata('id')}' and (status = 1 or status=4) ")->fetch_assoc()['total_amount'];
+                                    ?>
+                                    <?php echo $profit / 2 ?>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <div class="info-box mb-3">
+                                <span class="info-box-icon bg-danger elevation-1">
+                                    <i class="fas fa-solid fa-indian-rupee-sign"></i>
+                                </span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Receive Amount</span>
+                                    <?php echo $paid_amount = $conn->query("SELECT sum(paid_amount) as paid from `booking_list` where client_id = '{$_settings->userdata('id')}' and (status = 1 or status=4) ")->fetch_assoc()['paid'];
+                                    ?>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                        <!-- /.col -->
+
+                        <!-- fix for small devices only -->
+                        <!-- <div class="clearfix hidden-md-up"></div> -->
+
+
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-info elevation-1">
+                                    <i class="fas fa-solid fa-indian-rupee-sign"></i>
+                                </span>
+
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Total Dues</span>
+                                    <span class="info-box-number">
+                                        <?php echo $due = ($profit / 2) + $investment - $paid_amount;
+                                        //echo $pending 
+                                        ?>
+                                    </span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </div>
+                    </div>
                     <div class="w-100 justify-content-between d-flex">
                         <h4><b>My Bookings</b></h4>
                         <a href="./?p=edit_account" class="btn btn btn-dark btn-flat">
@@ -67,6 +141,8 @@
                                                 <span class="badge badge-danger">Cancelled</span>
                                             <?php elseif ($row['status'] == 3) : ?>
                                                 <span class="badge badge-success">Active</span>
+                                            <?php elseif ($row['status'] == 4) : ?>
+                                                <span class="badge badge-info">Partial Confirm</span>
                                             <?php endif; ?>
                                         </td>
                                         <td align="center">

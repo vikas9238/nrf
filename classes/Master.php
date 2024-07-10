@@ -285,6 +285,8 @@ class Master extends DBConnection
 		} else {
 			$sql = "UPDATE `quotation_list` set {$data} where id = '{$id}' ";
 			$save = $this->conn->query($sql);
+			$qur = "UPDATE `quotation_list` set sold=sold +'{$quantity}' where id = '{$id}' ";
+			$save = $this->conn->query($qur);
 		}
 		if ($save) {
 			$resp['msg'] = " Quotation Successfully saved.";

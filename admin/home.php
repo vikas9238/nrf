@@ -143,7 +143,7 @@
         <span class="info-box-text">Total Collection</span>
         <span class="info-box-number">
           <?php
-          $total_collection = $conn->query("SELECT approved_quantity,daily_rate,SUM(approved_quantity * daily_rate) OVER () AS total_amount from `booking_list` where (status = 1 or status=4) ")->fetch_assoc()['total_amount'];
+          $total_collection = $conn->query("SELECT SUM(approved_quantity * daily_rate) AS total_amount from `booking_list` where (status = 1 or status=4) ")->fetch_assoc()['total_amount'];
           echo number_format($total_collection);
           ?>
         </span>
@@ -161,7 +161,7 @@
         <span class="info-box-number">
           <?php
           $today = date("Y-m-d");
-          $today_collection = $conn->query("SELECT approved_quantity,daily_rate,SUM(approved_quantity * daily_rate) OVER () AS total_amount from `booking_list` where Date(date_created) = '{$today}' ")->fetch_assoc()['total_amount'];
+          $today_collection = $conn->query("SELECT SUM(approved_quantity * daily_rate) AS total_amount from `booking_list` where Date(date_created) = '{$today}' ")->fetch_assoc()['total_amount'];
           echo number_format($today_collection);
           ?>
         </span>
@@ -218,60 +218,106 @@
       </div>
     </div>
   </div>
-  <div>
-    <!-- <div class="form-group col-md-3"> -->
+  <!-- <div>
+    <div class="form-group col-md-3">
     <label for="date_start">Month</label>
     <input type="month" class="form-control form-control-sm" name="month">
-    <!-- </div> -->
-    <canvas id="myChart"></canvas>
-  </div>
-  <!-- <div>
-    <canvas id="myChart"></canvas>
-  </div>
-  <div>
+    </div>
     <canvas id="myChart"></canvas>
   </div> -->
-
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-  const ctx = document.getElementById('myChart');
-
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 205, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(201, 203, 207, 0.2)'
-        ],
-        borderColor: [
-          'rgb(255, 99, 132)',
-          'rgb(255, 159, 64)',
-          'rgb(255, 205, 86)',
-          'rgb(75, 192, 192)',
-          'rgb(54, 162, 235)',
-          'rgb(153, 102, 255)',
-          'rgb(201, 203, 207)'
-        ],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
+  $(document).ready(function() {
+    $('input[name="month"]').on('change', function() {
+      var month = $(this).val();
+      $.ajax({
+        url: _base_url_ + 'classes/Master.php?f=chart_data',
+        method: 'POST',
+        data: {
+          month: month
+        },
+        dataType: 'json',
+        success: function(resp) {
+          console.log(resp)
+          var ctx = document.getElementById('myChart');
+          new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: resp.label,
+              datasets: [{
+                label: 'Total Collection',
+                data: resp.data,
+                backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(255, 159, 64, 0.2)',
+                  'rgba(255, 205, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(201, 203, 207, 0.2)'
+                ],
+                borderColor: [
+                  'rgb(255, 99, 132)',
+                  'rgb(255, 159, 64)',
+                  'rgb(255, 205, 86)',
+                  'rgb(75, 192, 192)',
+                  'rgb(54, 162, 235)',
+                  'rgb(153, 102, 255)',
+                  'rgb(201, 203, 207)'
+                ],
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
         }
-      }
-    }
-  });
+      })
+    })
+  })
+  // const ctx = document.getElementById('myChart');
+
+  // new Chart(ctx, {
+  //   type: 'bar',
+  //   data: {
+  //     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+  //     datasets: [{
+  //       label: '# of Votes',
+  //       data: [12, 19, 3, 5, 2, 3],
+  //       backgroundColor: [
+  //         'rgba(255, 99, 132, 0.2)',
+  //         'rgba(255, 159, 64, 0.2)',
+  //         'rgba(255, 205, 86, 0.2)',
+  //         'rgba(75, 192, 192, 0.2)',
+  //         'rgba(54, 162, 235, 0.2)',
+  //         'rgba(153, 102, 255, 0.2)',
+  //         'rgba(201, 203, 207, 0.2)'
+  //       ],
+  //       borderColor: [
+  //         'rgb(255, 99, 132)',
+  //         'rgb(255, 159, 64)',
+  //         'rgb(255, 205, 86)',
+  //         'rgb(75, 192, 192)',
+  //         'rgb(54, 162, 235)',
+  //         'rgb(153, 102, 255)',
+  //         'rgb(201, 203, 207)'
+  //       ],
+  //       borderWidth: 1
+  //     }]
+  //   },
+  //   options: {
+  //     scales: {
+  //       y: {
+  //         beginAtZero: true
+  //       }
+  //     }
+  //   }
+  // });
 </script>
