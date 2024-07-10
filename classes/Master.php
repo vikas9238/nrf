@@ -433,6 +433,15 @@ class Master extends DBConnection
 				$data .= " `{$k}`='{$v}' ";
 			}
 		}
+		$check = $this->conn->query("SELECT * FROM `booking_list` where `transaction` = '{$transaction}' " . (!empty($id) ? " and id != {$id} " : "") . " ")->num_rows;
+		if ($this->capture_err())
+			return $this->capture_err();
+		if ($check > 0) {
+			$resp['status'] = 'failed';
+			$resp['msg'] = "Please Enter valid Transaction ID.";
+			return json_encode($resp);
+			exit;
+		}
 		if (empty($id)) {
 			$sql = "INSERT INTO `booking_list` set {$data} ";
 			$save = $this->conn->query($sql);

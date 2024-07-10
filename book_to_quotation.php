@@ -398,13 +398,9 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                         uni_modal('', 'success_booking.php')
                     }, 500);
                 } else if (resp.status == 'failed' && !!resp.msg) {
-                    var el = $('<div>')
-                    el.addClass("alert alert-danger err-msg").text(resp.msg)
-                    _this.prepend(el)
-                    el.show('slow')
-                    $("html, body").animate({
-                        scrollTop: _this.closest('.card').offset().top
-                    }, "fast");
+                    var _err_el = $('<div>')
+                    _err_el.addClass("alert alert-danger err-msg").text(resp.msg)
+                    $('[name="transaction"]').after(_err_el)
                     end_loader()
                 } else {
                     alert_toast("An error occured", 'error');
