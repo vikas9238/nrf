@@ -52,7 +52,16 @@
 								<td>
 									<small><span class="text-muted">Company:</span><?php echo $row['name'] ?></small><br>
 									<small><span class="text-muted">Address:</span><?php echo $row['address'] ?></small><br>
-									<small><span class="text-muted">Product: </span><?php echo $row['category'] ?></small>
+									<small><span class="text-muted">Product: </span><?php echo $row['category'] ?></small><br>
+									<?php if ($row['transaction_status'] == 1) : ?>
+										<small><span class="text-muted">Payment Verification:</span> <span class="badge badge-success">Pass</span></small>
+									<?php elseif ($row['transaction_status'] == 2) : ?>
+										<small><span class="text-muted">Payment Verification:</span> <span class="badge badge-danger">Fail</span></small>
+									<?php elseif ($row['transaction_status'] == 3) : ?>
+										<small><span class="text-muted">Payment Verification:</span> <span class="badge badge-warning">Hold</span></small>
+									<?php else : ?>
+										<small><span class="text-muted">Payment Verification:</span> <span class="badge badge-info">Pending</span></small>
+									<?php endif; ?>
 								</td>
 								<td><?php echo $row['client'] ?></td>
 								<td class="text-center">

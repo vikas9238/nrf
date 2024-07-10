@@ -435,16 +435,27 @@ class Master extends DBConnection
 			$sql = "INSERT INTO `booking_list` set {$data} ";
 			$save = $this->conn->query($sql);
 			$id = $this->conn->insert_id;
+			$qur = "UPDATE `quotation_list` set quantity = quantity - '{$quantity}' where id = '{$quotation_id}'";
+			$save = $this->conn->query($qur);
 		} else {
 			if ($status == 1) {
-				$stock = $this->conn->query("SELECT quantity FROM `quotation_list` where id = '{$quotation_id}'")->fetch_array()['quantity'];
-				if ($approved_quantity <= $stock) {
-					$date = date('Y-m-d H:i:sa');
-					$sql = "UPDATE `booking_list` set approved_quantity = approved_quantity + '{$approved_quantity}', status='1', confirm_order='{$date}' where id ='{$id}'";
-					$save = $this->conn->query($sql);
-					$qur = "UPDATE `quotation_list` set quantity = quantity - '{$approved_quantity}' where id = '{$quotation_id}'";
-					$save = $this->conn->query($qur);
-				}
+				// $stock = $this->conn->query("SELECT quantity FROM `quotation_list` where id = '{$quotation_id}'")->fetch_array()['quantity'];
+				// if ($approved <= $stock) {
+				$date = date('Y-m-d H:i:sa');
+				$sql = "UPDATE `booking_list` set approved_quantity = approved_quantity + '{$approved_quantity}', status='1', confirm_order='{$date}' where id ='{$id}'";
+				$save = $this->conn->query($sql);
+				// $qry = $this->conn->query("SELECT approved_quantity, quantity FROM `booking_list` where id = '{$id}'");
+				// if ($qry->num_rows > 0) {
+				// 	foreach ($qry->fetch_assoc() as $a => $b) {
+				// 		$$a = stripslashes($b);
+				// 	}
+				// }
+				// if ($approved_quantity < $quantity) {
+				// 	$refund = $quantity - $approved_quantity;
+				// 	$qur = "UPDATE `quotation_list` set quantity = quantity + '{$refund}' where id = '{$quotation_id}'";
+				// 	$save = $this->conn->query($qur);
+				// }
+				// }
 			} elseif ($status == 3) {
 				$stock = $this->conn->query("SELECT quantity FROM `quotation_list` where id = '{$quotation_id}'")->fetch_array()['quantity'];
 				if ($approved_quantity <= $stock) {
@@ -454,15 +465,19 @@ class Master extends DBConnection
 					$save = $this->conn->query($qur);
 				}
 			} elseif ($status == 2) {
+				$remaining_quantity = $this->conn->query("SELECT quantity FROM `booking_list` where id = '{$id}'")->fetch_array()['quantity'];
 				$sql = "UPDATE `booking_list` set status='2',reason='{$reason}' where id ='{$id}'";
 				$save = $this->conn->query($sql);
+				$qur = "UPDATE `quotation_list` set quantity = quantity + '{$remaining_quantity}' where id = '{$quotation_id}'";
+				$save = $this->conn->query($qur);
 			} elseif ($status == 4) {
-				$stock = $this->conn->query("SELECT quantity FROM `quotation_list` where id = '{$quotation_id}'")->fetch_array()['quantity'];
-				if ($approved_quantity <= $stock) {
+				$order = $this->conn->query("SELECT quantity FROM `booking_list` where id = '{$id}'")->fetch_array()['quantity'];
+				if ($approved_quantity <= $order) {
+					$remaining_quantity = $order - $approved_quantity;
 					$date = date('Y-m-d H:i:sa');
 					$sql = "UPDATE `booking_list` set approved_quantity = approved_quantity + '{$approved_quantity}', status='4', confirm_order='{$date}' where id ='{$id}'";
 					$save = $this->conn->query($sql);
-					$qur = "UPDATE `quotation_list` set quantity = quantity - '{$approved_quantity}' where id = '{$quotation_id}'";
+					$qur = "UPDATE `quotation_list` set quantity = quantity + '{$remaining_quantity}' where id = '{$quotation_id}'";
 					$save = $this->conn->query($qur);
 				}
 			}
@@ -841,6 +856,17 @@ class Master extends DBConnection
 		// }
 		return json_encode($resp);
 	}
+	function chart_data()
+	{
+		extract($_POST);
+		$total_collection = $conn->query("SELECT approved_quantity,daily_rate,SUM(approved_quantity * daily_rate) OVER () AS total_amount from `booking_list` where Month(date_created)='month' and (status = 1 or status=4) ")->fetch_assoc()['total_amount'];
+
+		$resp['status'] = 'success';
+		$resp['data'] = array();
+		$resp['data']['labels'] = array();
+		$resp['data']['data'] = array();
+		return json_encode($resp);
+	}
 }
 
 $Master = new Master();
@@ -913,6 +939,9 @@ switch ($action) {
 		break;
 	case 'contact_us':
 		echo $Master->contact_us();
+		break;
+	case 'chart_data':
+		echo $Master->chart_data();
 		break;
 	default:
 		// echo $sysset->index();
