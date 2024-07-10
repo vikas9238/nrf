@@ -203,4 +203,75 @@
       </div>
     </div>
   </div>
+  <div class="col-12 col-sm-6 col-md-3">
+    <div class="info-box mb-3">
+      <span class="info-box-icon bg-info elevation-1"><i class="fa-regular fa-money-bill-1"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">Total Fund Available</span>
+        <span class="info-box-number">
+          <?php
+          $total_fund = $total_collection - $total_pay;
+          echo number_format($total_fund);
+          ?>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div>
+    <!-- <div class="form-group col-md-3"> -->
+    <label for="date_start">Month</label>
+    <input type="month" class="form-control form-control-sm" name="month">
+    <!-- </div> -->
+    <canvas id="myChart"></canvas>
+  </div>
+  <!-- <div>
+    <canvas id="myChart"></canvas>
+  </div>
+  <div>
+    <canvas id="myChart"></canvas>
+  </div> -->
+
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 205, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(201, 203, 207, 0.2)'
+        ],
+        borderColor: [
+          'rgb(255, 99, 132)',
+          'rgb(255, 159, 64)',
+          'rgb(255, 205, 86)',
+          'rgb(75, 192, 192)',
+          'rgb(54, 162, 235)',
+          'rgb(153, 102, 255)',
+          'rgb(201, 203, 207)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>

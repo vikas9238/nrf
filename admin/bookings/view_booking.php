@@ -27,10 +27,10 @@ if (isset($quotation_id)) {
 <div class="conitaner-fluid px-3 py-2">
     <div class="row">
         <div class="col-md-6">
-            <p><b>Client Name:</b> <?php echo $client ?></p>
-            <p><b>Client Email:</b> <?php echo $email ?></p>
-            <p><b>Client Contact:</b> <?php echo $contact ?></p>
-            <p><b>Client Address:</b> <?php echo $address ?></p>
+            <p><b>Name:</b> <?php echo $client ?></p>
+            <p><b>Email:</b> <?php echo $email ?></p>
+            <p><b>Contact:</b> <?php echo $contact ?></p>
+            <p><b>Address:</b> <?php echo $address ?></p>
             <p><b>Transaction ID:</b> <?php echo $transaction ?></p>
             <img src="<?php echo base_url . 'uploads/screenshot/' . $transaction . '.png' ?>" alt="screenshot" height="250" width="300"><br>
             <?php if (!isset($_GET['view'])) : ?>

@@ -28,8 +28,6 @@ date_default_timezone_set('Asia/Kolkata');
   <link rel="stylesheet" href="<?php echo base_url ?>plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- JQVMap -->
   <link rel="stylesheet" href="<?php echo base_url ?>plugins/jqvmap/jqvmap.min.css">
-  <!-- JhartJs -->
-  <link rel="stylesheet" href="<?php echo base_url ?>plugins/chart.js/Chart.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url ?>dist/css/adminlte.css">
   <link rel="stylesheet" href="<?php echo base_url ?>dist/css/custom.css">
@@ -49,8 +47,6 @@ date_default_timezone_set('Asia/Kolkata');
   <script src="<?php echo base_url ?>plugins/jquery-ui/jquery-ui.min.js"></script>
   <!-- SweetAlert2 -->
   <script src="<?php echo base_url ?>plugins/sweetalert2/sweetalert2.min.js"></script>
-  <!-- ChartJs -->
-  <script src="<?php echo base_url ?>plugins/chart.js/Chart.bundle.min.js"></script>
   <!-- Toastr -->
   <script src="<?php echo base_url ?>plugins/toastr/toastr.min.js"></script>
   <script>
