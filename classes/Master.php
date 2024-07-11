@@ -285,8 +285,6 @@ class Master extends DBConnection
 		} else {
 			$sql = "UPDATE `quotation_list` set {$data} where id = '{$id}' ";
 			$save = $this->conn->query($sql);
-			$qur = "UPDATE `quotation_list` set sold=sold +'{$quantity}' where id = '{$id}' ";
-			$save = $this->conn->query($qur);
 		}
 		if ($save) {
 			$resp['msg'] = " Quotation Successfully saved.";
@@ -450,23 +448,16 @@ class Master extends DBConnection
 			$save = $this->conn->query($qur);
 		} else {
 			if ($status == 1) {
-				// $stock = $this->conn->query("SELECT quantity FROM `quotation_list` where id = '{$quotation_id}'")->fetch_array()['quantity'];
-				// if ($approved <= $stock) {
 				$date = date('Y-m-d H:i:sa');
 				$sql = "UPDATE `booking_list` set approved_quantity = approved_quantity + '{$approved_quantity}', status='1', confirm_order='{$date}' where id ='{$id}'";
 				$save = $this->conn->query($sql);
-				// $qry = $this->conn->query("SELECT approved_quantity, quantity FROM `booking_list` where id = '{$id}'");
-				// if ($qry->num_rows > 0) {
-				// 	foreach ($qry->fetch_assoc() as $a => $b) {
-				// 		$$a = stripslashes($b);
-				// 	}
-				// }
-				// if ($approved_quantity < $quantity) {
-				// 	$refund = $quantity - $approved_quantity;
-				// 	$qur = "UPDATE `quotation_list` set quantity = quantity + '{$refund}' where id = '{$quotation_id}'";
-				// 	$save = $this->conn->query($qur);
-				// }
-				// }
+				$sell = $this->conn->query("SELECT approved_quantity FROM `booking_list` where id = '{$id}'");
+				$order = $this->conn->query("SELECT quantity FROM `booking_list` where id = '{$id}'");
+				if ($sell < $order) {
+					$refund = $order - $sell;
+					$qur = "UPDATE `quotation_list` set quantity = quantity + '{$refund}' where id = '{$quotation_id}'";
+					$save = $this->conn->query($qur);
+				}
 			} elseif ($status == 3) {
 				$stock = $this->conn->query("SELECT quantity FROM `quotation_list` where id = '{$quotation_id}'")->fetch_array()['quantity'];
 				if ($approved_quantity <= $stock) {
