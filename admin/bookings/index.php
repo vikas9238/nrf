@@ -62,6 +62,18 @@
 									<?php else : ?>
 										<small><span class="text-muted">Payment Verification:</span> <span class="badge badge-info">Pending</span></small>
 									<?php endif; ?>
+							<?php if ($status == 4 or $status == 2) : ?>
+                    <small><span class="text-muted">Refund Paid:</span> <?php
+                                            switch ($refund_status) {
+                                                case '0':
+                                                    echo '<span class="badge badge-warning text-dark">Not</span>';
+                                                    break;
+                                                case '1':
+                                                    echo '<span class="badge badge-success">Yes</span>';
+                                                    break;
+                                            }
+                                            ?></small>
+							<?php endif; ?>
 								</td>
 								<td><?php echo $row['client'] ?></td>
 								<td class="text-center">
