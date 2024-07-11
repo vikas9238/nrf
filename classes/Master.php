@@ -484,7 +484,8 @@ class Master extends DBConnection
 			} elseif ($status == 4) {
 				$order = $this->conn->query("SELECT quantity FROM `booking_list` where id = '{$id}'")->fetch_array()['quantity'];
 				if ($approved_quantity <= $order) {
-					$remaining_quantity = $order - $approved_quantity;
+					$sell = $this->conn->query("SELECT approved_quantity FROM `booking_list` where id = '{$id}'")->fetch_array()['approved_quantity'];
+					$remaining_quantity = $order - ($approved_quantity + $sell);
 					$date = date('Y-m-d H:i:sa');
 					$sql = "UPDATE `booking_list` set approved_quantity = approved_quantity + '{$approved_quantity}', status='4', confirm_order='{$date}' where id ='{$id}'";
 					$save = $this->conn->query($sql);
