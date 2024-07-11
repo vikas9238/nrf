@@ -45,22 +45,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['firstname']) && !empt
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
         $mail->Subject = 'Urgent: Cancellation of Material Booking Order.';
-        $mail->Body    = "Dear $firstname $lastname,<br>
-    
-    <p>I regret to inform you that we must cancel your recent material booking order due to $reason and unforeseen circumstances beyond our control. We apologize sincerely for any inconvenience caused.</p>
-    <p>Material: $category for $company project.</p>
-    <p>Refund Amount: $amount</p>
-    
-    <p>As per our commitment to you, we will process the refund of your payment within 72 hours. The refunded amount will be credited directly to your bank account.</p>
-    <p>For further details, you can also view your profile on our website at www.nrfindustry.in</p>
-    
-    <p>If you have any questions or need further assistance, please do not hesitate to contact our customer support team at <b>Email:</b><a href='mailto:$company_email'> $company_email</a> <b>Contact:</b><a href='tel:$mobile'> +91-$mobile</a>.</p>
-    
-    <p>Thank you for your understanding and patience in this matter.</p>
-    
-    Best regards,<br>
-    
-    NRF Industry Team";
+        $mail->Body    = "<body style='font-family: Arial, sans-serif;background-color: #f4f4f4;margin: 0;padding: 0;'>
+    <div style='background-color: #fff;margin: 0 auto;padding: 20px;max-width: 600px;border: 1px solid #ddd;'>
+        <div style='background-color: #00B98E;color: #fff;padding: 10px;text-align: center;'>
+            <h1>NRF INDUSTRY</h1>
+        </div>
+        <div style='padding: 20px;'>
+            <h2>Cancellation of Material Booking</h2>
+            <p style='font-size: 14px;line-height: 1.6;'>Dear $firstname $lastname,</p>
+            <p style='font-size: 14px;line-height: 1.6;'>I regret to inform you that we must cancel your recent material booking order due to $reason and unforeseen circumstances beyond our control. We apologize sincerely for any inconvenience caused.</p>
+            <p style='font-size: 14px;line-height: 1.6;'>Material: $category for $company project.</p>
+            <p style='font-size: 14px;line-height: 1.6;'>Refund Amount: $amount</p>
+            <p style='font-size: 14px;line-height: 1.6;'>As per our commitment to you, we will process the refund of your payment within 72 hours. The refunded amount will be credited directly to your bank account.</p>
+            <p style='font-size: 14px;line-height: 1.6;'>For further details, you can also view your profile on our website at www.nrfindustry.in</p>
+            <p style='color: #d9534f;font-size: 14px;line-height: 1.6;'>If you have any questions or need further assistance, please do not hesitate to contact our customer support team at <b>Email:</b><a href='mailto:$company_email'> $company_email</a> <b>Contact:</b><a href='tel:$mobile'> +91$mobile</a>. We're here to assist you.</p>
+            <p style='font-size: 14px;line-height: 1.6;'>Thank you for your understanding and patience in this matter.</p>
+            <p style='font-size: 14px;line-height: 1.6;'>Best Regards,<br>
+                NRF Industry Team</p>
+            <p style='font-size: 14px;line-height: 1.6;'><em>(This is a system generated mail and should not be replied to)</em></p>
+            <hr>
+            <div style='margin-top: 20px;font-size: 12px;color: #666;'>
+                <p style='font-size: 14px;line-height: 1.6;'>Do not share your login username/password via email or over the phone. NRF Industry Team will never ask for it.</p>
+                <p style='font-size: 14px;line-height: 1.6;'>*For all Term and Condition (t&c), Please refer to the Website <a href='https://nrfindustry.in/'>link</a></p>
+            </div>
+        </div>
+    </div>
+</body>";
 
 
 

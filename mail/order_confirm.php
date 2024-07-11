@@ -221,25 +221,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['id'])) {
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
     $mail->Subject = 'Order Confirmation - Thank You for Your Purchase!';
-    $mail->Body    = "Dear $firstname $lastname,<br>
-    
-    <p>We are pleased to inform you that your order has been successfully confirmed! Thank you for choosing NRF Industry AND Trading Private Limited for your purchase.</p>
-    
-    <p>Order Details:<br>
-    Order Id: #$id<br>
-    Date of Order: $date_created<br>
-    Material Name: $category<br>
-    Price: $daily_rate<br>
-    Quantity: $approved_quantity	<br>
-    Total Amount: $amount</p>    
-    <p>For further details, you can also view this transaction in your profile on our website at www.nrfindustry.in</p>
-    <p>We appreciate your patience during this time. If you have any urgent inquiries or need further assistance, please don't hesitate to contact our support team at <b>Email:</b><a href='mailto:$company_email'> $company_email</a> <b>Contact:</b><a href='tel:$mobile'> +91-$mobile</a>.</p>
-    
-    <p>Thank you for choosing NRF Industry And Trading Private Limited. We look forward to welcoming you soon.</p>
-    
-    Best regards,<br>
-    
-    NRF Industry Team";
+    $mail->Body    = "<body style='font-family: Arial, sans-serif;background-color: #f4f4f4;margin: 0;padding: 0;'>
+    <div style='background-color: #fff;margin: 0 auto;padding: 20px;max-width: 600px;border: 1px solid #ddd;'>
+        <div style='background-color: #00B98E;color: #fff;padding: 10px;text-align: center;'>
+            <h1>NRF INDUSTRY</h1>
+        </div>
+        <div style='padding: 20px;'>
+            <h2>Order Confirmation</h2>
+            <p style='font-size: 14px;line-height: 1.6;'>Dear $firstname $lastname,</p>
+            <p style='font-size: 14px;line-height: 1.6;'>We are pleased to inform you that your order has been successfully confirmed! Thank you for choosing NRF Industry AND Trading Private Limited for your purchase.</p>
+            <p style='font-size: 14px;line-height: 1.6;'>Order Details:<br>
+                Order Id: #$id<br>
+                Date of Order: $date_created<br>
+                Material Name: $category<br>
+                Price: $daily_rate<br>
+                Quantity: $approved_quantity <br>
+                Total Amount: $amount</p>
+            <p style='font-size: 14px;line-height: 1.6;'>For further details, you can also view this transaction in your profile on our website at www.nrfindustry.in</p>
+            <p style='color: #d9534f;font-size: 14px;line-height: 1.6;'>If you have any urgent inquiries or need further assistance, please don't hesitate to contact our support team at <b>Email:</b><a href='mailto:$company_email'> $company_email</a> <b>Contact:</b><a href='tel:$mobile'> +91$mobile</a>. We're here to assist you.</p>
+            <p style='font-size: 14px;line-height: 1.6;'>Thank you for your prompt attention to this matter.</p>
+            <p style='font-size: 14px;line-height: 1.6;'>Best Regards,<br>
+                NRF Industry Team</p>
+            <p style='font-size: 14px;line-height: 1.6;'><em>(This is a system generated mail and should not be replied to)</em></p>
+            <hr>
+            <div style='margin-top: 20px;font-size: 12px;color: #666;'>
+                <p style='font-size: 14px;line-height: 1.6;'>Do not share your login username/password via email or over the phone. NRF Industry Team will never ask for it.</p>
+                <p style='font-size: 14px;line-height: 1.6;'>*For all Term and Condition (t&c), Please refer to the Website <a href='https://nrfindustry.in/'>link</a></p>
+            </div>
+        </div>
+    </div>
+</body>";
 
 
 
