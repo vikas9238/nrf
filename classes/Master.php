@@ -451,8 +451,8 @@ class Master extends DBConnection
 				$date = date('Y-m-d H:i:sa');
 				$sql = "UPDATE `booking_list` set approved_quantity = approved_quantity + '{$approved_quantity}', status='1', confirm_order='{$date}' where id ='{$id}'";
 				$save = $this->conn->query($sql);
-				$sell = $this->conn->query("SELECT approved_quantity FROM `booking_list` where id = '{$id}'");
-				$order = $this->conn->query("SELECT quantity FROM `booking_list` where id = '{$id}'");
+				$sell = $this->conn->query("SELECT approved_quantity FROM `booking_list` where id = '{$id}'")->fetch_array()['approved_quantity'];
+				$order = $this->conn->query("SELECT quantity FROM `booking_list` where id = '{$id}'")->fetch_array()['quantity'];
 				if ($sell < $order) {
 					$refund = $order - $sell;
 					$qur = "UPDATE `quotation_list` set quantity = quantity + '{$refund}' where id = '{$quotation_id}'";
