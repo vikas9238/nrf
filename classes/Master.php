@@ -472,8 +472,8 @@ class Master extends DBConnection
 				if ($approved_quantity <= $stock) {
 					$sql = "UPDATE `booking_list` set approved_quantity= approved_quantity + '{$approved_quantity}', status='3' where id ='{$id}'";
 					$save = $this->conn->query($sql);
-					$qur = "UPDATE `quotation_list` set quantity = quantity - '{$approved_quantity}' where id = '{$quotation_id}'";
-					$save = $this->conn->query($qur);
+					// $qur = "UPDATE `quotation_list` set quantity = quantity - '{$approved_quantity}' where id = '{$quotation_id}'";
+					// $save = $this->conn->query($qur);
 				}
 			} elseif ($status == 2) {
 				$remaining_quantity = $this->conn->query("SELECT quantity FROM `booking_list` where id = '{$id}'")->fetch_array()['quantity'];
