@@ -62,7 +62,7 @@
 									<?php else : ?>
 										<small><span class="text-muted">Payment Verification:</span> <span class="badge badge-info">Pending</span></small>
 									<?php endif; ?>
-							<?php if ($status == 4 or $status == 2) : ?>
+							<?php if ($row['status'] == 4 or $row['status'] == 2) : ?>
                     <small><span class="text-muted">Refund Paid:</span> <?php
                                             switch ($refund_status) {
                                                 case '0':
