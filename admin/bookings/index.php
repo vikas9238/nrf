@@ -54,17 +54,17 @@
 									<small><span class="text-muted">Address:</span><?php echo $row['address'] ?></small><br>
 									<small><span class="text-muted">Product: </span><?php echo $row['category'] ?></small><br>
 									<?php if ($row['transaction_status'] == 1) : ?>
-										<small><span class="text-muted">Payment Verification:</span> <span class="badge badge-success">Pass</span></small>
+										<small><span class="text-muted">Payment Verification:</span> <span class="badge badge-success">Pass</span></small><br>
 									<?php elseif ($row['transaction_status'] == 2) : ?>
-										<small><span class="text-muted">Payment Verification:</span> <span class="badge badge-danger">Fail</span></small>
+										<small><span class="text-muted">Payment Verification:</span> <span class="badge badge-danger">Fail</span></small><br>
 									<?php elseif ($row['transaction_status'] == 3) : ?>
-										<small><span class="text-muted">Payment Verification:</span> <span class="badge badge-warning">Hold</span></small>
+										<small><span class="text-muted">Payment Verification:</span> <span class="badge badge-warning">Hold</span></small><br>
 									<?php else : ?>
-										<small><span class="text-muted">Payment Verification:</span> <span class="badge badge-info">Pending</span></small>
+										<small><span class="text-muted">Payment Verification:</span> <span class="badge badge-info">Pending</span></small><br>
 									<?php endif; ?>
 							<?php if ($row['status'] == 4 or $row['status'] == 2) : ?>
                     <small><span class="text-muted">Refund Paid:</span> <?php
-                                            switch ($refund_status) {
+                                            switch ($row['refund_status']) {
                                                 case '0':
                                                     echo '<span class="badge badge-warning text-dark">Not</span>';
                                                     break;
