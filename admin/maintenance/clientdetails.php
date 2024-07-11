@@ -59,18 +59,20 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
                             <span class="info-box-icon bg-success elevation-1">
-                                <i class="far fa-money-bill-alt"></i>
+                                <i class="fa fa-indian-rupee-sign"></i>
                             </span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Total Investment</span>
-                                <?php $investment = $conn->query("SELECT SUM(approved_quantity * daily_rate) AS total_amount from `booking_list` where client_id = '{$_GET['id']}' and (status = 1 or status=4) ")->fetch_assoc()['total_amount'];
-                                if ($investment == null) {
-                                    echo $investment = 0;
-                                } else {
-                                    echo $investment;
-                                }
-                                ?>
+                                <span class="info-box-number">
+                                    <?php $investment = $conn->query("SELECT SUM(approved_quantity * daily_rate) AS total_amount from `booking_list` where client_id = '{$_GET['id']}' and (status = 1 or status=4) ")->fetch_assoc()['total_amount'];
+                                    if ($investment == null) {
+                                        echo $investment = 0;
+                                    } else {
+                                        echo $investment;
+                                    }
+                                    ?>
+                                </span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -80,14 +82,16 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
                             <span class="info-box-icon bg-warning elevation-1">
-                                <i class="far fa-money-bill-alt"></i>
+                                <i class="fa fa-money-bill-trend-up"></i>
                             </span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Total Profit</span>
-                                <?php $profit = $conn->query("SELECT SUM((po_rate-daily_rate)*approved_quantity) AS total_amount from `booking_list` where client_id = '{$_GET['id']}' and (status = 1 or status=4) ")->fetch_assoc()['total_amount'];
-                                ?>
-                                <?php echo $profit / 2 ?>
+                                <span class="info-box-number">
+                                    <?php $profit = $conn->query("SELECT SUM((po_rate-daily_rate)*approved_quantity) AS total_amount from `booking_list` where client_id = '{$_GET['id']}' and (status = 1 or status=4) ")->fetch_assoc()['total_amount'];
+                                    ?>
+                                    <?php echo $profit / 2 ?>
+                                </span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -97,18 +101,20 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                     <div class="col-12 col-sm-6 col-md-3">
                         <div class="info-box mb-3">
                             <span class="info-box-icon bg-danger elevation-1">
-                                <i class="far fa-money-bill-alt"></i>
+                                <i class="fa fa-money-bill-transfer"></i>
                             </span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Paid Amount</span>
-                                <?php $paid_amount = $conn->query("SELECT sum(paid_amount) as paid from `booking_list` where client_id = '{$_GET['id']}' and (status = 1 or status=4) ")->fetch_assoc()['paid'];
-                                if ($paid_amount == null) {
-                                    echo $paid_amount = 0;
-                                } else {
-                                    echo $paid_amount;
-                                }
-                                ?>
+                                <span class="info-box-number">
+                                    <?php $paid_amount = $conn->query("SELECT sum(paid_amount) as paid from `booking_list` where client_id = '{$_GET['id']}' and (status = 1 or status=4) ")->fetch_assoc()['paid'];
+                                    if ($paid_amount == null) {
+                                        echo $paid_amount = 0;
+                                    } else {
+                                        echo $paid_amount;
+                                    }
+                                    ?>
+                                </span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>

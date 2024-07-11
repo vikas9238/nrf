@@ -42,7 +42,7 @@
 					<tbody>
 						<?php
 						$i = 1;
-						$qry = $conn->query("SELECT r.*,concat(c.firstname,' ',c.lastname) as client,co.name,pr.category,q.address from `booking_list` r inner join clients c on c.id = r.client_id inner join quotation_list q on q.id=r.quotation_id inner join company_list co on co.id=q.company_id inner join product pr on pr.id=q.product_id order by unix_timestamp(r.date_created) desc ");
+						$qry = $conn->query("SELECT r.*,concat(c.firstname,' ',c.lastname) as client,c.email,c.contact,co.name,pr.category,q.address from `booking_list` r inner join clients c on c.id = r.client_id inner join quotation_list q on q.id=r.quotation_id inner join company_list co on co.id=q.company_id inner join product pr on pr.id=q.product_id order by unix_timestamp(r.date_created) desc ");
 						while ($row = $qry->fetch_assoc()) :
 						?>
 							<tr>
@@ -62,20 +62,24 @@
 									<?php else : ?>
 										<small><span class="text-muted">Payment Verification:</span> <span class="badge badge-info">Pending</span></small><br>
 									<?php endif; ?>
-							<?php if ($row['status'] == 4 or $row['status'] == 2) : ?>
-                    <small><span class="text-muted">Refund:</span> <?php
-                                            switch ($row['refund_status']) {
-                                                case '0':
-                                                    echo '<span class="badge badge-warning text-dark">Not Paid</span>';
-                                                    break;
-                                                case '1':
-                                                    echo '<span class="badge badge-success">Paid</span>';
-                                                    break;
-                                            }
-                                            ?></small>
-							<?php endif; ?>
+									<?php if ($row['status'] == 4 or $row['status'] == 2) : ?>
+										<small><span class="text-muted">Refund:</span> <?php
+																						switch ($row['refund_status']) {
+																							case '0':
+																								echo '<span class="badge badge-warning text-dark">Not Paid</span>';
+																								break;
+																							case '1':
+																								echo '<span class="badge badge-success">Paid</span>';
+																								break;
+																						}
+																						?></small>
+									<?php endif; ?>
 								</td>
-								<td><?php echo $row['client'] ?></td>
+								<td>
+									<small><span class="text-muted">Name: </span><?php echo $row['client'] ?></small><br>
+									<small><span class="text-muted">Email: </span><?php echo $row['email'] ?></small><br>
+									<small><span class="text-muted">Contact: </span><?php echo $row['contact'] ?></small>
+								</td>
 								<td class="text-center">
 									<?php if ($row['status'] == 0) : ?>
 										<span class="badge badge-light">Pending</span>

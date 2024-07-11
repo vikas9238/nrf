@@ -3,7 +3,7 @@
 <div class="row">
   <div class="col-12 col-sm-6 col-md-3">
     <div class="info-box">
-      <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-solid fa-indian-rupee-sign"></i></span>
+      <span class="info-box-icon bg-primary elevation-1"><i class="fa-solid fa-cart-shopping"></i></span>
 
       <div class="info-box-content">
         <span class="info-box-text">Total Booking</span>
@@ -22,7 +22,7 @@
   <!-- /.col -->
   <div class="col-12 col-sm-6 col-md-3">
     <div class="info-box">
-      <span class="info-box-icon bg-info elevation-1"><i class="fas fa-solid fa-indian-rupee-sign"></i></span>
+      <span class="info-box-icon bg-info elevation-1"><i class="fa-solid fa-cart-shopping"></i></span>
 
       <div class="info-box-content">
         <span class="info-box-text">Today Booking</span>
@@ -44,7 +44,7 @@
   <!-- /.col -->
   <div class="col-12 col-sm-6 col-md-3">
     <div class="info-box">
-      <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-solid fa-indian-rupee-sign"></i></span>
+      <span class="info-box-icon bg-warning elevation-1"><i class="fa-solid fa-cart-shopping"></i></span>
 
       <div class="info-box-content">
         <span class="info-box-text">Booking Approval Pending</span>
@@ -63,7 +63,7 @@
   <!-- /.col -->
   <div class="col-12 col-sm-6 col-md-3">
     <div class="info-box">
-      <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-th-list"></i></span>
+      <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-hand-holding-hand"></i></span>
 
       <div class="info-box-content">
         <span class="info-box-text">Complete Quotation</span>
@@ -120,7 +120,7 @@
   </div>
   <div class="col-12 col-sm-6 col-md-3">
     <div class="info-box mb-3">
-      <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+      <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-user"></i></span>
 
       <div class="info-box-content">
         <span class="info-box-text">Client Pending For Approval</span>
@@ -137,7 +137,7 @@
   </div>
   <div class="col-12 col-sm-6 col-md-3">
     <div class="info-box mb-3">
-      <span class="info-box-icon bg-success elevation-1"><i class="fa-regular fa-money-bill-1"></i></span>
+      <span class="info-box-icon bg-success elevation-1"><i class="fa fa-indian-rupee-sign"></i></span>
 
       <div class="info-box-content">
         <span class="info-box-text">Total Collection</span>
@@ -154,7 +154,7 @@
   </div>
   <div class="col-12 col-sm-6 col-md-3">
     <div class="info-box mb-3">
-      <span class="info-box-icon bg-secondary elevation-1"><i class="fa-regular fa-money-bill-1"></i></span>
+      <span class="info-box-icon bg-secondary elevation-1"><i class="fa fa-indian-rupee-sign"></i></span>
 
       <div class="info-box-content">
         <span class="info-box-text">Today Collection</span>
@@ -172,7 +172,7 @@
   </div>
   <div class="col-12 col-sm-6 col-md-3">
     <div class="info-box mb-3">
-      <span class="info-box-icon bg-success elevation-1"><i class="fa-regular fa-money-bill-1"></i></span>
+      <span class="info-box-icon bg-success elevation-1"><i class="fa fa-money-bill-transfer"></i></span>
 
       <div class="info-box-content">
         <span class="info-box-text">Total Pay</span>
@@ -189,7 +189,7 @@
   </div>
   <div class="col-12 col-sm-6 col-md-3">
     <div class="info-box mb-3">
-      <span class="info-box-icon bg-secondary elevation-1"><i class="fa-regular fa-money-bill-1"></i></span>
+      <span class="info-box-icon bg-secondary elevation-1"><i class="fa fa-money-bill-transfer"></i></span>
 
       <div class="info-box-content">
         <span class="info-box-text">Today Pay</span>
@@ -205,7 +205,7 @@
   </div>
   <div class="col-12 col-sm-6 col-md-3">
     <div class="info-box mb-3">
-      <span class="info-box-icon bg-info elevation-1"><i class="fa-regular fa-money-bill-1"></i></span>
+      <span class="info-box-icon bg-info elevation-1"><i class="fa fa-indian-rupee-sign"></i></span>
 
       <div class="info-box-content">
         <span class="info-box-text">Total Fund Available</span>

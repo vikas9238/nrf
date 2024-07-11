@@ -60,12 +60,14 @@ $total_investment = $daily_rate * $approved_quantity;
     <div class="col-12 col-sm-6 col-md-3">
         <div class="info-box mb-3">
             <span class="info-box-icon bg-danger elevation-1">
-                <i class="far fa-money-bill-alt"></i>
+                <i class="fa fa-money-bill-transfer"></i>
             </span>
 
             <div class="info-box-content">
                 <span class="info-box-text">Paid Amount</span>
-                <?php echo $paid_amount ?>
+                <span class="info-box-number">
+                    <?php echo $paid_amount ?>
+                </span>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -80,12 +82,14 @@ $total_investment = $daily_rate * $approved_quantity;
     <div class="col-12 col-sm-6 col-md-3">
         <div class="info-box mb-3">
             <span class="info-box-icon bg-warning elevation-1">
-                <i class="far fa-money-bill-alt"></i>
+                <i class="fa fa-money-bill-trend-up"></i>
             </span>
 
             <div class="info-box-content">
                 <span class="info-box-text">Total Profit</span>
-                <?php echo $profit ?>
+                <span class="info-box-number">
+                    <?php echo $profit ?>
+                </span>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -93,13 +97,15 @@ $total_investment = $daily_rate * $approved_quantity;
     </div>
     <div class="col-12 col-sm-6 col-md-3">
         <div class="info-box mb-3">
-            <span class="info-box-icon bg-warning elevation-1">
-                <i class="far fa-money-bill-alt"></i>
+            <span class="info-box-icon bg-success elevation-1">
+                <i class="fa fa-indian-rupee-sign"></i>
             </span>
 
             <div class="info-box-content">
                 <span class="info-box-text">Total Investment</span>
-                <?php echo $total_investment ?>
+                <span class="info-box-number">
+                    <?php echo $total_investment ?>
+                </span>
             </div>
             <!-- /.info-box-content -->
         </div>
