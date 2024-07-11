@@ -71,13 +71,13 @@ if (isset($quotation_id)) {
                     <?php if ($status == 2) : ?>
                         <p><b>Reason For Cancellation:</b> <?php echo $reason ?></p>
                     <?php endif; ?>
-                    <p><b>Refund Paid:</b> <?php
+                    <p><b>Refund:</b> <?php
                                             switch ($refund_status) {
                                                 case '0':
-                                                    echo '<span class="badge badge-warning text-dark">Not</span>';
+                                                    echo '<span class="badge badge-warning text-dark">Not Paid</span>';
                                                     break;
                                                 case '1':
-                                                    echo '<span class="badge badge-success">Yes</span>';
+                                                    echo '<span class="badge badge-success">Paid</span>';
                                                     break;
                                             }
                                             ?></p>
