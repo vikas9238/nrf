@@ -16,8 +16,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['firstname']) && !empt
     $email = $_POST['email'];
     $mobile = $_settings->info('mobile');
     $company_email = $_settings->info('email');
-    $logo = $_settings->info('logo');
-    $base_url = base_url;
     //Create an instance; passing `true` enables exceptions
     $mail = new PHPMailer(true);
     try {
@@ -46,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['firstname']) && !empt
         $mail->Body    = "<body style='font-family: Arial, sans-serif;background-color: #f4f4f4;margin: 0;padding: 0;'>
     <div style='background-color: #fff;margin: 0 auto;padding: 20px;max-width: 600px;border: 1px solid #ddd;'>
         <div style='background-color: #00B98E;color: #fff;padding: 10px;text-align: center;'>
-            <h1><img src='$base_url$logo'>NRF INDUSTRY</h1>
+            <h1>NRF INDUSTRY</h1>
         </div>
         <div style='padding: 20px;'>
             <h2>Account Registration Confirmation</h2>
