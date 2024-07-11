@@ -63,13 +63,13 @@
 										<small><span class="text-muted">Payment Verification:</span> <span class="badge badge-info">Pending</span></small><br>
 									<?php endif; ?>
 							<?php if ($row['status'] == 4 or $row['status'] == 2) : ?>
-                    <small><span class="text-muted">Refund Paid:</span> <?php
+                    <small><span class="text-muted">Refund:</span> <?php
                                             switch ($row['refund_status']) {
                                                 case '0':
-                                                    echo '<span class="badge badge-warning text-dark">Not</span>';
+                                                    echo '<span class="badge badge-warning text-dark">Not Paid</span>';
                                                     break;
                                                 case '1':
-                                                    echo '<span class="badge badge-success">Yes</span>';
+                                                    echo '<span class="badge badge-success">Paid</span>';
                                                     break;
                                             }
                                             ?></small>
