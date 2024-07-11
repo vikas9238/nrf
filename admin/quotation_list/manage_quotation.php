@@ -70,7 +70,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
             </div>
             <div class="form-group">
                 <label for="sold" class="control-label">Unit Sold</label>
-                <input type="text" pattern="[0-9]+" name="" id="sold" class="form-control form no-resize text-right" value="<?php echo isset($sold) ? $sold : 0; ?>" readonly>
+                <input type="text" pattern="[0-9]+" name="" id="sold" class="form-control form no-resize text-right" value="<?php echo $paid_amount = $conn->query("SELECT sum(approved_quantity) as quantity from `booking_list` where quotation_id = '{$_GET['id']}' and (status = 1 or status=4) ")->fetch_assoc()['quantity']; ?>" readonly>
             </div>
             <div class="form-group">
                 <label for="quantity" class="control-label">Available Unit</label>
