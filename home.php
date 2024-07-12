@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                <h1 class="mb-4">#1 Place To Investe In Top Leading Constraction Company</h1>
+                <h1 class="mb-4">#1 Place To Investe In Top Leading Construction Company</h1>
                 <p class="mb-4">NRF Industry AND Trading Private Limited raises funds from its partners and supplies construction materials to projects undertaken by india's top leading construction companies.</p>
                 <p><i class="fa fa-check text-primary me-3"></i>Guaranteed Returns</p>
                 <p><i class="fa fa-check text-primary me-3"></i>50% Profit Share</p>
