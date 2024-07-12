@@ -186,7 +186,7 @@
                     </div>
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                         <!-- <div class=""> -->
-                        <p class="fs-5 mb-4">Our vision is to revolutionize the construction industry by offering unparalleled investment opportunities that yield substantial returns. We aim to empower our clients with a 50% profit margin on their investments in high-quality construction materials, fostering sustainable growth and innovation in the sector.</p>
+                        <p class="fs-5 mb-4">Our vision is to revolutionize the construction industry by offering unparalleled investment opportunities that yield substantial returns. We aim to empower our partner with a 50% profit margin on their investments in high-quality construction materials, fostering sustainable growth and innovation in the sector.</p>
                         <p class="fs-5 mb-4">To Enable Individuals Across India To Become Construction Material Suppliers From Their Home Through Our Platform, Without Any Financial Risk, Thus Significantly Reducing Unemployment Of India.</p>
                         <!-- </div> -->
                     </div>
