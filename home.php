@@ -2,7 +2,7 @@
 <div class="container-fluid header bg-white p-0">
     <div class="row g-0 align-items-center flex-column-reverse flex-md-row">
         <div class="col-md-6 p-5 mt-lg-5">
-            <h1 class="display-5 animated fadeIn mb-4">Find A <span class="text-primary">Perfect Platform</span> To Investe With Your Family and Friends With Guaranteed Returns.</h1>
+            <h1 class="display-5 animated fadeIn mb-4">Find A <span class="text-primary">Perfect Platform</span> To Invest With Your Family and Friends With Guaranteed Returns.</h1>
             <p class="animated fadeIn mb-4 pb-2">Welcome to NRF Industry AND Trading Private Limited a premier platform for investing in supplying construction materials to India's top construction projects.</p>
             <a href="#tab-1" class="btn btn-primary py-3 px-5 me-3 animated fadeIn">Get Started</a>
         </div>
@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                <h1 class="mb-4">#1 Place To Investe In Top Leading Construction Company</h1>
+                <h1 class="mb-4">#1 Place To Invest In Top Leading Construction Company</h1>
                 <p class="mb-4">NRF Industry AND Trading Private Limited raises funds from its partners and supplies construction materials to projects undertaken by india's top leading construction companies.</p>
                 <p><i class="fa fa-check text-primary me-3"></i>Guaranteed Returns</p>
                 <p><i class="fa fa-check text-primary me-3"></i>50% Profit Share</p>
