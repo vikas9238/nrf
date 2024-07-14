@@ -172,6 +172,7 @@
     </div>
     <!-- /.info-box -->
   </div>
+  <?php if($_settings->admindata('username')==admin):?>
   <div class="col-12 col-sm-6 col-md-3">
     <div class="info-box mb-3">
       <span class="info-box-icon bg-success elevation-1"><i class="fa fa-money-bill-transfer"></i></span>
@@ -189,6 +190,7 @@
     </div>
     <!-- /.info-box -->
   </div>
+  <?php endif; ?>
   <div class="col-12 col-sm-6 col-md-3">
     <div class="info-box mb-3">
       <span class="info-box-icon bg-secondary elevation-1"><i class="fa fa-money-bill-transfer"></i></span>
