@@ -205,6 +205,7 @@
       </div>
     </div>
   </div>
+  <?php if($_settings->admindata('username')==admin):?>
   <div class="col-12 col-sm-6 col-md-3">
     <div class="info-box mb-3">
       <span class="info-box-icon bg-info elevation-1"><i class="fa fa-indian-rupee-sign"></i></span>
@@ -220,6 +221,7 @@
       </div>
     </div>
   </div>
+            <?php endif; ?>
   <!-- <div>
     <div class="form-group col-md-3">
     <label for="date_start">Month</label>
