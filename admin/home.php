@@ -135,25 +135,25 @@
     </div>
     <!-- /.info-box -->
   </div>
-  <?php if($_settings->admindata('username')==admin):?>
-  <div class="col-12 col-sm-6 col-md-3">
-    <div class="info-box mb-3">
-      <span class="info-box-icon bg-success elevation-1"><i class="fa fa-indian-rupee-sign"></i></span>
+  <?php if ($_settings->admindata('username') == 'admin') : ?>
+    <div class="col-12 col-sm-6 col-md-3">
+      <div class="info-box mb-3">
+        <span class="info-box-icon bg-success elevation-1"><i class="fa fa-indian-rupee-sign"></i></span>
 
-      <div class="info-box-content">
-        <span class="info-box-text">Total Collection</span>
-        <span class="info-box-number">
-          <?php
-          $total_collection = $conn->query("SELECT SUM(approved_quantity * daily_rate) AS total_amount from `booking_list` where (status = 1 or status=4) ")->fetch_assoc()['total_amount'];
-          echo number_format($total_collection);
-          ?>
-        </span>
+        <div class="info-box-content">
+          <span class="info-box-text">Total Collection</span>
+          <span class="info-box-number">
+            <?php
+            $total_collection = $conn->query("SELECT SUM(approved_quantity * daily_rate) AS total_amount from `booking_list` where (status = 1 or status=4) ")->fetch_assoc()['total_amount'];
+            echo number_format($total_collection);
+            ?>
+          </span>
+        </div>
+        <!-- /.info-box-content -->
       </div>
-      <!-- /.info-box-content -->
+      <!-- /.info-box -->
     </div>
-    <!-- /.info-box -->
-  </div>
-            <?php endif;?>
+  <?php endif; ?>
   <div class="col-12 col-sm-6 col-md-3">
     <div class="info-box mb-3">
       <span class="info-box-icon bg-secondary elevation-1"><i class="fa fa-indian-rupee-sign"></i></span>
@@ -172,24 +172,24 @@
     </div>
     <!-- /.info-box -->
   </div>
-  <?php if($_settings->admindata('username')==admin):?>
-  <div class="col-12 col-sm-6 col-md-3">
-    <div class="info-box mb-3">
-      <span class="info-box-icon bg-success elevation-1"><i class="fa fa-money-bill-transfer"></i></span>
+  <?php if ($_settings->admindata('username') == 'admin') : ?>
+    <div class="col-12 col-sm-6 col-md-3">
+      <div class="info-box mb-3">
+        <span class="info-box-icon bg-success elevation-1"><i class="fa fa-money-bill-transfer"></i></span>
 
-      <div class="info-box-content">
-        <span class="info-box-text">Total Pay</span>
-        <span class="info-box-number">
-          <?php
-          $total_pay = $conn->query("SELECT SUM(amount) AS amount from `transaction` ")->fetch_assoc()['amount'];
-          echo number_format($total_pay);
-          ?>
-        </span>
+        <div class="info-box-content">
+          <span class="info-box-text">Total Pay</span>
+          <span class="info-box-number">
+            <?php
+            $total_pay = $conn->query("SELECT SUM(amount) AS amount from `transaction` ")->fetch_assoc()['amount'];
+            echo number_format($total_pay);
+            ?>
+          </span>
+        </div>
+        <!-- /.info-box-content -->
       </div>
-      <!-- /.info-box-content -->
+      <!-- /.info-box -->
     </div>
-    <!-- /.info-box -->
-  </div>
   <?php endif; ?>
   <div class="col-12 col-sm-6 col-md-3">
     <div class="info-box mb-3">
@@ -207,23 +207,23 @@
       </div>
     </div>
   </div>
-  <?php if($_settings->admindata('username')==admin):?>
-  <div class="col-12 col-sm-6 col-md-3">
-    <div class="info-box mb-3">
-      <span class="info-box-icon bg-info elevation-1"><i class="fa fa-indian-rupee-sign"></i></span>
+  <?php if ($_settings->admindata('username') == 'admin') : ?>
+    <div class="col-12 col-sm-6 col-md-3">
+      <div class="info-box mb-3">
+        <span class="info-box-icon bg-info elevation-1"><i class="fa fa-indian-rupee-sign"></i></span>
 
-      <div class="info-box-content">
-        <span class="info-box-text">Total Fund Available</span>
-        <span class="info-box-number">
-          <?php
-          $total_fund = $total_collection - $total_pay;
-          echo number_format($total_fund);
-          ?>
-        </span>
+        <div class="info-box-content">
+          <span class="info-box-text">Total Fund Available</span>
+          <span class="info-box-number">
+            <?php
+            $total_fund = $total_collection - $total_pay;
+            echo number_format($total_fund);
+            ?>
+          </span>
+        </div>
       </div>
     </div>
-  </div>
-            <?php endif; ?>
+  <?php endif; ?>
   <!-- <div>
     <div class="form-group col-md-3">
     <label for="date_start">Month</label>
