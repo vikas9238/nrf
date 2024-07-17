@@ -6,9 +6,9 @@ use Dompdf\Dompdf;
 
 $qry = $conn->query("SELECT b.*,c.firstname,c.lastname,c.email,c.contact,c.address,c.gender,co.name,p.category,q.address as location from `booking_list` b inner join quotation_list q on q.id=b.quotation_id inner join clients c on c.id = b.client_id inner join company_list co on co.id=q.company_id inner join product p on p.id=q.product_id where b.id = '{$_GET['id']}' ");
 if ($qry->num_rows > 0) {
-    foreach ($qry->fetch_assoc() as $k => $v) {
-        $$k = $v;
-    }
+  foreach ($qry->fetch_assoc() as $k => $v) {
+    $$k = $v;
+  }
 }
 $html = '<!DOCTYPE html>
 <html lang="en">
@@ -104,36 +104,43 @@ $html = '<!DOCTYPE html>
           <h2>NRF INDUSTRY AND TRADING PRIVATE LIMITED</h2>
           <p>
             <strong
-              >'.$_settings->info('address').'</strong
+              >' . $_settings->info('address') . '</strong
             >
           </p>
-          <p><strong>Email:</strong> '.$_settings->info('email').'</p>
-          <p><strong>Phone:</strong> +91-'.$_settings->info('mobile').'</p>
+          <p><strong>Email:</strong> ' . $_settings->info('email') . '</p>
+          <p><strong>Phone:</strong> +91-' . $_settings->info('mobile') . '</p>
           <p><strong>GST No:</strong> 10AAGCN1641R1ZE</p>
+          <p><strong>PAN No:</strong> AAGCN1641R</p>
         </div>
         <div class="details">
           <div class="left">
             <p><strong>Billed To</strong></p>
-            <p><strong>Name:</strong> ' .$firstname.$lastname.'</p>
-            <p><strong>Address:</strong> '.$address.'</p>
-            <p><strong>Contact:</strong> '.$contact.'</p>
-            <p><strong>Email:</strong> '.$email.'</p>
+            <p><strong>Name:</strong> ' . $firstname . $lastname . '</p>
+            <p><strong>Address:</strong> ' . $address . '</p>
+            <p><strong>Contact:</strong> ' . $contact . '</p>
+            <p><strong>Email:</strong> ' . $email . '</p>
           </div>
           <div class="right">
             <p><strong>Order Details</strong></p>
-            <p><strong>Order Id:</strong> #'.$id.'</p>
-            <p><strong>Order Date:</strong> '.$date_created.'</p>
-            <p><strong>Order Confirm Date:</strong> '.$confirm_order.'</p>
-            <p><strong>Invoice Download Date:</strong> '.date('Y-m-d H:i:sa').'</p>
+            <p><strong>Order Id:</strong> #' . $id . '</p>
+            <p><strong>Order Date:</strong> ' . $date_created . '</p>
+            <p><strong>Order Confirm Date:</strong> ' . $confirm_order . '</p>
+            <p><strong>Invoice Download Date:</strong> ' . date('Y-m-d H:i:sa') . '</p>
           </div>
         </div>
         <hr style="clear: both" />
         <table>
+          <colgroup>
+						<col width="20%">
+						<col width="20%">
+						<col width="20%">
+						<col width="20%">
+						<col width="20%">
+					</colgroup>
           <thead>
             <tr>
               <th>Description</th>
               <th>Quantity</th>
-              <th>Po Rate</th>
               <th>Margin</th>
               <th>Unit Price</th>
               <th>Total</th>
@@ -141,21 +148,19 @@ $html = '<!DOCTYPE html>
           </thead>
           <tbody>
             <tr>
-              <td>'.$category .' ('.$name.', '.$location.')'.'</td>
-              <td>'.$approved_quantity.'</td>
-              <td>'.$po_rate.'</td>
-              <td>'.($po_rate-$daily_rate).'</td>
-              <td>'.$daily_rate.'</td>
-              <td>'.$daily_rate*$approved_quantity.'</td>
+              <td>Constraction Material</td>
+              <td>' . $approved_quantity . '</td>
+              <td>' . ($po_rate - $daily_rate) . '</td>
+              <td>' . $daily_rate . '</td>
+              <td>' . $daily_rate * $approved_quantity . '</td>
             </tr>
-            <!-- Additional rows can be added here -->
           </tbody>
         </table>
         <div class="total">
           <p>
             <strong>Total Amount:</strong
             ><span style="font-family: DejaVu Sans; sans-serif;"> &#8377;</span>
-            '.$daily_rate*$approved_quantity.'
+            ' . $daily_rate * $approved_quantity . '
           </p>
         </div>
         <div class="signature">

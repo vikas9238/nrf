@@ -122,6 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['id'])) {
           <p><strong>Email:</strong> ' . $_settings->info('email') . '</p>
           <p><strong>Phone:</strong> +91-' . $_settings->info('mobile') . '</p>
           <p><strong>GST No:</strong> 10AAGCN1641R1ZE</p>
+          <p><strong>PAN No:</strong> AAGCN1641R</p>
         </div>
         <div class="details">
           <div class="left">
@@ -145,7 +146,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['id'])) {
             <tr>
               <th>Description</th>
               <th>Quantity</th>
-              <th>Po Rate</th>
               <th>Margin</th>
               <th>Unit Price</th>
               <th>Total</th>
@@ -153,14 +153,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['id'])) {
           </thead>
           <tbody>
             <tr>
-              <td>' . $category . ' (' . $name . ', ' . $location . ')' . '</td>
+              <td>Constraction Material</td>
               <td>' . $approved_quantity . '</td>
-              <td>' . $po_rate . '</td>
               <td>' . ($po_rate - $daily_rate) . '</td>
               <td>' . $daily_rate . '</td>
               <td>' . $daily_rate * $approved_quantity . '</td>
             </tr>
-            <!-- Additional rows can be added here -->
           </tbody>
         </table>
         <div class="total">
