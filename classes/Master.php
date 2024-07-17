@@ -58,11 +58,44 @@ class Master extends DBConnection
 		if (empty($id)) {
 			$sql = "INSERT INTO `company_list` set {$data} ";
 			$save = $this->conn->query($sql);
+			$id = $this->conn->insert_id;
 		} else {
 			$sql = "UPDATE `company_list` set {$data} where id = '{$id}' ";
 			$save = $this->conn->query($sql);
 		}
 		if ($save) {
+			$dir = base_app . "uploads/company/";
+			if (isset($_FILES['logo']['tmp_name']) && !empty($_FILES['logo']['tmp_name'])) {
+				if (!is_dir($dir))
+					mkdir($dir);
+				$thumb_fname = $dir . $id . ".png";
+				$upload = $_FILES['logo']['tmp_name'];
+				$type = mime_content_type($upload);
+				$allowed = array('image/png', 'image/jpeg');
+
+				if (!in_array($type, $allowed)) {
+					$resp['msg'] .= " But Image failed to upload due to invalid file type.";
+				} else {
+					$gdImg = ($type == 'image/png') ? imagecreatefrompng($upload) : imagecreatefromjpeg($upload);
+					if ($gdImg) {
+						list($width, $height) = getimagesize($upload);
+						// new size variables
+						$new_height = 400;
+						$new_width = 400;
+
+						$t_image = imagecreatetruecolor($new_width, $new_height);
+						//Resizing the imgage
+						imagecopyresampled($t_image, $gdImg, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+						if (is_file($thumb_fname))
+							unlink($thumb_fname);
+						imagepng($t_image, $thumb_fname);
+						imagedestroy($t_image);
+						imagedestroy($gdImg);
+					} else {
+						$resp['msg'] .= " But Image failed to upload due to unkown reason.";
+					}
+				}
+			}
 			$resp['status'] = 'success';
 			if (empty($id))
 				$this->settings->set_flashdata('success', "New Company successfully saved.");

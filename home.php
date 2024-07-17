@@ -86,12 +86,12 @@
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
                                         <img class="card-img-top w-100 quotation-cover" src="<?php echo validate_image($img) ?>" loading="lazy" alt="">
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3"><?php echo round(($row['po_rate'] - $row['daily_rate']) * 100 / $row['daily_rate'], 2) ?>% Margin</div>
+                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3"><?php echo round(($row['po_rate'] - $row['daily_rate']) * 100 / $row['daily_rate'], 2) ?>% Profit</div>
                                         <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"><b><?php echo $row['category'] ?></b></div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <?php if (isset($_SESSION['userdata']['id'])) : ?>
-                                            <p class="text-primary mb-3"><small class="text-decoration-line-through">&#8377;<?php echo $row['po_rate'] ?></small>&nbsp; <b> &#8377;<?php echo $row['daily_rate'] ?> /<?php if ($row['po_unit'] == 1) : ?> TON<?php else : ?> CFT<?php endif; ?></b></p>
+                                            <p class="text-primary mb-3"> <b> &#8377;<?php echo $row['daily_rate'] ?> /<?php if ($row['po_unit'] == 1) : ?> TON<?php else : ?> CFT<?php endif; ?></b></p>
                                         <?php endif; ?>
                                         <p class="d-block h5 mb-2"><?php echo $row['name'] ?></p>
                                         <p><i class="fa fa-map-marker-alt text-primary me-2"></i><?php echo $row['address'] ?></p>
@@ -117,6 +117,32 @@
 </div>
 <!-- Property List End -->
 
+<!-- Company Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h1 class="mb-3">Our Client!</h1>
+        </div>
+        <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
+            <?php
+            $qur = $conn->query("SELECT * from `company_list` where status = 1");
+            while ($ro = $qur->fetch_assoc()) :
+                $img = base_url . "uploads/company/" . $ro['id'] . '.png';
+            ?>
+                <div class="testimonial-item bg-light rounded">
+                    <div class="bg-white border rounded p-4">
+                        <img class="img-fluid flex-shrink-0 rounded mx-auto d-block" src="<?php echo $img ?>" loading="lazy" style="width: 150px; height: 150px;">
+                        <div class="text-center">
+                            <h6 class="fw-bold mb-1"><?php echo $ro['name'] ?></h6>
+                            <small><?php echo $ro['description'] ?></small>
+                        </div>
+                    </div>
+                </div>
+            <?php endwhile; ?>
+        </div>
+    </div>
+</div>
+<!-- Company End -->
 
 <!-- Call to Action Start -->
 <div class="container-xxl py-5">
@@ -186,7 +212,7 @@
                     </div>
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                         <!-- <div class=""> -->
-                        <p class="fs-5 mb-4">Our vision is to revolutionize the construction industry by offering unparalleled investment opportunities that yield substantial returns. We aim to empower our partner with a 50% profit margin on their investments in high-quality construction materials, fostering sustainable growth and innovation in the sector.</p>
+                        <p class="fs-5 mb-4">Our vision is to revolutionize the construction industry by offering unparalleled investment opportunities that yield substantial returns.</p>
                         <p class="fs-5 mb-4">To Enable Individuals Across India To Become Construction Material Suppliers From Their Home Through Our Platform, Without Any Financial Risk, Thus Significantly Reducing Unemployment Of India.</p>
                         <!-- </div> -->
                     </div>
@@ -198,7 +224,7 @@
 <!-- Our Vision End -->
 
 
-<!-- Testimonial Start -->
+<!-- Partner Start -->
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
@@ -245,7 +271,7 @@
         </div>
     </div>
 </div>
-<!-- Testimonial End -->
+<!-- Partner End -->
 <script>
     //     $(document).ready(function(){
     //     $('#quotation').click(function() {

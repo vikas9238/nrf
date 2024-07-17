@@ -55,16 +55,18 @@ if (isset($quotation_id)) {
         <div class="col-md-6">
             <p><b>Product:</b> <?php echo $quotation_meta['category'] ?></p>
             <p><b>Company:</b> <?php echo $quotation_meta['name'] ?></p>
-            <p><b>PO Rate:</b> <?php echo $quotation_meta['po_rate'] ?></p>
-            <p><b>Daily Rate:</b> <?php echo number_format($daily_rate) ?></p>
+            <?php if (!isset($_GET['view'])) : ?>
+                <p class="bg-danger"><b>PO Rate:</b> <?php echo $quotation_meta['po_rate'] ?></p>
+            <?php endif; ?>
+            <p><b>Rate:</b> <?php echo number_format($daily_rate) ?></p>
             <p><b>Order Quantity:</b> <?php echo $quantity ?> <?php if ($quotation_meta['po_unit'] == 1) : ?> TON<?php else : ?> CFT<?php endif; ?></p>
             <p><b>Investe Amount:</b> <?php echo $daily_rate * $quantity ?></p>
             <p><b>Payment Mode:</b> <?php echo $mode ?></p>
-            <p><b>Client Profit:</b> <?php echo ($po_rate - $daily_rate) * $quantity / 2 ?></p>
+            <p><b>Partner Profit:</b> <?php echo ($po_rate - $daily_rate) * $quantity / 100 * 90 ?></p>
             <hr>
             <p><b>Approved Quantity:</b> <?php echo $approved_quantity ?> <?php if ($quotation_meta['po_unit'] == 1) : ?> TON<?php else : ?> CFT<?php endif; ?></p>
             <p><b>Investe Amount:</b> <?php echo $daily_rate * $approved_quantity ?></p>
-            <p><b>Client Profit:</b> <?php echo ($po_rate - $daily_rate) * $approved_quantity / 2 ?></p>
+            <p><b>Partner Profit:</b> <?php echo ($po_rate - $daily_rate) * $approved_quantity / 100 * 90 ?></p>
             <?php if ($status == 4 or $status == 2) : ?>
                 <?php if ($transaction_status != 2) : ?>
                     <p class="bg-primary"><b>Refund Remaining Amount:</b> <?php echo ($daily_rate * $quantity) - ($daily_rate * $approved_quantity) ?></p><br>
@@ -72,15 +74,15 @@ if (isset($quotation_id)) {
                         <p><b>Reason For Cancellation:</b> <?php echo $reason ?></p>
                     <?php endif; ?>
                     <p><b>Refund:</b> <?php
-                                            switch ($refund_status) {
-                                                case '0':
-                                                    echo '<span class="badge badge-warning text-dark">Not Paid</span>';
-                                                    break;
-                                                case '1':
-                                                    echo '<span class="badge badge-success">Paid</span>';
-                                                    break;
-                                            }
-                                            ?></p>
+                                        switch ($refund_status) {
+                                            case '0':
+                                                echo '<span class="badge badge-warning text-dark">Not Paid</span>';
+                                                break;
+                                            case '1':
+                                                echo '<span class="badge badge-success">Paid</span>';
+                                                break;
+                                        }
+                                        ?></p>
                     <?php if ($refund_status == 1) : ?>
                         <p><b>Transaction ID:</b> <?php echo $paid_txt_id ?></p>
                         <p><b>Transaction Date:</b> <?php echo $paid_date ?></p>

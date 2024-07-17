@@ -90,7 +90,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                 <span class="info-box-number">
                                     <?php $profit = $conn->query("SELECT SUM((po_rate-daily_rate)*approved_quantity) AS total_amount from `booking_list` where client_id = '{$_GET['id']}' and (status = 1 or status=4) ")->fetch_assoc()['total_amount'];
                                     ?>
-                                    <?php echo $profit / 2 ?>
+                                    <?php echo $profit / 100 * 90 ?>
                                 </span>
                             </div>
                             <!-- /.info-box-content -->

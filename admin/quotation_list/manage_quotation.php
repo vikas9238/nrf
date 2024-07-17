@@ -95,13 +95,13 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                     <option value="0" <?php echo isset($status) && $status == 0 ? 'selected' : '' ?>>Complete</option>
                 </select>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="" class="control-label">Upload PO</label>
                 <div class="input-group mb-3">
                     <input type="file" class="form-control" id="upload_po" name="upload_po" accept=".pdf" value="<?php echo base_url . 'uploads/' . $id . '/' . $id . '.pdf' ?>">
                     <label class="input-group-text" for="inputGroupFile02">Upload</label>
                 </div>
-            </div>
+            </div> -->
 
             <div class="form-group">
                 <label for="" class="control-label">Thumbnail</label>

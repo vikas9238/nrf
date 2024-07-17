@@ -18,13 +18,13 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
         <input type="number" id="quantity" value="1" class="form-control text-center form-conrtrol-sm rounded-0">
         <p class="text-decoration-underline text-primary">Price Details</p>
         <div>
-            <span>Price (PO)*(<span id='item'>1</span><?php if ($po_unit == 1) : ?> TON<?php else : ?> CFT<?php endif; ?>)</span>
+            <span>Price (<?php if ($po_unit == 1) : ?> TON<?php else : ?> CFT<?php endif; ?>)</span>
 
-            <span class="float-right text-right" id="po"><?php echo $po_rate ?></span>
+            <span class="float-right text-right" id="daily_rate"><?php echo $daily_rate ?></span>
         </div>
         <div class="mt-2">
-            <span>Margin</span>
-            <span class="float-right text-right" id="margin">-<?php echo $po_rate - $daily_rate ?></span>
+            <span>Quantity</span>
+            <span class="float-right text-right" id='item'>1</span>
         </div>
         <hr>
         <div class="bg-warning">
@@ -38,13 +38,13 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
             <span class="float-right text-right" id="profit"><?php echo $po_rate - $daily_rate ?></span>
         </div>
         <div class="mt-2">
-            <span>NRF Charges(50% Of Profit)</span>
-            <span class="float-right text-right" id="nrf_charge">-<?php echo ($po_rate - $daily_rate) / 2 ?></span>
+            <span>Platform And Service Charges(10% Of Profit)</span>
+            <span class="float-right text-right" id="nrf_charge">-<?php echo ($po_rate - $daily_rate) / 100 * 10 ?></span>
         </div>
         <hr>
         <div>
-            <span>Investor Profit</span>
-            <span id="investor_profit" class="float-right text-right"><?php echo ($po_rate - $daily_rate) / 2 ?></span>
+            <span>Partner Profit</span>
+            <span id="investor_profit" class="float-right text-right"><?php echo ($po_rate - $daily_rate) / 100 * 90 ?></span>
         </div>
         <div id="msg" class="text-danger"></div>
         <div id="check-availability-loader" class="d-none">
@@ -262,8 +262,6 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
     });
     var today_quantity = <?php echo $quantity ?>;
     var item = document.querySelector("#item");
-    var po = document.querySelector("#po");
-    var margin = document.querySelector("#margin");
     var amount = document.querySelector("#amount");
     var profit = document.querySelector("#profit");
     var investor_profit = document.querySelector("#investor_profit");
@@ -280,11 +278,9 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
             return false;
         }
         item.innerText = quantity;
-        po.innerText = quantity * <?php echo isset($po_rate) ? $po_rate : '' ?>;
-        margin.innerText = -quantity * <?php echo $po_rate - $daily_rate ?>;
         profit.innerText = quantity * <?php echo $po_rate - $daily_rate ?>;
-        nrf_charge.innerText = -quantity * <?php echo ($po_rate - $daily_rate) / 2 ?>;
-        investor_profit.innerText = quantity * <?php echo ($po_rate - $daily_rate) / 2 ?>;
+        nrf_charge.innerText = -quantity * <?php echo ($po_rate - $daily_rate) / 100 * 10 ?>;
+        investor_profit.innerText = quantity * <?php echo ($po_rate - $daily_rate) / 100 * 90 ?>;
         amount.innerText = quantity * <?php echo $daily_rate ?>;
     })
     $('#next').click(function(e) {
