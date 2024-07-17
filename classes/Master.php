@@ -69,6 +69,8 @@ class Master extends DBConnection
 				if (!is_dir($dir))
 					mkdir($dir);
 				$thumb_fname = $dir . $id . ".png";
+				if (file_exists($thumb_fname))
+					unlink($thumb_fname);
 				$upload = $_FILES['logo']['tmp_name'];
 				$type = mime_content_type($upload);
 				$allowed = array('image/png', 'image/jpeg');
