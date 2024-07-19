@@ -162,7 +162,7 @@
                                             </button>
                                             <div class="dropdown-menu" role="menu">
                                                 <a class="dropdown-item view_data" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-eye text-dark"></span> View Details</a>
-                                                <?php if ($row['status'] == 1) : ?>
+                                                <?php if ($row['status'] == 1 || $row['status']==4) : ?>
                                                     <div class="dropdown-divider"></div>
                                                     <a class="dropdown-item" href="?p=transaction&id=<?php echo $row['id'] ?>"><span class="fa fa-indian-rupee-sign text-dark"></span> View Transaction</a>
                                                     <div class="dropdown-divider"></div>
