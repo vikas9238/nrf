@@ -81,7 +81,7 @@
                                 <div class="info-box-content">
                                     <span class="info-box-text">Total Dues</span>
                                     <span class="info-box-number">
-                                        <?php echo $due = ($profit / 2) + $investment - $paid_amount;
+                                        <?php echo $due = ($profit + $investment) - $paid_amount;
                                         //echo $pending 
                                         ?>
                                     </span>
