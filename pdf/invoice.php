@@ -141,7 +141,7 @@ $html = '<!DOCTYPE html>
             <tr>
               <th>Description</th>
               <th>Quantity</th>
-              <th>Margin</th>
+              <th>Profit</th>
               <th>Unit Price</th>
               <th>Total</th>
             </tr>
@@ -150,7 +150,7 @@ $html = '<!DOCTYPE html>
             <tr>
               <td>Constraction Material</td>
               <td>' . $approved_quantity . '</td>
-              <td>' . ($po_rate - $daily_rate) . '</td>
+              <td>' . ($po_rate - $daily_rate)*$approved_quantity. '</td>
               <td>' . $daily_rate . '</td>
               <td>' . $daily_rate * $approved_quantity . '</td>
             </tr>
