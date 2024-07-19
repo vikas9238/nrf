@@ -155,7 +155,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['id'])) {
             <tr>
               <td>Constraction Material</td>
               <td>' . $approved_quantity . '</td>
-              <td>' . ($po_rate - $daily_rate) . '</td>
+              <td>' . ((($po_rate - $daily_rate)*$approved_quantity)/100)*90 . '</td>
               <td>' . $daily_rate . '</td>
               <td>' . $daily_rate * $approved_quantity . '</td>
             </tr>
