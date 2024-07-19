@@ -2,8 +2,8 @@
 <div class="container-fluid header bg-white p-0">
     <div class="row g-0 align-items-center flex-column-reverse flex-md-row">
         <div class="col-md-6 p-5 mt-lg-5">
-            <h1 class="display-5 animated fadeIn mb-4">Find A <span class="text-primary">Perfect Platform</span> To Invest With Your Family and Friends With Guaranteed Returns.</h1>
-            <p class="animated fadeIn mb-4 pb-2">Welcome to NRF Industry AND Trading Private Limited a premier platform for investing in supplying construction materials to India's top construction projects.</p>
+            <h1 class="display-5 animated fadeIn mb-4">Find A <span class="text-primary">Perfect Platform</span> To Trade With Your Family and Friends With Guaranteed Profit.</h1>
+            <p class="animated fadeIn mb-4 pb-2">Welcome to NRF Industry AND Trading Private Limited a premier platform for construction material Trading to India's top construction projects.</p>
             <a href="#tab-1" class="btn btn-primary py-3 px-5 me-3 animated fadeIn">Get Started</a>
         </div>
         <div class="col-md-6 animated fadeIn">
@@ -35,10 +35,10 @@
                 </div>
             </div>
             <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                <h1 class="mb-4">#1 Place To Invest In Top Leading Construction Company</h1>
-                <p class="mb-4">NRF Industry AND Trading Private Limited raises funds from its partners and supplies construction materials to projects undertaken by india's top leading construction companies.</p>
-                <p><i class="fa fa-check text-primary me-3"></i>Guaranteed Returns</p>
-                <p><i class="fa fa-check text-primary me-3"></i>50% Profit Share</p>
+                <h1 class="mb-4">#1 Place To Trade In Construction Material With Your Home</h1>
+                <p class="mb-4">NRF Industry AND Trading Private Limited supplies construction materials to projects undertaken by india's top leading construction companies.</p>
+                <p><i class="fa fa-check text-primary me-3"></i>Guaranteed Profit</p>
+                <p><i class="fa fa-check text-primary me-3"></i>Trusted Platform</p>
                 <p><i class="fa fa-check text-primary me-3"></i>100% Transparency</p>
                 <a class="btn btn-primary py-3 px-5 mt-3" href="?p=about">Read More</a>
             </div>
@@ -54,7 +54,7 @@
         <div class="row g-0 gx-5 align-items-end">
             <div class="col-lg-6">
                 <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
-                    <h1 class="mb-3">Material Listing</h1>
+                    <h1 class="mb-3">Material</h1>
                     <!-- <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod sit diam justo sed rebum.</p> -->
                 </div>
             </div>
@@ -212,8 +212,8 @@
                     </div>
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                         <!-- <div class=""> -->
-                        <p class="fs-5 mb-4">Our vision is to revolutionize the construction industry by offering unparalleled investment opportunities that yield substantial returns.</p>
-                        <p class="fs-5 mb-4">To Enable Individuals Across India To Become Construction Material Suppliers From Their Home Through Our Platform, Without Any Financial Risk, Thus Significantly Reducing Unemployment Of India.</p>
+                        <p class="fs-5 mb-4">Our vision is to revolutionize the construction industry by offering unparalleled  opportunities that yield substantial Profit.</p>
+                        <p class="fs-5 mb-4">To Enable Individuals Across India To Become Construction Material Trader From Their Home Through Our Platform Without Any Financial Risk, Thus Significantly Reducing Unemployment Of India.</p>
                         <!-- </div> -->
                     </div>
                 </div>
@@ -239,7 +239,7 @@
                         <img class="img-fluid flex-shrink-0 rounded" src="uploads/team-4.jpg" loading="lazy" style="width: 45px; height: 45px;">
                         <div class="ps-3">
                             <h6 class="fw-bold mb-1">Rakesh Sah</h6>
-                            <small>Investing Partner</small>
+                            <small> Partner</small>
                         </div>
                     </div>
                 </div>
@@ -251,19 +251,19 @@
                         <img class="img-fluid flex-shrink-0 rounded" src="uploads/testimonial1.jpeg" loading="lazy" style="width: 45px; height: 45px;">
                         <div class="ps-3">
                             <h6 class="fw-bold mb-1">Amit Yadav</h6>
-                            <small>Investing Partner</small>
+                            <small> Partner</small>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="testimonial-item bg-light rounded p-3">
                 <div class="bg-white border rounded p-4">
-                    <p>NRF's ability to secure funds and supply materials efficiently has reflected well in my investment returns.</p>
+                    <p>I appreciate NRF's transparency; it has been a profitable addition to my portfolio.</p>
                     <div class="d-flex align-items-center">
                         <img class="img-fluid flex-shrink-0 rounded" src="uploads/testimonial2.jpg" loading="lazy" style="width: 45px; height: 45px;">
                         <div class="ps-3">
                             <h6 class="fw-bold mb-1">Sanjay Singh</h6>
-                            <small>Investing Partner</small>
+                            <small>Partner</small>
                         </div>
                     </div>
                 </div>
