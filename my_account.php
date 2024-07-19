@@ -131,7 +131,6 @@
                                         <td class="text-center">#<?php echo $row['id']; ?></td>
                                         <td><?php echo date("Y-m-d H:i", strtotime($row['date_created'])) ?></td>
                                         <td>
-                                            <small><span class="text-muted">PO Rate: </span><?php echo number_format($row['po_rate']) ?></small><br>
                                             <small><span class="text-muted">Daily Rate: </span><?php echo number_format($row['daily_rate']) ?></small><br>
                                             <small><span class="text-muted">Quantity: </span><?php echo number_format($row['quantity']) ?></small><br>
                                             <small><span class="text-muted">Approved Quantity: </span><?php echo number_format($row['approved_quantity']) ?></small>
