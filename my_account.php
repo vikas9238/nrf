@@ -39,7 +39,7 @@
                                     <span class="info-box-text">Total Profit</span>
                                     <?php $profit = $conn->query("SELECT SUM((po_rate-daily_rate)*approved_quantity) AS total_amount from `booking_list` where client_id = '{$_settings->userdata('id')}' and (status = 1 or status=4) ")->fetch_assoc()['total_amount'];
                                     ?>
-                                    <?php echo $profit / 100 * 90 ?>
+                                    <?php echo $pro=$profit / 100 * 90 ?>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -81,7 +81,7 @@
                                 <div class="info-box-content">
                                     <span class="info-box-text">Total Dues</span>
                                     <span class="info-box-number">
-                                        <?php echo $due = ($profit + $investment) - $paid_amount;
+                                        <?php echo $due = ($pro + $investment) - $paid_amount;
                                         //echo $pending 
                                         ?>
                                     </span>
