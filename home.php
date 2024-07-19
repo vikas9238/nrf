@@ -212,7 +212,7 @@
                     </div>
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                         <!-- <div class=""> -->
-                        <p class="fs-5 mb-4">Our vision is to revolutionize the construction industry by offering unparalleled  opportunities that yield substantial Profit.</p>
+                        <p class="fs-5 mb-4">Our vision is to revolutionize the construction industry by offering unparalleled Trading opportunities that yield substantial Profit.</p>
                         <p class="fs-5 mb-4">To Enable Individuals Across India To Become Construction Material Trader From Their Home Through Our Platform Without Any Financial Risk, Thus Significantly Reducing Unemployment Of India.</p>
                         <!-- </div> -->
                     </div>
@@ -258,7 +258,7 @@
             </div>
             <div class="testimonial-item bg-light rounded p-3">
                 <div class="bg-white border rounded p-4">
-                    <p>I appreciate NRF's transparency; it has been a profitable addition to my portfolio.</p>
+                    <p>I appreciate NRF's transparency it has been a profitable addition to my portfolio.</p>
                     <div class="d-flex align-items-center">
                         <img class="img-fluid flex-shrink-0 rounded" src="uploads/testimonial2.jpg" loading="lazy" style="width: 45px; height: 45px;">
                         <div class="ps-3">
