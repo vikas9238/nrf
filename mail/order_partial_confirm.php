@@ -146,7 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['id'])) {
             <tr>
               <th>Description</th>
               <th>Quantity</th>
-              <th>Margin</th>
+              <th>Profit</th>
               <th>Unit Price</th>
               <th>Total</th>
             </tr>
