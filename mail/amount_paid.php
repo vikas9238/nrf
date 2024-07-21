@@ -22,8 +22,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['amount']) && !empty($
     $amount = $_POST['amount'];
     $date = date('Y-m-d');
     $paid_txt_id = $_POST['paid_txt_id'];
-    $all_profit = ($po_rate - $daily_rate) * $approved_quantity;
-    $profit = $all_profit / 2;
+    $all_profit = ($po_rate - $daily_rate) * $approved_quantity; 
+    $profit = (($all_profit) /100)*90;
     $total_investment = $daily_rate * $approved_quantity;
     $pending = $profit + $total_investment - $paid_amount;
     // $total_amount = $paid_amount;
@@ -70,9 +70,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['amount']) && !empty($
             <p style='font-size: 14px;line-height: 1.6;'>Transaction ID: $paid_txt_id</p>
             <p style='font-size: 14px;line-height: 1.6;'>Transaction Date: $date</p>
             <p style='font-size: 14px;line-height: 1.6;'>Amount transferred: $amount</p>
-            <p style='font-size: 14px;line-height: 1.6;'>Total Profit For This Project: $profit</p>
-            <p style='font-size: 14px;line-height: 1.6;'>Remaining Transfer Amount: $pending</p>
-            <p style='font-size: 14px;line-height: 1.6;'>Total Paid Amount By the Company: $paid_amount</p>
+            <p style='font-size: 14px;line-height: 1.6;'>Total Profit: $profit</p>
+            <p style='font-size: 14px;line-height: 1.6;'>Dues: $pending</p>
+            <p style='font-size: 14px;line-height: 1.6;'>Total Paid: $paid_amount</p>
             <p style='font-size: 14px;line-height: 1.6;'>Bank Account Number: $account</p>
             <p style='font-size: 14px;line-height: 1.6;'>For further details, you can also view this transaction in your profile on our website at www.nrfindustry.in</p>
             <p style='color: #d9534f;font-size: 14px;line-height: 1.6;'>If you have any questions or concerns, please feel free to reach out to our customer service team at <b>Email:</b><a href='mailto:$company_email'> $company_email</a> <b>Contact:</b><a href='tel:$mobile'> +91$mobile</a>. We're here to assist you.</p>
