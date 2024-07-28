@@ -52,8 +52,22 @@
                     <label for="" class="control-label">Address</label>
                     <textarea class="form-control form" rows='3' name="address" placeholder="Enter Residential address" required></textarea>
                 </div>
+                <div class="form-group">
+                    <label for="" class="control-label">Referral Name</label>
+                    <input type="text" class="form-control form-control-sm form" name="referral" required>
+                </div>
             </div>
             <div class="col-lg-7">
+                <div class="form-group">
+                    <label for="" class="control-label">Referral Relation</label>
+                    <select id="referal_relation" name="referral_relation" class="form-control form" title="Please Select Refferal Relation" required>
+                        <option value="">Select Relation</option>
+                        <option value="Self">Self</option>
+                        <option value="Parent">Parent</option>
+                        <option value="Friend">Friend</option>
+                        <option value="Relative">Relative</option>
+                    </select>
+                </div>
                 <div class="form-group">
                     <label for="" class="control-label">Account Number</label>
                     <input type="text" class="form-control form-control-sm form" name="account" placeholder="Enter Account number" pattern="\d{10,16}" title="Please enter valid account number" required>

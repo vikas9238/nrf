@@ -179,6 +179,20 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                 </tr>
                                 <tr>
                                     <th>
+                                        Referral Name
+                                    </th>
+                                    <td>
+                                        <?php echo $referral ?>
+                                    </td>
+                                    <th>
+                                        Referral Relationship
+                                    </th>
+                                    <td>
+                                        <?php echo $referral_relation ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         Account Number
                                     </th>
                                     <td>
