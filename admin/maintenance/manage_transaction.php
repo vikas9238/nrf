@@ -8,7 +8,7 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
 		}
 	}
 	$all_profit = ($po_rate - $daily_rate) * $approved_quantity;
-	$profit = $all_profit / 2;
+	$profit = ($all_profit / 100)*90;
 	$total_investment = $daily_rate * $approved_quantity;
 	$pending = $profit + $total_investment - $paid_amount;
 }
