@@ -53,16 +53,15 @@
                     <textarea class="form-control form" rows='3' name="address" placeholder="Enter Residential address" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="" class="control-label">Referral Name</label>
+                    <label for="" class="control-label">Nominee Name</label>
                     <input type="text" class="form-control form-control-sm form" name="referral" required>
                 </div>
             </div>
             <div class="col-lg-7">
                 <div class="form-group">
-                    <label for="" class="control-label">Referral Relation</label>
+                    <label for="" class="control-label">Nominee Relation</label>
                     <select id="referal_relation" name="referral_relation" class="form-control form" title="Please Select Refferal Relation" required>
                         <option value="">Select Relation</option>
-                        <option value="Self">Self</option>
                         <option value="Parent">Parent</option>
                         <option value="Friend">Friend</option>
                         <option value="Relative">Relative</option>
