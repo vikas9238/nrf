@@ -179,13 +179,13 @@ if (isset($_GET['id']) && $_GET['id'] > 0) {
                                 </tr>
                                 <tr>
                                     <th>
-                                        Referral Name
+                                       Nominee Name
                                     </th>
                                     <td>
                                         <?php echo $referral ?>
                                     </td>
                                     <th>
-                                        Referral Relationship
+                                        Nominee Relationship
                                     </th>
                                     <td>
                                         <?php echo $referral_relation ?>
