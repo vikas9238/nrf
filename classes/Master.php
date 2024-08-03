@@ -926,6 +926,42 @@ class Master extends DBConnection
 		}
 		return json_encode($resp);
 	}
+	function all_user_mail()
+	{
+		extract($_POST);
+		$mail = new PHPMailer(true);
+		set_time_limit(300); // Increase the maximum execution time to 5 minutes
+		try {
+			$mail->isSMTP();                                            //Send using SMTP
+			$mail->Host       = 'smtp.hostinger.com';                     //Set the SMTP server to send through
+			$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+			$mail->Username   = 'no-reply@nrfindustry.in';                     //SMTP username
+			$mail->Password   = 'Nrf@9238';                               //SMTP password
+			$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;            //Enable implicit TLS encryption
+			$mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+			//Recipients
+			$mail->setFrom('no-reply@nrfindustry.in', 'NRF INDUSTRY');
+			$useremail = $this->conn->query("SELECT email FROM `clients`")->fetch_all();
+			foreach ($useremail as $row) {
+				$mail->addBCC($row['email']);
+			}
+			//Content
+			$mail->isHTML(true);                                  //Set email format to HTML
+			$mail->Subject = "$subject";
+			$mail->Body    = "$message";
+			if ($mail->send()) {
+				$resp['status'] = 'success';
+			} else {
+				$resp['status'] = 'failed';
+				$resp['_error'] = $mail->ErrorInfo;
+			}
+		} catch (Exception $e) {
+			$resp['status'] = 'failed';
+			$resp['_error'] = $mail->ErrorInfo;
+		}
+		return json_encode($resp);
+	}
 	function chart_data()
 	{
 		extract($_POST);
@@ -1012,6 +1048,9 @@ switch ($action) {
 		break;
 	case 'custom_mail':
 		echo $Master->custom_mail();
+		break;
+	case 'all_user_mail':
+		echo $Master->all_user_mail();
 		break;
 	case 'chart_data':
 		echo $Master->chart_data();
