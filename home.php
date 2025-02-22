@@ -3,7 +3,7 @@
     <div class="row g-0 align-items-center flex-column-reverse flex-md-row">
         <div class="col-md-6 p-5 mt-lg-5">
             <h1 class="display-5 animated fadeIn mb-4">Find A <span class="text-primary">Perfect Platform</span> To Trade With Your Family and Friends With Guaranteed Profit.</h1>
-            <p class="animated fadeIn mb-4 pb-2">Welcome to NRF Industry AND Trading Private Limited a premier platform for construction material Trading to India's top construction projects.</p>
+            <p class="animated fadeIn mb-4 pb-2">Welcome to NRF Industry  a premier platform for construction material Trading to India's top construction projects.</p>
             <a href="#tab-1" class="btn btn-primary py-3 px-5 me-3 animated fadeIn">Get Started</a>
         </div>
         <div class="col-md-6 animated fadeIn">
