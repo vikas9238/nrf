@@ -36,7 +36,7 @@
             </div>
             <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                 <h1 class="mb-4">#1 Place To Trade In Construction Material With Your Home</h1>
-                <p class="mb-4">NRF Industry AND Trading Private Limited supplies construction materials to projects undertaken by india's top leading construction companies.</p>
+                <p class="mb-4">NRF Industry supplies construction materials to projects undertaken by india's top leading construction companies.</p>
                 <p><i class="fa fa-check text-primary me-3"></i>Guaranteed Profit</p>
                 <p><i class="fa fa-check text-primary me-3"></i>Trusted Platform</p>
                 <p><i class="fa fa-check text-primary me-3"></i>100% Transparency</p>
